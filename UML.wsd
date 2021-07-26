@@ -1,0 +1,22 @@
+@startuml CS246 Final Project UML 
+skinparam style strictuml
+skinparam SequenceMessageAlignment center
+skinparam classAttributeIconSize 0
+class Board 
+class TileType
+class Tile
+class Observer
+class Subject
+class Vertices
+class Edge 
+class BuilderType
+class Builder 
+class ResidenceType
+class Residence 
+class Residence 
+class Game 
+
+class Board {
+    -Vector<Tile> tiles
+}
+@enduml
