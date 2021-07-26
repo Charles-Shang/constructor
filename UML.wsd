@@ -6,8 +6,8 @@ skinparam classAttributeIconSize 0
 
 class Board  {
     -tiles : std::vector<Tile>
-    +InitBoard()
-    +PrintBoard()
+    +initBoard()
+    +printBoard()
 } 
 
 enum TileType << enumeration >> {
@@ -25,7 +25,7 @@ class Tile {
     - tileValse : Integer
     - hasGeese : Boolean
     - theVertices : std::vector<Vertices>
-    + InitTile()
+    + initTile()
 } 
 abstract class Observer {
     + {abstract} update()
