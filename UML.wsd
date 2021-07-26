@@ -11,7 +11,7 @@ class Board  {
 } 
 
 enum TileType << enumerate >> {
-    BRICK = 0
+    BRICK 
     ENERGY 
     GLASS 
     HEAT 
@@ -20,10 +20,10 @@ enum TileType << enumerate >> {
 }
 
 class Tile {
-    - type : integer
-    - tileNum : integer
-    - tileValse : integer
-    - hasGeese : boolean
+    - type : Integer
+    - tileNum : Integer
+    - tileValse : Integer
+    - hasGeese : Boolean
     - theVertices : std::vector<Vertices>
     + InitTile()
 } 
@@ -40,54 +40,54 @@ abstract class Subject {
 }
 
 class Vertices {
-    - location : integer
+    - location : Integer
     - neighbourEdges : std::vector<std::share_ptr<Edge>> 
-    - canBuildResidence : boolean
-    - whichBuilder : integer
-    + AddResidence()
-    + UpdateAvailableResidence()
+    - canBuildResidence : Boolean
+    - whichBuilder : Integer
+    + addResidence()
+    + updateAvailableResidence()
 }
 
 class Edge {
-    - location : integer 
-    - canBuildRoad : boolean
-    - hasRoad : integer 
-    - whichBuilder : integer 
-    - neighbourResidence : std::vector<std::sharePoitner<Vertices>>
-    + AddRoad()
+    - location : Integer 
+    - canBuildRoad : Boolean
+    - hasRoad : Integer 
+    - whichBuilder : Integer 
+    - neighbourResidence : std::vector<std::share_ptr<Vertices>>
+    + addRoad()
     + updateAvailable() 
 }
 
 enum BuilderType << enumerate >> {
-    BLUE = 0
+    BLUE 
     RED 
     ORANGE 
     YELLOW 
 }
 
 class Builder {
-    - color : integer 
-    - fairDice : boolean
+    - color : Integer 
+    - fairDice : Boolean
     - builtLst : std::vector<Residence> 
     - resources : std::vector<int>
-    + RollDice()
-    + upgradeResidence(location : integer)
-    + printStatus();
-    + printResidence();
-    + buildRoad(location : integer) 
-    + buildResidence(location : integer)
+    + rollDice()
+    + upgradeResidence(location : Integer)
+    + printStatus()
+    + printResidence()
+    + buildRoad(location : Integer) 
+    + buildResidence(location : Integer)
     + calculatePoints()
 }
 
 enum ResidenceType << enumerate >> {
-    BASEMENT = 0
+    BASEMENT 
     HOUSE
     TOWER  
 }
 
 class Residence {
-    - level : integer 
-    - buildingPoints : integer 
+    - level : Integer 
+    - buildingPoints : Integer 
     + upgrade()
 }
 
