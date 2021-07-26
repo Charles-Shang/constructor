@@ -3,14 +3,13 @@ skinparam style strictuml
 skinparam SequenceMessageAlignment center
 skinparam classAttributeIconSize 0
 
-
 class "**Board**"  {
     -tiles : std::vector<Tile>
     +initBoard()
     +printBoard()
 } 
 
-enum TileType << enumeration >> {
+enum "**TileType**" << enumeration >> {
     BRICK 
     ENERGY 
     GLASS 
@@ -19,7 +18,7 @@ enum TileType << enumeration >> {
     PARK
 }
 
-class Tile {
+class "**Tile**" {
     - type : Integer
     - tileNum : Integer
     - tileValse : Integer
@@ -27,19 +26,20 @@ class Tile {
     - theVertices : std::vector<Vertices>
     + initTile()
 } 
-abstract class Observer {
+
+abstract class "**Observer**" {
     + {abstract} update()
     + {abstract} ~Observer()
 }
 
-abstract class Subject {
+abstract class "**Subject**" {
     - observers : std::vector<std::share_ptr<Observer>>
     + attach (o : const std::share_ptr<Observer>&)
     + {abstract} notifyObserver()
     + {abstract} ~Subject()
 }
 
-class Vertices {
+class "**Vertices**" {
     - location : Integer
     - neighbourEdges : std::vector<std::share_ptr<Edge>> 
     - canBuildResidence : Boolean
@@ -48,7 +48,7 @@ class Vertices {
     + updateAvailableResidence()
 }
 
-class Edge {
+class "**Edge**" {
     - location : Integer 
     - canBuildRoad : Boolean
     - hasRoad : Integer 
@@ -58,14 +58,14 @@ class Edge {
     + updateAvailable() 
 }
 
-enum BuilderType << enumeration >> {
+enum "**BuilderType**" << enumeration >> {
     BLUE 
     RED 
     ORANGE 
     YELLOW 
 }
 
-class Builder {
+class "**Builder**" {
     - color : Integer 
     - fairDice : Boolean
     - builtLst : std::vector<Residence> 
@@ -79,37 +79,37 @@ class Builder {
     + calculatePoints()
 }
 
-enum ResidenceType << enumeration >> {
+enum "**ResidenceType**" << enumeration >> {
     BASEMENT 
     HOUSE
     TOWER  
 }
 
-class Residence {
+class "**Residence**" {
     - level : Integer 
     - buildingPoints : Integer 
     + upgrade()
 }
 
-class Game {
+class "**Game**" {
     - thisBoard : Board 
     - builderLst : std::vector<Builder>
     + play()
 }
 
-Game *--> "1" Board
-Subject o--> "*" Observer : "observer"
-Vertices --|> Subject 
-Vertices --|> Observer 
-Vertices o--> "2..3" Edge 
-Edge o--> "2" Vertices
-Game *--> "4" Builder
-Board *--> "19" Tile : {ordered}
-Tile o--> "6" Edge
-Tile o--> "6" Vertices
-Builder *--> "0..*"Residence
-BuilderType -- Builder 
-TileType -- Tile 
-ResidenceType -- Residence
+"**Game**" *--> "1" "**Board**"
+"**Subject**" o--> "*" "**Observer**" : "observer"
+"**Vertices**" --|> "**Subject**"
+"**Vertices**" --|> "**Observer**"
+"**Vertices**" o--> "2..3" "**Edge**" 
+"**Edge**" o--> "2" "**Vertices**"
+"**Game**" *--> "4" "**Builder**"
+"**Board**" *--> "19" "**Tile**" : {ordered}
+"**Tile**" o--> "6" "**Edge**"
+"**Tile**" o--> "6" "**Vertices**"
+"**Builder**" *--> "0..*" "**Residence**"
+"**BuilderType**" -- "**Builder**"
+"**TileType**" -- "**Tile**"
+"**ResidenceType**" -- "**Residence**"
 
 @enduml
