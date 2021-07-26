@@ -3,26 +3,26 @@ skinparam style strictuml
 skinparam SequenceMessageAlignment center
 skinparam classAttributeIconSize 0
 
-' class **Board**  
-' class **TileType**
-' class **Tile**
-' class **Observer**
-' class **Subject**
-' class **Vertices**
-' class **Edge**
-' class **BuilderType**
-' class **Builder**
-' class **ResidenceType**
-' class **Residence**
-' class **Game**
+' class Board  
+' class TileType
+' class Tile
+' class Observer
+' class Subject
+' class Vertices
+' class Edge
+' class BuilderType
+' class Builder
+' class ResidenceType
+' class Residence
+' class Game
 
-class **Board**  {
+class Board  {
     -tiles : std::Vector<Tile>
     +InitBoard()
     +PrintBoard()
 } 
 
-enum **TileType** << enumerate >> {
+enum TileType << enumerate >> {
     BRICK = 0
     ENERGY 
     GLASS 
@@ -31,27 +31,81 @@ enum **TileType** << enumerate >> {
     PARK
 }
 
-class **Tile** {
+class Tile {
     - type : integer
     - tileNum : integer
     - tileValse : integer
     - hasGeese : boolean
     - theVertices : std::Vector<Vertices>
-    + Tile (_type : integer, tileNum : integer, _tileValue : integer) : Tile
     + InitTile()
-    + GetType() : integer
-    + GetTileValue() : integer 
-    + GetHasGeese() : boolean
-    + SetHasGeese(_hasGeese : integer)
 } 
-abstract class **Observer** {
+abstract class Observer {
     + {abstract} update()
     + {abstract} ~Observer()
 }
 
-class **Subject** {
-
+abstract class Subject {
+    - observers : std::Vector<std::share_ptr<Observer>>
+    + {abstract} attach (o : cons std::share_ptr<Observer>&)
+    + {abstract} notifyObserver()
+    + {abstract} ~Subject()
 }
 
+class Vertices {
+    - location : integer
+    - neighbourEdges : std::Vector<std::share_ptr<Edge>> 
+    - canBuildResidence : boolean
+    - whichBuilder : integer
+    + AddResidence()
+    + UpdateAvailableResidence()
+}
 
+class Edge {
+    - location : integer 
+    - canBuildRoad : boolean
+    - hasRoad : integer 
+    - whichBuilder : integer 
+    - neighbourResidence : std::Vector<std::sharePoitner<Vertices>>
+    + AddRoad()
+    + updateAvailable() 
+}
+
+enum BuilderType << enumerate >> {
+    BLUE = 0
+    RED 
+    ORANGE 
+    YELLOW 
+}
+
+class Builder {
+    - color : integer 
+    - fairDice : boolean
+    - builtLst : std::Vector<Residence> 
+    - resources : std::Vector<int>
+    + RollDice()
+    + upgradeResidence(location : integer)
+    + printStatus();
+    + printResidence();
+    + buildRoad(location : integer) 
+    + buildResidence(location : integer)
+    + calculatePoints()
+}
+
+enum ResidenceType << enumerate >> {
+    BASEMENT = 0
+    HOUSE
+    TOWER  
+}
+
+class Residence {
+    - level : integer 
+    - buildingPoints : integer 
+    + upgrade()
+}
+
+class Game {
+    - thisBoard : Board 
+    - builderLst : std::Vector<Builder>
+    + play()
+}
 @enduml
