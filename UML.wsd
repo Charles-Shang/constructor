@@ -5,7 +5,7 @@ skinparam classAttributeIconSize 0
 
 
 class Board  {
-    -tiles : std::Vector<Tile>
+    -tiles : std::vector<Tile>
     +InitBoard()
     +PrintBoard()
 } 
@@ -24,7 +24,7 @@ class Tile {
     - tileNum : integer
     - tileValse : integer
     - hasGeese : boolean
-    - theVertices : std::Vector<Vertices>
+    - theVertices : std::vector<Vertices>
     + InitTile()
 } 
 abstract class Observer {
@@ -33,7 +33,7 @@ abstract class Observer {
 }
 
 abstract class Subject {
-    - observers : std::Vector<std::share_ptr<Observer>>
+    - observers : std::vector<std::share_ptr<Observer>>
     + {abstract} attach (o : cons std::share_ptr<Observer>&)
     + {abstract} notifyObserver()
     + {abstract} ~Subject()
@@ -41,7 +41,7 @@ abstract class Subject {
 
 class Vertices {
     - location : integer
-    - neighbourEdges : std::Vector<std::share_ptr<Edge>> 
+    - neighbourEdges : std::vector<std::share_ptr<Edge>> 
     - canBuildResidence : boolean
     - whichBuilder : integer
     + AddResidence()
@@ -53,7 +53,7 @@ class Edge {
     - canBuildRoad : boolean
     - hasRoad : integer 
     - whichBuilder : integer 
-    - neighbourResidence : std::Vector<std::sharePoitner<Vertices>>
+    - neighbourResidence : std::vector<std::sharePoitner<Vertices>>
     + AddRoad()
     + updateAvailable() 
 }
@@ -68,8 +68,8 @@ enum BuilderType << enumerate >> {
 class Builder {
     - color : integer 
     - fairDice : boolean
-    - builtLst : std::Vector<Residence> 
-    - resources : std::Vector<int>
+    - builtLst : std::vector<Residence> 
+    - resources : std::vector<int>
     + RollDice()
     + upgradeResidence(location : integer)
     + printStatus();
@@ -93,20 +93,20 @@ class Residence {
 
 class Game {
     - thisBoard : Board 
-    - builderLst : std::Vector<Builder>
+    - builderLst : std::vector<Builder>
     + play()
 }
 
-Game *--> Board
+Game *--> "1" Board
 Game *--> Subject
-Subject o-->  Observer
+Subject o--> "*" Observer : "observer"
 Vertices --|> Subject 
 Vertices --|> Observer 
-Game *--> Builder
-Board *--> Tile
-Tile o--> Edge
-Tile o--> Vertices
-Builder *--> Residence
+Game *--> "4" Builder
+Board *--> "19" Tile : {ordered}
+Tile o--> "6" Edge
+Tile o--> "6" Vertices
+Builder *--> "0..*"Residence
 BuilderType -- Builder 
 TileType -- Tile 
 ResidenceType -- Residence
