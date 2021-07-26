@@ -108,4 +108,11 @@ class Game {
     - builderLst : std::Vector<Builder>
     + play()
 }
+Game o--> Board
+Game o--> Builder
+Board *--> Tile
+Tile *--> Edge
+Tile *--> Vertices
+Builder *--> Residence
+
 @enduml
