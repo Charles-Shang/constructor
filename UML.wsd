@@ -2,21 +2,56 @@
 skinparam style strictuml
 skinparam SequenceMessageAlignment center
 skinparam classAttributeIconSize 0
-class Board 
-class TileType
-class Tile
-class Observer
-class Subject
-class Vertices
-class Edge 
-class BuilderType
-class Builder 
-class ResidenceType
-class Residence 
-class Residence 
-class Game 
 
-class Board {
-    -Vector<Tile> tiles
+' class **Board**  
+' class **TileType**
+' class **Tile**
+' class **Observer**
+' class **Subject**
+' class **Vertices**
+' class **Edge**
+' class **BuilderType**
+' class **Builder**
+' class **ResidenceType**
+' class **Residence**
+' class **Game**
+
+class **Board**  {
+    -tiles : std::Vector<Tile>
+    +InitBoard()
+    +PrintBoard()
+} 
+
+enum **TileType** << enumerate >> {
+    BRICK = 0
+    ENERGY 
+    GLASS 
+    HEAT 
+    WIFI 
+    PARK
 }
+
+class **Tile** {
+    - type : integer
+    - tileNum : integer
+    - tileValse : integer
+    - hasGeese : boolean
+    - theVertices : std::Vector<Vertices>
+    + Tile (_type : integer, tileNum : integer, _tileValue : integer) : Tile
+    + InitTile()
+    + GetType() : integer
+    + GetTileValue() : integer 
+    + GetHasGeese() : boolean
+    + SetHasGeese(_hasGeese : integer)
+} 
+abstract class **Observer** {
+    + {abstract} update()
+    + {abstract} ~Observer()
+}
+
+class **Subject** {
+
+}
+
+
 @enduml
