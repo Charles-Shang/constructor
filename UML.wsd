@@ -3,18 +3,6 @@ skinparam style strictuml
 skinparam SequenceMessageAlignment center
 skinparam classAttributeIconSize 0
 
-' class Board  
-' class TileType
-' class Tile
-' class Observer
-' class Subject
-' class Vertices
-' class Edge
-' class BuilderType
-' class Builder
-' class ResidenceType
-' class Residence
-' class Game
 
 class Board  {
     -tiles : std::Vector<Tile>
@@ -108,11 +96,19 @@ class Game {
     - builderLst : std::Vector<Builder>
     + play()
 }
-Game o--> Board
-Game o--> Builder
+
+Game *--> Board
+Game *--> Subject
+Subject o-->  Observer
+Vertices --|> Subject 
+Vertices --|> Observer 
+Game *--> Builder
 Board *--> Tile
-Tile *--> Edge
-Tile *--> Vertices
+Tile o--> Edge
+Tile o--> Vertices
 Builder *--> Residence
+BuilderType -- Builder 
+TileType -- Tile 
+ResidenceType -- Residence
 
 @enduml
