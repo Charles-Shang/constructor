@@ -5,8 +5,8 @@ skinparam classAttributeIconSize 0
 
 class "**Board**"  {
     -tiles : std::vector<Tile>
-    +initBoard()
-    +printBoard()
+    +initBoard() : void 
+    +printBoard() : void 
 } 
 
 enum "**TileType**" << enumeration >> {
@@ -24,19 +24,19 @@ class "**Tile**" {
     - tileValse : Integer
     - hasGeese : Boolean
     - theVertices : std::vector<Vertices>
-    + initTile()
+    + initTile() : void
 } 
 
 abstract class "**Observer**" {
-    + {abstract} update()
-    + {abstract} ~Observer()
+    + {abstract} update() : void
+    + {abstract} ~Observer() : void
 }
 
 abstract class "**Subject**" {
     - observers : std::vector<std::share_ptr<Observer>>
     + attach (o : const std::share_ptr<Observer>&)
-    + {abstract} notifyObserver()
-    + {abstract} ~Subject()
+    + {abstract} notifyObserver() : void
+    + {abstract} ~Subject() : void
 }
 
 class "**Vertices**" {
@@ -44,8 +44,8 @@ class "**Vertices**" {
     - neighbourEdges : std::vector<std::share_ptr<Edge>> 
     - canBuildResidence : Boolean
     - whichBuilder : Integer
-    + addResidence()
-    + updateAvailableResidence()
+    + addResidence() : void 
+    + updateAvailableResidence() : void 
 }
 
 class "**Edge**" {
@@ -54,8 +54,8 @@ class "**Edge**" {
     - hasRoad : Integer 
     - whichBuilder : Integer 
     - neighbourResidence : std::vector<std::share_ptr<Vertices>>
-    + addRoad()
-    + updateAvailable() 
+    + addRoad() : void 
+    + updateAvailable() : void 
 }
 
 enum "**BuilderType**" << enumeration >> {
@@ -70,13 +70,13 @@ class "**Builder**" {
     - fairDice : Boolean
     - builtLst : std::vector<Residence> 
     - resources : std::vector<int>
-    + rollDice()
-    + upgradeResidence(location : Integer)
-    + printStatus()
-    + printResidence()
-    + buildRoad(location : Integer) 
-    + buildResidence(location : Integer)
-    + calculatePoints()
+    + rollDice() : void 
+    + upgradeResidence(location : Integer) : void
+    + printStatus() : void 
+    + printResidence() : void 
+    + buildRoad(location : Integer) : void
+    + buildResidence(location : Integer) : void
+    + calculatePoints() : void 
 }
 
 enum "**ResidenceType**" << enumeration >> {
@@ -88,13 +88,13 @@ enum "**ResidenceType**" << enumeration >> {
 class "**Residence**" {
     - level : Integer 
     - buildingPoints : Integer 
-    + upgrade()
+    + upgrade() : void 
 }
 
 class "**Game**" {
     - thisBoard : Board 
     - builderLst : std::vector<Builder>
-    + play()
+    + play() : void 
 }
 
 "**Game**" *--> "1" "**Board**"
