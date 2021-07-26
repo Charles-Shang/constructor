@@ -3,4 +3,4 @@
 
 int mul(int a, int b) { return a * b; }
 
-int main() { std::cout << "Hello cs246" << std::endl; }
+int main() { std::cout << "Hello World!!!" << std::endl; }
