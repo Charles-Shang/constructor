@@ -10,7 +10,7 @@ class Board  {
     +PrintBoard()
 } 
 
-enum TileType << enumerate >> {
+enum TileType << enumeration >> {
     BRICK 
     ENERGY 
     GLASS 
@@ -58,7 +58,7 @@ class Edge {
     + updateAvailable() 
 }
 
-enum BuilderType << enumerate >> {
+enum BuilderType << enumeration >> {
     BLUE 
     RED 
     ORANGE 
@@ -79,7 +79,7 @@ class Builder {
     + calculatePoints()
 }
 
-enum ResidenceType << enumerate >> {
+enum ResidenceType << enumeration >> {
     BASEMENT 
     HOUSE
     TOWER  
