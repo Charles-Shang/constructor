@@ -34,7 +34,7 @@ abstract class Observer {
 
 abstract class Subject {
     - observers : std::vector<std::share_ptr<Observer>>
-    + {abstract} attach (o : cons std::share_ptr<Observer>&)
+    + attach (o : const std::share_ptr<Observer>&)
     + {abstract} notifyObserver()
     + {abstract} ~Subject()
 }
@@ -98,10 +98,11 @@ class Game {
 }
 
 Game *--> "1" Board
-Game *--> Subject
 Subject o--> "*" Observer : "observer"
 Vertices --|> Subject 
 Vertices --|> Observer 
+Vertices o--> "2..3" Edge 
+Edge o--> "2" Vertices
 Game *--> "4" Builder
 Board *--> "19" Tile : {ordered}
 Tile o--> "6" Edge
