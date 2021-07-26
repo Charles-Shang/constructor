@@ -1,10 +1,10 @@
-@startuml CS246 Final Project UML 
+@startuml CS246 Final Project UML ddl#1
 skinparam style strictuml
 skinparam SequenceMessageAlignment center
 skinparam classAttributeIconSize 0
 
 
-class Board  {
+class "**Board**"  {
     -tiles : std::vector<Tile>
     +initBoard()
     +printBoard()
