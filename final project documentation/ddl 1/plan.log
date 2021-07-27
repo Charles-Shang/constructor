@@ -1,12 +1,12 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 21.3) (preloaded format=xelatex 2021.5.26)  27 JUL 2021 01:27
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 21.3) (preloaded format=xelatex 2021.5.26)  27 JUL 2021 01:33
 entering extended mode
 **./plan.tex
 (plan.tex
 LaTeX2e <2020-10-01> patch level 4
 L3 programming layer <2021-05-11> (D:\LaTeX\tex/latex/base\article.cls
 Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
-(D:\LaTeX\tex/latex/base\size11.clo
-File: size11.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
+(D:\LaTeX\tex/latex/base\size10.clo
+File: size10.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
 )
 \c@part=\count175
 \c@section=\count176
@@ -736,18 +736,6 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
-File: D:/UW courses/2A/CS 246/cs246Assignment/Game_of_Constructor/final project
- documentation/ddl 1/uml.png Graphic file (type bmp)
-<D:/UW courses/2A/CS 246/cs246Assignment/Game_of_Constructor/final project docu
-mentation/ddl 1/uml.png>
-
-Overfull \hbox (85.36424pt too wide) in paragraph at lines 26--27
-[] 
- []
-
-[1
-
-]
 LaTeX Font Info:    Trying to load font information for U+msa on input line 31.
 
  (D:\LaTeX\tex/latex/amsfonts\umsa.fd
@@ -755,19 +743,22 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 31.
 
- (D:\LaTeX\tex/latex/amsfonts\umsb.fd
+
+(D:\LaTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (77.81752pt too wide) in paragraph at lines 31--42
+Overfull \hbox (38.20343pt too wide) in paragraph at lines 31--42
 [] 
  []
 
 
-Overfull \hbox (102.10707pt too wide) in paragraph at lines 44--67
+Overfull \hbox (63.50905pt too wide) in paragraph at lines 44--67
 [] 
  []
 
-[2]
+[1
+
+]
 Underfull \hbox (badness 10000) in paragraph at lines 69--70
 
  []
@@ -792,7 +783,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 81--82
 
  []
 
-[3]
+[2]
 Missing character: There is no ’ in font aeb10!
 
 Underfull \hbox (badness 10000) in paragraph at lines 87--88
@@ -810,14 +801,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 94--95
 
  []
 
-[4] [5] (plan.aux) ) 
+[3] (plan.aux) ) 
 Here is how much of TeX's memory you used:
- 14185 strings out of 411568
- 265944 string characters out of 2841609
- 584909 words of memory out of 3000000
- 34077 multiletter control sequences out of 15000+600000
- 417399 words of font info for 52 fonts, out of 8000000 for 9000
+ 14158 strings out of 411568
+ 264712 string characters out of 2841609
+ 584888 words of memory out of 3000000
+ 34060 multiletter control sequences out of 15000+600000
+ 414450 words of font info for 42 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  84i,7n,80p,866b,151s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on plan.pdf (5 pages).
+Output written on plan.pdf (3 pages).
