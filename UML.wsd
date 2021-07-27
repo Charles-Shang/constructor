@@ -45,7 +45,9 @@ class "**Vertices**" {
     - canBuildResidence : Boolean
     - whichBuilder : Integer
     + addResidence() : void 
-    + updateAvailableResidence() : void 
+    + updateAvailableResidence() : void
+    + notifyObserver(): void
+    + update(): void
 }
 
 class "**Edge**" {
