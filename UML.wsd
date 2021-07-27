@@ -21,7 +21,7 @@ enum "**TileType**" << enumeration >> {
 class "**Tile**" {
     - type : Integer
     - tileNum : Integer
-    - tileValse : Integer
+    - tileValue : Integer
     - hasGeese : Boolean
     - theVertices : std::vector<Vertices>
     + initTile() : void
@@ -34,7 +34,7 @@ abstract class "**Observer**" {
 
 abstract class "**Subject**" {
     - observers : std::vector<std::share_ptr<Observer>>
-    + attach (o : const std::share_ptr<Observer>&)
+    + attach (o : const std::share_ptr<Observer>&) :void
     + {abstract} notifyObserver() : void
     + {abstract} ~Subject() : void
 }
