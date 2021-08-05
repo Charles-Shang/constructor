@@ -78,7 +78,7 @@ class "**Builder**" {
     + printResidence() : void 
     + buildRoad(location : Integer) : void
     + buildResidence(location : Integer) : void
-    + calculatePoints() : void 
+    + calculatePoints() : Integer 
 }
 
 enum "**ResidenceType**" << enumeration >> {
