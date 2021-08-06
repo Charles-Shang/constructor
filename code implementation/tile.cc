@@ -8,29 +8,22 @@ Tile::Tile(int _type, int _tileNum, int _tileValue)
     hasGeese = _type == 5 ? true : false;
 }
 
-std::string getTypeName(int num) {
-    switch (num) {
+std::string Tile::getTileType() {
+    switch (type) {
         case 0:
-            return "Brick";
+            return "BRICK";
         case 1:
-            return "Energy";
+            return "ENERGY";
         case 2:
-            return "Glass";
+            return "GLASS";
         case 3:
-            return "Heat";
+            return "HEAT";
         case 4:
-            return "Wifi";
+            return "WIFI";
         default:  // "5"
-            return "Park";
+            return "PARK";
     }
 }
 
-std::string Tile::printTile() {
 
-    std::string name = std::to_string(tileNum) + "   ";
-    name += getTypeName(type) + "   ";
-    name += std::to_string(tileValue);
-    if (type == 5) name += " true";
-
-    return name;
-}
+int Tile::getTileValue() { return tileValue; }

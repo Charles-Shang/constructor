@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-void loadFromLayout(Board &thisBoard, std::string fileName) {
+void loadFromLayout(Board& thisBoard, std::string fileName) {
     std::ifstream layoutFile;
 
     try {

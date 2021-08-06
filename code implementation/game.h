@@ -6,8 +6,8 @@
 //#include "builder.h"
 
 class Game {
-    Board thisBoard;                   // the board in the game
-    //std::vector<Builder> builderList;  // builder (players) list
+    Board thisBoard;  // the board in the game
+    // std::vector<Builder> builderList;  // builder (players) list
 
    public:
     void initializeGame(int inputReadMode, std::string fileName = "");

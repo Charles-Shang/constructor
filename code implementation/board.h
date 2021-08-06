@@ -5,8 +5,7 @@
 #include "tile.h"
 
 class Board {
-    std::vector<Tile> tiles; // vector list of tiles on board
-    const int tileSize = 19; // total tiles contained 
+    std::vector<Tile> tiles;  // vector list of tiles on board
 
    public:
     // initialize the board

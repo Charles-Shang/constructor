@@ -22,7 +22,8 @@ class Tile {
 
     // temp test functions
     Tile(int _type, int _tileNum, int _tileValue);
-    std::string printTile();
+    std::string getTileType();
+    int getTileValue();
 };
 
 #endif
