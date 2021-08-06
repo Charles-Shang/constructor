@@ -36,7 +36,6 @@ abstract class "**Subject**" {
     # observers : std::vector<std::share_ptr<Observer>>
     + attach (o : const std::share_ptr<Observer>&) :void
     + {abstract} notifyObserver() : void
-    + {abstract} ~Subject()
 }
 
 class "**Vertices**" {
@@ -52,12 +51,11 @@ class "**Vertices**" {
 
 class "**Edge**" {
     - location : Integer 
-    - canBuildRoad : Boolean
-    - hasRoad : Integer 
+    - hasRoad : Boolean 
     - whichBuilder : Integer 
     - neighbourResidence : std::vector<std::share_ptr<Vertices>>
     + addRoad() : void 
-    + updateAvailable() : void 
+    + canBuildRoad() : Boolean 
 }
 
 enum "**BuilderType**" << enumeration >> {
