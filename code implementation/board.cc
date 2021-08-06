@@ -29,6 +29,7 @@ void Board::printBoard() {
     int vertex = 0;
     int edge = 0;
     int tileNum = 0;
+    int tileNumForValue = 0;
 
     int col = 5;
     int row = 10;
@@ -110,7 +111,9 @@ void Board::printBoard() {
                             std::cout << " ";
                         }
                         std::cout << vertex << "|  ";
-                        printTileNum(tiles[tileNum].getTileValue());
+                        std::cout << "||||" << tileNum << "|||||";
+                        printTileNum(tiles[tileNumForValue].getTileValue());
+                        ++tileNumForValue;
                         std::cout << "  |";
                         ++vertex;
                     } else {
@@ -153,7 +156,7 @@ void Board::printBoard() {
                         ++edge;
                     } else {
                         std::cout << " |  ";
-                        printTileType(tiles[tileNum].getTileType());
+                        printTileType(tiles[tileNumForValue].getTileType());
                     }
                 }
             }
