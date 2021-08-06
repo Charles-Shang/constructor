@@ -21,7 +21,7 @@ void printTileNum(int tile) {
 
 void printTileType(int tile) { std::cout << "TYPE  "; }
 
-// print spaces inside tiles (in total there are 8 spaces)
+// print spaces inside tiles (in total there are 9 spaces)
 void ps() { std::cout << "        "; }
 
 // print the board
@@ -29,31 +29,33 @@ void printBoard() {
     int vertex = 0;
     int edge = 0;
     int tile = 0;
+    int col = 5;
+    int row = 10;
     // 10 rows of block
-    for (int a = 1; a <= 10; ++a) {
+    for (int a = 1; a <= row; ++a) {
         // 4 rows in each block
         for (int b = 1; b <= 4; ++b) {
-            if (a <= 9 && a >= 3 && b == 1) {
+            if (a <= row - 1 && a >= 3 && b == 1) {
                 std::cout << "|";
             } else {
                 std::cout << " ";
             }
             // each row in 5 column
-            for (int c = 1; c <= 5; ++c) {
+            for (int c = 1; c <= col; ++c) {
                 // print blank block
-                if (a == 1 && (c == 1 || c == 5)) {  // top two cornors
+                if (a == 1 && (c == 1 || c == col)) {  // top two cornors
                     std::cout << "  ";
                     ps();
-                } else if ((a == 1 && c == 4) || (a == 2 && c == 5) ||
-                           (a == 10 && c == 5)) {  // right
-                    if (b == 1) {
+                } else if ((a == 1 && c == col - 1) || (a == 2 && c == col) ||
+                           (a == row && c == col)) {  // right
+                    if (b == 1) {                     // frame
                         if (vertex < 10) {
                             std::cout << " ";
                         }
                         std::cout << vertex << "|       ";  // | with 7 spaces
                         ++vertex;
                     } else {
-                        if (a == 10) {
+                        if (a == row) {
                             std::cout << "  ";
                             ps();
                         } else {
@@ -68,15 +70,17 @@ void printBoard() {
                         }
                     }
                 } else if ((a == 1 && c == 2) || (a == 2 && c == 1) ||
-                           (a == 10 && c == 1)) {  // left
+                           (a == row &&
+                            c == 1)) {  // left (top x 2 and bottom x 1)
                     ps();
-                    if (b == 1) {
+                    if (b == 1) {  // frame
                         std::cout << " |";
                     } else {
                         std::cout << "  ";
                     }
-                } else if ((a == 9 && c == 1) || (a == 10 && c == 2)) {
-                    if (b == 1){
+                } else if ((a == row - 1 && c == 1) ||
+                           (a == row && c == 2)) {  // left (bottom x 2)
+                    if (b == 1) {                   // frame
                         std::cout << vertex << "|--" << edge << "--|";
                         ++vertex;
                         ++edge;
@@ -84,8 +88,9 @@ void printBoard() {
                         std::cout << "  ";
                         ps();
                     }
-                } else if ((a == 9 && c == 5) || (a == 10 && c == 4)) {
-                    if (b == 1){
+                } else if ((a == row - 1 && c == col) ||
+                           (a == row && c == col - 1)) {  // right (bottom x 2)
+                    if (b == 1) {                         // frame
                         std::cout << vertex << "|--" << edge << "--|";
                         ++vertex;
                         ++edge;
@@ -97,9 +102,9 @@ void printBoard() {
                         ++edge;
                         ps();
                     }
-                
+
                 } else if ((a + c) % 2 == 1) {  // other blank block
-                    if (b == 1) {
+                    if (b == 1) {               // frame
                         if (vertex < 10) {
                             std::cout << " ";
                         }
@@ -119,8 +124,8 @@ void printBoard() {
                         }
                         ps();
                     }
-                } else {
-                    if (b == 1) {
+                } else {           // non-empty blocks
+                    if (b == 1) {  // frame
                         if (vertex < 10) {
                             std::cout << " ";
                         }
@@ -151,6 +156,7 @@ void printBoard() {
                     }
                 }
             }
+            // right most edges
             if (a <= 8 && a >= 3) {
                 if (b == 1) {
                     std::cout << vertex << "|";
@@ -161,7 +167,7 @@ void printBoard() {
                     std::cout << edge;
                     ++edge;
                 }
-            } else if (a == 9 && b == 1) {
+            } else if (a == row - 1 && b == 1) {
                 std::cout << vertex << "|";
                 ++vertex;
             }
