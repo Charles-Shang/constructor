@@ -29,14 +29,14 @@ class "**Tile**" {
 
 abstract class "**Observer**" {
     + {abstract} update() : void
-    + {abstract} ~Observer() : void
+    + {abstract} ~Observer() 
 }
 
 abstract class "**Subject**" {
-    - observers : std::vector<std::share_ptr<Observer>>
+    # observers : std::vector<std::share_ptr<Observer>>
     + attach (o : const std::share_ptr<Observer>&) :void
     + {abstract} notifyObserver() : void
-    + {abstract} ~Subject() : void
+    + {abstract} ~Subject()
 }
 
 class "**Vertices**" {

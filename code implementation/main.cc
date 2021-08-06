@@ -25,7 +25,7 @@ string guardName(string a) {
     // classGuard += ": ";
     // classGuard += "\n * provides \n */";
 
-    classGuard += "\n\n#endif";
+    classGuard += "#endif";
 
     return classGuard;
 }

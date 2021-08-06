@@ -12,7 +12,7 @@
 - [ ] Vertices
 - [ ] Edge
 - [ ] Subject
-- [ ] Observer
+- [x] Observer
 
 ### `.c` files
 - [ ] Game
