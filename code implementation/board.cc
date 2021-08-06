@@ -30,6 +30,7 @@ void Board::printBoard() {
     int edge = 0;
     int tileNum = 0;
     int tileNumForValue = 0;
+    int tileNumForType = 0;
 
     int col = 5;
     int row = 10;
@@ -155,7 +156,8 @@ void Board::printBoard() {
                         ++edge;
                     } else {
                         std::cout << " |  ";
-                        printTileType(tiles[tileNumForValue].getTileType());
+                        printTileType(tiles[tileNumForType].getTileType());
+                        ++tileNumForType;
                     }
                 }
             }
