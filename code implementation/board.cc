@@ -111,7 +111,6 @@ void Board::printBoard() {
                             std::cout << " ";
                         }
                         std::cout << vertex << "|  ";
-                        std::cout << "||||" << tileNum << "|||||";
                         printTileNum(tiles[tileNumForValue].getTileValue());
                         ++tileNumForValue;
                         std::cout << "  |";
