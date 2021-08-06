@@ -5,10 +5,12 @@
 #include "tile.h"
 
 class Board {
-    std::vector<Tile> tiles;
+    std::vector<Tile> tiles; // vector list of tiles on board
+    const int tileSize = 19; // total tiles contained 
 
    public:
-    void initBoard();   // initialize the board
+    // initialize the board
+    void initBoard(int *resources, int *tileValues);
     void printBoard();  // display the board
 };
 
