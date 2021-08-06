@@ -126,6 +126,7 @@ void Board::printBoard() {
                             } else {
                                 std::cout << "      ";
                             }
+                            ++tileNumForGeese;
                         } else {
                             if (edge < 10) {
                                 std::cout << " ";
