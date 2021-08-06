@@ -1,5 +1,29 @@
 # Question and Notes Lists
 
+### `.h` files
+- [ ] Game
+- [x] Builder
+- [x] BuilderType
+- [x] Residence
+- [x] ResidenceType
+- [ ] Board
+- [ ] Tile
+- [ ] TileType
+- [ ] Vertices
+- [ ] Edge
+- [ ] Subject
+- [ ] Observer
+
+### `.c` files
+- [ ] Game
+- [ ] Builder
+- [ ] Residence
+- [ ] Board
+- [ ] Tile
+- [ ] Vertices
+- [ ] Edge
+- [ ] Subject
+
 ## Q1 [x]
 In `Builder` class, `printStatus()` 是干啥的来着？
 
