@@ -120,7 +120,7 @@ void Board::printBoard() {
                             std::cout << " |";
                             ps();
                         } else if (b == 2) {
-                            std::cout << "  ";
+                            std::cout << " |  ";
                             if (tiles[tileNumForGeese].getHasGeese()) {
                                 std::cout << "GEESE ";
                             } else {
