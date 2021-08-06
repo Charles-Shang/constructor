@@ -29,6 +29,7 @@ void Board::printBoard() {
     int tileNum = 0;
     int tileNumForValue = 0;
     int tileNumForType = 0;
+    int tileNumForGeese = 0;
 
     int col = 5;
     int row = 10;
@@ -115,16 +116,24 @@ void Board::printBoard() {
                         std::cout << "  |";
                         ++vertex;
                     } else {
-                        if (b == 2 || b == 4) {
+                        if (b == 4) {
                             std::cout << " |";
+                            ps();
+                        } else if (b == 2) {
+                            std::cout << "  ";
+                            if (tiles[tileNumForGeese].getHasGeese()) {
+                                std::cout << "GEESE ";
+                            } else {
+                                std::cout << "      ";
+                            }
                         } else {
                             if (edge < 10) {
                                 std::cout << " ";
                             }
                             std::cout << edge;
                             ++edge;
+                            ps();
                         }
-                        ps();
                     }
                 } else {           // non-empty blocks
                     if (b == 1) {  // frame
