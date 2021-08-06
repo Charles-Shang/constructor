@@ -8,17 +8,15 @@ void Board::initBoard(int *resources, int *tileValues) {
     }
 }
 
-// return the random tile num (note that Park does not have a tile num)
-void printTileNum(int tileNum) {
-    if (tileNum < 10) {
-        std::cout << " ";
-    }
-    std::cout << tileNum;
-}
-
 void printTileType(std::string tileTypeName) {
     std::string blank = "   ";
     std::cout << tileTypeName << blank.substr(0, 6 - tileTypeName.size());
+}
+
+// return the random tile num (note that Park does not have a tile num)
+void printTileValue(int tileValue) {
+    if (tileValue < 10) std::cout << " ";
+    std::cout << tileValue;
 }
 
 // print spaces inside tiles (in total there are 9 spaces)
@@ -112,7 +110,7 @@ void Board::printBoard() {
                             std::cout << " ";
                         }
                         std::cout << vertex << "|  ";
-                        printTileNum(tiles[tileNumForValue].getTileValue());
+                        printTileValue(tiles[tileNumForValue].getTileValue());
                         ++tileNumForValue;
                         std::cout << "  |";
                         ++vertex;

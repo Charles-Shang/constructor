@@ -25,5 +25,6 @@ std::string Tile::getTileType() {
     }
 }
 
-
 int Tile::getTileValue() { return tileValue; }
+
+bool Tile::getHasGeese() { return hasGeese; }

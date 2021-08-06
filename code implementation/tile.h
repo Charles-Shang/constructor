@@ -24,6 +24,7 @@ class Tile {
     Tile(int _type, int _tileNum, int _tileValue);
     std::string getTileType();
     int getTileValue();
+    bool getHasGeese();
 };
 
 #endif
