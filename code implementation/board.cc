@@ -1,4 +1,5 @@
 #include "board.h"
+#include <fstream>
 #include <iostream>
 
 void Board::initBoard(int *resources, int *tileValues) {
@@ -8,189 +9,50 @@ void Board::initBoard(int *resources, int *tileValues) {
     }
 }
 
+// format tile's value with approporiate spacing and output to standard output
 void printTileType(std::string tileTypeName) {
     std::string blank = "   ";
     std::cout << tileTypeName << blank.substr(0, 6 - tileTypeName.size());
 }
 
-// return the random tile num (note that Park does not have a tile num)
+// format tile's type with approporiate spacing and output to standard output
 void printTileValue(int tileValue) {
     if (tileValue < 10) std::cout << " ";
     std::cout << tileValue;
 }
 
-// print spaces inside tiles (in total there are 9 spaces)
-void ps() { std::cout << "        "; }
-
-// print the board
+// display the board
 void Board::printBoard() {
-    int vertex = 0;
-    int edge = 0;
-    int tileNum = 0;
-    int tileNumForValue = 0;
-    int tileNumForType = 0;
-    int tileNumForGeese = 0;
+    std::ifstream boardFile;
 
-    int col = 5;
-    int row = 10;
-    // 10 rows of block
-    for (int a = 1; a <= row; ++a) {
-        // 4 rows in each block
-        for (int b = 1; b <= 4; ++b) {
-            if (a <= row - 1 && a >= 3 && b == 1) {
-                std::cout << "|";
-            } else {
-                std::cout << " ";
-            }
-            // each row in 5 column
-            for (int c = 1; c <= col; ++c) {
-                // print blank block
-                if (a == 1 && (c == 1 || c == col)) {  // top two cornors
-                    std::cout << "  ";
-                    ps();
-                } else if ((a == 1 && c == col - 1) || (a == 2 && c == col) ||
-                           (a == row && c == col)) {  // right
-                    if (b == 1) {                     // frame
-                        if (vertex < 10) {
-                            std::cout << " ";
-                        }
-                        std::cout << vertex << "|       ";  // | with 7 spaces
-                        ++vertex;
-                    } else {
-                        if (a == row) {
-                            std::cout << "  ";
-                            ps();
-                        } else {
-                            if (b == 2 || b == 4) {
-                                std::cout << " |";
-                                ps();
-                            } else {
-                                std::cout << " " << edge;
-                                ps();
-                                ++edge;
-                            }
-                        }
-                    }
-                } else if ((a == 1 && c == 2) || (a == 2 && c == 1) ||
-                           (a == row &&
-                            c == 1)) {  // left (top x 2 and bottom x 1)
-                    ps();
-                    if (b == 1) {  // frame
-                        std::cout << " |";
-                    } else {
-                        std::cout << "  ";
-                    }
-                } else if ((a == row - 1 && c == 1) ||
-                           (a == row && c == 2)) {  // left (bottom x 2)
-                    if (b == 1) {                   // frame
-                        std::cout << vertex << "|--" << edge << "--|";
-                        ++vertex;
-                        ++edge;
-                    } else {
-                        std::cout << "  ";
-                        ps();
-                    }
-                } else if ((a == row - 1 && c == col) ||
-                           (a == row && c == col - 1)) {  // right (bottom x 2)
-                    if (b == 1) {                         // frame
-                        std::cout << vertex << "|--" << edge << "--|";
-                        ++vertex;
-                        ++edge;
-                    } else if (b == 2 || b == 4) {
-                        std::cout << " |";
-                        ps();
-                    } else {
-                        std::cout << edge;
-                        ++edge;
-                        ps();
-                    }
+    try {
+        boardFile = std::ifstream{"boardTemplate.txt"};
+    } catch (const std::exception &e) {
+        std::cerr << "Opening file boardTemplate.txt failed." << std::endl;
+    }
 
-                } else if ((a + c) % 2 == 1) {  // other blank block
-                    if (b == 1) {               // frame
-                        if (vertex < 10) {
-                            std::cout << " ";
-                        }
-                        std::cout << vertex << "|  ";
-                        printTileValue(tiles[tileNumForValue].getTileValue());
-                        ++tileNumForValue;
-                        std::cout << "  |";
-                        ++vertex;
-                    } else {
-                        if (b == 4) {
-                            std::cout << " |";
-                            ps();
-                        } else if (b == 2) {
-                            std::cout << " |  ";
-                            if (tiles[tileNumForGeese].getHasGeese()) {
-                                std::cout << "GEESE ";
-                            } else {
-                                std::cout << "      ";
-                            }
-                            ++tileNumForGeese;
-                        } else {
-                            if (edge < 10) {
-                                std::cout << " ";
-                            }
-                            std::cout << edge;
-                            ++edge;
-                            ps();
-                        }
-                    }
-                } else {           // non-empty blocks
-                    if (b == 1) {  // frame
-                        if (vertex < 10) {
-                            std::cout << " ";
-                        }
-                        std::cout << vertex << "|--";
-                        if (edge < 10) {
-                            std::cout << " ";
-                        }
-                        std::cout << edge << "--|";
-                        ++edge;
-                        ++vertex;
-                    } else if (b == 2) {
-                        std::cout << " |";
-                        ps();
-                    } else if (b == 3) {
-                        if (edge < 10) {
-                            std::cout << " ";
-                        }
-                        std::cout << edge << "   ";  // 3 spaces
-                        if (tileNum < 10) {
-                            std::cout << " ";
-                        }
-                        std::cout << tileNum << "   ";  // 3 spaces
-                        ++tileNum;
-                        ++edge;
-                    } else {
-                        std::cout << " |  ";
-                        printTileType(tiles[tileNumForType].getTileType());
-                        ++tileNumForType;
-                    }
-                }
-            }
-            // right most edges
-            if (a <= 8 && a >= 3) {
-                if (b == 1) {
-                    std::cout << vertex << "|";
-                    ++vertex;
-                } else if (b == 2 || b == 4) {
-                    std::cout << " | ";
-                } else {
-                    std::cout << edge;
-                    ++edge;
-                }
-            } else if (a == row - 1 && b == 1) {
-                std::cout << vertex << "|";
-                ++vertex;
-            }
+    int typeCount = 0, valueCount = 0, geeseCount = 0;
+    char c;
+
+    while (true) {
+        boardFile >> c;
+        if (boardFile.eof()) break;
+
+        if (c == 'T') { // T for Type
+            boardFile >> c >> c >> c >> c >> c;
+            printTileType(tiles[typeCount++].getTileType());
+        } else if (c == 'V') { // V for Value
+            boardFile >> c;
+            printTileValue(tiles[valueCount++].getTileValue());
+        } else if (c == 'G') { // G for Geese
+            boardFile >> c >> c >> c >> c;
+            std::cout << tiles[geeseCount++].getHasGeese() ? "GEESE" : "     ";
+        } else if (c == ',') { // , for new line
             std::cout << std::endl;
+        } else if (c == '_') { // _ for space
+            std::cout << " ";
+        } else {
+            std::cout << c;
         }
     }
-    std::cout << "    ";
-    ps();
-    ps();
-    std::cout << "|" << vertex << "|--" << edge;
-    ++vertex;
-    std::cout << "--|" << vertex << "|" << std::endl;
 }

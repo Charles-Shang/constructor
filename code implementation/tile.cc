@@ -3,9 +3,14 @@
 // temp testings
 #include <iostream>
 
-Tile::Tile(int _type, int _tileNum, int _tileValue)
+Tile::Tile(int _type, int _tileNum, int _tileValue, int _load)
     : type{_type}, tileNum{_tileNum}, tileValue{_tileValue} {
-    hasGeese = _type == 5 ? true : false;
+    if (_load == 0)
+        hasGeese = _type == 5 ? true : false;
+    else if (_load == 1)
+        hasGeese = true;
+    else
+        hasGeese = false;
 }
 
 std::string Tile::getTileType() {
