@@ -7,7 +7,7 @@
 
 class Builder {
     // the color of the builder (0 - blue, 1 - red, 2 - orange, 3 - yellow)
-    int color;
+    int colour;
     bool fairDice;  // truth value for the builder's dice being a fair dice
     std::vector<Residence> builtLst;  // a vector list of built residence
     /* a vector list of resources owned
@@ -17,6 +17,7 @@ class Builder {
     std::vector<int> resources;
 
    public:
+    int getColour();
     // roll the dice (apply algorithms based on whether user has a fair dice)
     void rollDice();
     // if possible, upgrade the cuurent residence to the next level
