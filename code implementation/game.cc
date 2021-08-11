@@ -40,4 +40,56 @@ void Game::initializeGame(int inputReadMode, std::string fileName) {
     }
 }
 
-void Game::play() { thisBoard.printBoard(); }
+void Game::printHelp() {
+    
+}
+
+void Game::play() { 
+    thisBoard.printBoard(); 
+
+    std::string cmd;
+    while (1) {
+        try {
+            std::cin >> cmd;
+        } catch (std::ios::failure &) {
+            if (std::cin.eof())
+                break;
+            std::cin.clear();
+            std::cin.ignore();
+        }
+
+        if (cmd == "board") {
+            
+        } else if (cmd == "status") {  
+        
+        } else if (cmd == "residences") {
+
+        } else if (cmd == "build-road") {
+            int roadNum = 0;
+            std::cin >> roadNum;
+
+        } else if (cmd == "build-res") {
+            int housingNum = 0;
+            std::cin >> housingNum;
+
+        } else if (cmd == "improve") {
+            int housingNum = 0;
+            std::cin >> housingNum;
+
+        } else if (cmd == "trade") {
+            int colour;
+            int give;
+            int take;
+            std::cin >> colour >> give >> take;
+
+        } else if (cmd == "next") {
+
+        } else if (cmd == "save") {
+            std::string saveFile;
+            std::cin >> saveFile;
+
+        } else if (cmd == "help") {
+            printHelp();
+        }
+    }
+}
