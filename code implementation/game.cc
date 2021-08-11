@@ -41,7 +41,17 @@ void Game::initializeGame(int inputReadMode, std::string fileName) {
 }
 
 void Game::printHelp() {
-    
+    std::cout << "Valid commands:" << std::endl;
+    std::cout << "board" << std::endl;
+    std::cout << "status" << std::endl;
+    std::cout << "residences" << std::endl;
+    std::cout << "build-road <edge#>" << std::endl;
+    std::cout << "build-res <housing#>" << std::endl;
+    std::cout << "improve <housing#>" << std::endl;
+    std::cout << "trade <colour> <give> <take>" << std::endl;
+    std::cout << "next" << std::endl;
+    std::cout << "save <file>" << std::endl;
+    std::cout << "help" << std::endl;
 }
 
 void Game::play() { 
