@@ -14,7 +14,7 @@ class Vertices : public Observer, public Subject {
     bool canBuildResidence;
     int whichBuilder;  // the owner of the residence
     // vector list of shared pointer of edges that are neighbours of vertice
-    //std::vector<std::shared_ptr<Edge>> neighbourEdges;
+    std::vector<std::shared_ptr<Edge>> connectedEdges;
 
    public:
     Vertices(int _location, bool _canBuildResidence = true,
@@ -26,6 +26,8 @@ class Vertices : public Observer, public Subject {
     void notifyObservers();
     // update the availability of building residence for neighbour vertices
     void update();
+
+    void addEdgeNeighbour(const std::shared_ptr<Edge> &edge);
 };
 
 #endif

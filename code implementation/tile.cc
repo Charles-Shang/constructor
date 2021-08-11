@@ -3,9 +3,7 @@
 // temp testings
 #include <iostream>
 
-void Tile::initTile() {
-
-}
+void Tile::initTile() {}
 Tile::Tile(int _type, int _tileNum, int _tileValue, int _load)
     : type{_type}, tileNum{_tileNum}, tileValue{_tileValue} {
     if (_load == 0)
@@ -28,7 +26,7 @@ std::string Tile::getTileType() {
             return "HEAT";
         case 4:
             return "WIFI";
-        default:  // "5"
+        default: 
             return "PARK";
     }
 }
@@ -37,12 +35,10 @@ int Tile::getTileValue() { return tileValue; }
 
 bool Tile::getHasGeese() { return hasGeese; }
 
-void Tile::addVertices(int location) {
-    Vertices v{location};
-    theVertices.emplace_back(&v);
+void Tile::addVertices(const std::shared_ptr<Vertices> &vertice) {
+    theVertices.emplace_back(vertice);
 }
 
-void Tile::addEdge(int location) {
-    Edge e{location};
-    theEdges.emplace_back(&e);
+void Tile::addEdge(const std::shared_ptr<Edge> &edge) {
+    theEdges.emplace_back(edge);
 }

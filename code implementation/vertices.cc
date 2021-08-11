@@ -14,3 +14,7 @@ void Vertices::addResidence(int builder) {
     }
     whichBuilder = builder;
 }
+
+void Vertices::addEdgeNeighbour(const std::shared_ptr<Edge> &edge) {
+    connectedEdges.emplace_back(edge);
+}

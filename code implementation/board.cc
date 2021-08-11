@@ -2,28 +2,81 @@
 #include <fstream>
 #include <iostream>
 
-void Board::initBoard(int *resources, int *tileValues) {
-    std::ifstream vertexFile;
+void setupVerticesAndEdges(std::vector<std::shared_ptr<Vertices>> &allVertices,
+                           std::vector<std::shared_ptr<Edge>> &allEdges) {
+    const int totalVertices = 54;
+    const int totalEdges = 72;
+    int location;
+    std::ifstream neighbourFile;
 
     try {
-        vertexFile = std::ifstream{"tileVertices.txt"};
+        neighbourFile = std::ifstream{"neighbours.txt"};
+    } catch (const std::exception &e) {
+        std::cerr << "Opening files neighbours.txt or failed." << std::endl;
+    }
+
+    const int delimiter = 999;
+
+    for (int j = 0; j < totalVertices; j++) {
+        std::shared_ptr<Vertices> vertix = std::make_shared<Vertices>(j);
+        allVertices.emplace_back(vertix);
+    }
+
+    for (int j = 0; j < totalEdges; j++) {
+        std::shared_ptr<Edge> edge = std::make_shared<Edge>(j);
+
+        while (true) {
+            neighbourFile >> location;
+            if (location == delimiter) break;
+            (*edge).addVerticeNeighbour(allVertices[location]);
+        }
+
+        allEdges.emplace_back(edge);
+    }
+
+    for (int j = 0; j < totalVertices; j++) {
+        while (true) {
+            neighbourFile >> location;
+            if (location == delimiter) break;
+            (*allVertices[j]).addEdgeNeighbour(allEdges[location]);
+        }
+    }
+}
+
+void Board::initBoard(int *resources, int *tileValues) {
+    std::ifstream tileFile;
+
+    try {
+        tileFile = std::ifstream{"tileVertices.txt"};
     } catch (const std::exception &e) {
         std::cerr << "Opening file tileVertices.txt failed." << std::endl;
     }
     int location;
     for (int i = 0; i < 19; i++) {
-        Tile theTile{resources[i], i, tileValues[i]};  // add resources and values to tile
-        vertexFile >> location;                          
-        // read the vertices of this tile     
+        tileFile >> location;
+        // add resources and values to tile
+        Tile theTile{resources[i], i, tileValues[i]};
+
+        const int totalVertices = 54;
+        const int totalEdges = 72;
+
+        // create all vertices and edges pointers
+        std::vector<std::shared_ptr<Vertices>> allVertices;
+        std::vector<std::shared_ptr<Edge>> allEdges;
+
+        setupVerticesAndEdges(allVertices, allEdges);
+
+        // read the vertices of this tile
         for (int vertexNum = 0; vertexNum < 6; ++vertexNum) {
-            vertexFile >> location;
-            theTile.addVertices(location);     
+            tileFile >> location;
+            theTile.addVertices(allVertices[location]);
         }
         // read the edges of this tile
         for (int edgeNum = 0; edgeNum < 6; ++edgeNum) {
-            vertexFile >> location;
-            theTile.addEdge(location);     
+            tileFile >> location;
+            theTile.addEdge(allEdges[location]);
         }
+
         tiles.emplace_back(theTile);
     }
 }
@@ -57,22 +110,22 @@ void Board::printBoard() {
         boardFile >> c;
         if (boardFile.eof()) break;
 
-        if (c == 'T') { // T for Type
+        if (c == 'T') {  // T for Type
             boardFile >> c >> c >> c >> c >> c;
             printTileType(tiles[typeCount++].getTileType());
-        } else if (c == 'V') { // V for Value
+        } else if (c == 'V') {  // V for Value
             boardFile >> c;
             printTileValue(tiles[valueCount++].getTileValue());
-        } else if (c == 'G') { // G for Geese
+        } else if (c == 'G') {  // G for Geese
             boardFile >> c >> c >> c >> c >> c;
             if (!tiles[geeseCount++].getHasGeese()) {
                 std::cout << "      ";
             } else {
                 std::cout << "GEESE ";
             }
-        } else if (c == ',') { // , for new line
+        } else if (c == ',') {  // , for new line
             std::cout << std::endl;
-        } else if (c == '_') { // _ for space
+        } else if (c == '_') {  // _ for space
             std::cout << " ";
         } else {
             std::cout << c;

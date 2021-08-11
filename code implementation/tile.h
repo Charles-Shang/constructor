@@ -27,8 +27,8 @@ class Tile {
     std::string getTileType();
     int getTileValue();
     bool getHasGeese();
-    void addVertices(int location);
-    void addEdge(int location);
+    void addVertices(const std::shared_ptr<Vertices> &vertice);
+    void addEdge(const std::shared_ptr<Edge> &edge);
 };
 
 #endif

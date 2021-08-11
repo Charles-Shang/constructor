@@ -6,17 +6,19 @@
 #include "vertices.h"
 
 class Edge {
-    int location;       // location on the board
-    bool hasRoad;       // truth value for whether a road is built
-    int whichBuilder;   // which builder built the road
+    int location;      // location on the board
+    bool hasRoad;      // truth value for whether a road is built
+    int whichBuilder;  // which builder built the road
     // vector list of shared pointer of vertices that are neighbours of edge
-    // std::vector<std::shared_ptr<Vertices>> neighbourResidence;
+    std::vector<std::shared_ptr<Vertices>> connectedVertices;
 
    public:
-   Edge(int _location, bool _hasRoad = false, int _whichBuilder = -1); // initially -1 represent no road
-    void addRoad(); // build a road at the location of the edge
+    // initially -1 represent no road
+    Edge(int _location, bool _hasRoad = false, int _whichBuilder = -1);
+    void addRoad();  // build a road at the location of the edge
     // produce the truth value of whether a builder can build a road at location
-    bool canBuildRoad(); 
+    bool canBuildRoad();
+    void addVerticeNeighbour(const std::shared_ptr<Vertices> &vertice);
 };
 
 #endif
