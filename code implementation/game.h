@@ -12,6 +12,7 @@ class Game {
    public:
     void initializeGame(int inputReadMode, std::string fileName = "");
     void play();  // start the Game of Constructor
+    void printHelp();
 };
 
 #endif
