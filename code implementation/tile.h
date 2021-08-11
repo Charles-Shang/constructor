@@ -2,8 +2,8 @@
 #define _TILE_H_
 
 #include <vector>
-//#include "vertices.h"
-//#include "edge.h"
+#include "vertices.h"
+#include "edge.h"
 #include "tiletype.h"
 
 // ---------temp use----------
@@ -16,8 +16,8 @@ class Tile {
     int tileNum;    // the location (tile name) of the tile
     int tileValue;  // the dice value (tile value) of the tile
     bool hasGeese;  // truth value of whether the geese is on the tile
-    // std::vector<std::shared_ptr<Vertices>> theVertices;  // the vertices of the tile
-    // std::vector<std::shared_ptr<Edges>> theEdges;  // the edges of the tile
+    std::vector<std::shared_ptr<Vertices>> theVertices;  // the vertices of the tile
+    std::vector<std::shared_ptr<Edge>> theEdges;  // the edges of the tile 
 
    public:
     void initTile();  // initialize the tile
@@ -27,6 +27,8 @@ class Tile {
     std::string getTileType();
     int getTileValue();
     bool getHasGeese();
+    void addVertices(int location);
+    void addEdge(int location);
 };
 
 #endif
