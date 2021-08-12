@@ -16,7 +16,6 @@ void setupVerticesAndEdges(std::vector<std::shared_ptr<Vertices>> &allVertices,
     }
 
     const int delimiter = 999;
-
     for (int j = 0; j < totalVertices; j++) {
         std::shared_ptr<Vertices> vertix = std::make_shared<Vertices>(j);
         allVertices.emplace_back(vertix);
@@ -24,21 +23,24 @@ void setupVerticesAndEdges(std::vector<std::shared_ptr<Vertices>> &allVertices,
 
     for (int j = 0; j < totalEdges; j++) {
         std::shared_ptr<Edge> edge = std::make_shared<Edge>(j);
-
-        while (true) {
-            neighbourFile >> location;
-            if (location == delimiter) break;
-            (*edge).addVerticeNeighbour(allVertices[location]);
-        }
-
         allEdges.emplace_back(edge);
     }
 
     for (int j = 0; j < totalVertices; j++) {
+        neighbourFile >> location;
         while (true) {
             neighbourFile >> location;
             if (location == delimiter) break;
-            (*allVertices[j]).addEdgeNeighbour(allEdges[location]);
+            allVertices[j]->addEdgeNeighbour(allEdges[location]);
+        }
+    }
+
+    for (int j = 0; j < totalEdges; j++) {
+        neighbourFile >> location;
+        while (true) {
+            neighbourFile >> location;
+            if (location == delimiter) break;
+            allEdges[j]->addVerticeNeighbour(allVertices[location]);
         }
     }
 }
@@ -56,9 +58,6 @@ void Board::initBoard(int *resources, int *tileValues) {
         tileFile >> location;
         // add resources and values to tile
         Tile theTile{resources[i], i, tileValues[i]};
-
-        const int totalVertices = 54;
-        const int totalEdges = 72;
 
         // create all vertices and edges pointers
         std::vector<std::shared_ptr<Vertices>> allVertices;
@@ -130,5 +129,17 @@ void Board::printBoard() {
         } else {
             std::cout << c;
         }
+    }
+}
+
+void Board::displayTile() {
+    for (int i = 0; i < 19; i++) {
+        tiles[i].displayVNE();
+        }
+}
+
+void Board::displayConnections() {
+    for (int i = 0; i < 19; i++) {
+        tiles[i].displayConnections();
     }
 }

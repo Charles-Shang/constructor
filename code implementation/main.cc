@@ -22,5 +22,16 @@ int main(int argc, char* argv[]) {
 
     Game g;
     g.initializeGame(4, argv[1]);
-    g.play();
+
+    string command;
+    while (true) {
+        std::cin >> command;
+        if (command == "test") {
+            std::cout << "Testing mode enabled!" << std::endl;
+            g.newMain();
+        } else if (command == "play") {
+            std::cout << "Play mode enabled!" << std::endl;
+            g.play();
+        }
+    }
 }

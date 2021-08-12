@@ -1,7 +1,6 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
-#include "builder.h"
 #include <vector>
 #include "board.h"
 //#include "builder.h"
@@ -14,8 +13,11 @@ class Game {
     void initializeGame(int inputReadMode, std::string fileName = "");
     void play();  // start the Game of Constructor
     void printHelp();
-    void beginTurn(Builder curPlayer);
-    void duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers);
+    //void beginTurn(Builder curPlayer);
+    //void duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers);
+
+    // testing
+    void newMain();
 };
 
 #endif

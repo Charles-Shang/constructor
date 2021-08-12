@@ -11,6 +11,10 @@ class Board {
     // initialize the board
     void initBoard(int *resources, int *tileValues);
     void printBoard();  // display the board
+
+    // testing functions
+    void displayTile();
+    void displayConnections();
 };
 
 #endif

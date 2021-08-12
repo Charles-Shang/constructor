@@ -5,6 +5,8 @@
 #include <vector>
 #include "vertices.h"
 
+class Vertices;
+
 class Edge {
     int location;      // location on the board
     bool hasRoad;      // truth value for whether a road is built
@@ -19,6 +21,10 @@ class Edge {
     // produce the truth value of whether a builder can build a road at location
     bool canBuildRoad();
     void addVerticeNeighbour(const std::shared_ptr<Vertices> &vertice);
+
+    // testing functions
+    int getLocation();
+    void displayNeighbourVertices();
 };
 
 #endif

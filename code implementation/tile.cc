@@ -26,7 +26,7 @@ std::string Tile::getTileType() {
             return "HEAT";
         case 4:
             return "WIFI";
-        default: 
+        default:
             return "PARK";
     }
 }
@@ -41,4 +41,28 @@ void Tile::addVertices(const std::shared_ptr<Vertices> &vertice) {
 
 void Tile::addEdge(const std::shared_ptr<Edge> &edge) {
     theEdges.emplace_back(edge);
+}
+
+void Tile::displayVNE() {
+    std::cout << (tileNum < 10 ? " " : "") << tileNum << " ";
+    for (int i = 0; i < 6; i++) {
+        int a = theVertices[i]->getLocation();
+        std::cout << (a < 10 ? " " : "") << a << " ";
+    }
+
+    for (int i = 0; i < 6; i++) {
+        int a = theEdges[i]->getLocation();
+        std::cout << (a < 10 ? " " : "") << a << " ";
+    }
+    std::cout << std::endl;
+}
+
+void Tile::displayConnections() {
+    for (int i = 0; i < 6; i++) {
+        theVertices[i]->displayNeighbourEdges();
+    }
+
+    for (int i = 0; i < 6; i++) {
+        theEdges[i]->displayNeighbourVertices();
+    }
 }
