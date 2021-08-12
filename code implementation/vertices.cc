@@ -31,3 +31,7 @@ void Vertices::displayNeighbourEdges() {
 
     std::cout << std::endl;
 }
+
+bool Vertices::getCanBuildResidence() {
+    return canBuildResidence;
+}
