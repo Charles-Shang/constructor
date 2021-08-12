@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
             g.newMain();
         } else if (command == "play") {
             std::cout << "Play mode enabled!" << std::endl;
-            //g.play();
+            g.play();
         }
     }
 }
