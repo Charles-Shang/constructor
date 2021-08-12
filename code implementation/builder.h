@@ -44,6 +44,7 @@ class Builder {
                                        // residence at the location
     bool highestLevel(int location);
     void printRecentUpgrade(int idx);  // print the most recent upgraded residence's level
+    void trade(int give, int take);
 };
 
 #endif

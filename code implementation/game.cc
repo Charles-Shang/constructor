@@ -144,7 +144,26 @@ void Game::duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers) {
             int give;
             int take;
             cin >> colour >> give >> take;
-            // how do we trade?
+            cout << curPlayer.getColourName() << " offers "
+                 << allPlayers[colour].getColourName() << " one "
+                 << getResourceName(give) << " for one "
+                 << getResourceName(take) << "." << endl;
+            cout << "Does " << allPlayers[colour].getColourName()
+                 << " accept this offer?" << endl;
+            std::string answer;
+            cin >> answer;
+            if (answer == "yes") {
+                curPlayer.trade(give, take);
+                allPlayers[colour].trade(take, give);
+                cout << "Builder " << curPlayer.getColourName() << " gained: ";
+                cout << "1 " << getResourceName(take) << ", lose 1 "
+                     << getResourceName(give) << endl;
+                cout << "Builder " << allPlayers[colour].getColourName() << " gained: ";
+                cout << "1 " << getResourceName(give) << ", lose 1 "
+                     << getResourceName(take) << endl;  
+            } else {
+                cout << "No builders gained resources." << endl;
+            }
         } else if (cmd == "next") {
             break;
         } else if (cmd == "save") {
@@ -159,6 +178,19 @@ void Game::duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers) {
     }
 }
 
+std::string getResourceName(int resource) {
+    if (resource == 0) {
+        return "Brick";
+    } else if (resource == 1) {
+        return "Energy";
+    } else if (resource == 2) {
+        return "Glass";
+    } else if (resource == 3) {
+        return "Heat";
+    } else {
+        return "Wifi";
+    }
+}
 void Game::beginGame(std::vector<Builder> allPlayers) {
     int location;
     for (int i = 0; i < 4; ++i) {
