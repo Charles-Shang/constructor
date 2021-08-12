@@ -84,6 +84,19 @@ std::string getRssType(int type) {
     }
 }
 
+int getColourIndex(std::string colour) {
+    if (colour == "BLUE")
+        return 0;
+    else if (colour == "RED")
+        return 1;
+    else if (colour == "ORANGE")
+        return 2;
+    else if (colour == "YELLOW")
+        return 3;
+
+    return 99999;  // this should never be reached
+}
+
 void Game::moveGeese() {
     // everyone randomly lose resources
     for (auto curPlayer : allPlayers) {
@@ -97,14 +110,14 @@ void Game::moveGeese() {
             std::vector<int> rssLst = curPlayer.listAllRss();
             for (int i = 0; i < lose; ++i) {
                 std::shuffle(rssLst.begin(), rssLst.end(), seed);
-                int index = rssLst[0];
-                curPlayer.modifiesResources(index, -1);
-                lostList[index]++;
+                int indexType = rssLst[0];
+                curPlayer.modifiesResources(indexType, -1);
+                lostList[indexType]++;
                 rssLst.erase(rssLst.begin());
             }
 
             for (int i = 0; i < 5; i++)
-                cout << lostList[i] << " " << getResourceName(i) << endl;
+                cout << lostList[i] << " " << getRssType(i) << endl;
         }
     }
     // move Geese
@@ -133,11 +146,53 @@ void Game::moveGeese() {
     thisBoard.transferGeese(current, desitation);
     cout << "Now Geese is at tile " << desitation << "." << endl;
 
-    std::vector<int> whoseBeenStolen;
-    // *****************
+    std::vector<int> stolenLst = thisBoard.getPlayersOnTile(desitation);
+    for (size_t i = 0; i < stolenLst.size(); i++) {
+        if (stolenLst[i] == curTurn) {
+            stolenLst.erase(stolenLst.begin() + i);
+        }
+    }
 
+    if (stolenLst.empty()) {
+        cout << "Builder " << allPlayers[curTurn].getColourName()
+             << " has no builders to steal from." << std::endl;
+    } else {
+        cout << "Builder " << allPlayers[curTurn].getColourName()
+             << " can choose to steal from ";
+        for (size_t i = 0; i < stolenLst.size() - 1; i++)
+            cout << allPlayers[stolenLst[i]].getColourName() << ", ";
 
+        cout << allPlayers[stolenLst.back()].getColourName() << ".";
 
+        cout << "Choose a builder to steal from." << endl;
+
+        std::string chosenToSteal;
+        while (true) {
+            try {
+                std::cin >> chosenToSteal;
+            } catch (const std::exception &e) {
+                cout << "Invalid Input. Try again!" << endl;
+                continue;
+            }
+
+            if (std::count(stolenLst.begin(), stolenLst.end(), chosenToSteal))
+                break;
+            else
+                cout << "Input is not found in provided lst. Try again!"
+                     << endl;
+        }
+
+        int stolenIndex = getColourIndex(chosenToSteal);
+        std::vector<int> listofRss = allPlayers[stolenIndex].listAllRss();
+        std::shuffle(listofRss.begin(), listofRss.end(), seed);
+        int indexType = listofRss[0];
+        allPlayers[stolenIndex].modifiesResources(indexType, -1);
+        allPlayers[curTurn].modifiesResources(indexType, 1);
+
+        cout << "Builder " << allPlayers[curTurn].getColourName() << "steals "
+             << getRssType(indexType) << " from builder " << chosenToSteal
+             << "." << endl;
+    }
 }
 
 void Game::gainResources(int diceResult) {
@@ -253,8 +308,8 @@ void Game::duringTheTurn() {
             cin >> colour >> give >> take;
             cout << allPlayers[curTurn].getColourName() << " offers "
                  << allPlayers[colour].getColourName() << " one "
-                 << getResourceName(give) << " for one "
-                 << getResourceName(take) << "." << endl;
+                 << getRssType(give) << " for one " << getRssType(take) << "."
+                 << endl;
             cout << "Does " << allPlayers[colour].getColourName()
                  << " accept this offer?" << endl;
             std::string answer;
@@ -264,12 +319,12 @@ void Game::duringTheTurn() {
                 allPlayers[colour].trade(take, give);
                 cout << "Builder " << allPlayers[curTurn].getColourName()
                      << " gained: ";
-                cout << "1 " << getResourceName(take) << ", lose 1 "
-                     << getResourceName(give) << endl;
+                cout << "1 " << getRssType(take) << ", lose 1 "
+                     << getRssType(give) << endl;
                 cout << "Builder " << allPlayers[colour].getColourName()
                      << " gained: ";
-                cout << "1 " << getResourceName(give) << ", lose 1 "
-                     << getResourceName(take) << endl;
+                cout << "1 " << getRssType(give) << ", lose 1 "
+                     << getRssType(take) << endl;
             } else {
                 cout << "No builders gained resources." << endl;
             }
@@ -303,20 +358,6 @@ void Game::saveGame() {
             std::cout << "Unable to save file to " << saveFile << std::endl;
             std::cout << "Try another file." << saveFile << std::endl;
         }
-    }
-}
-
-std::string getResourceName(int resource) {
-    if (resource == 0) {
-        return "BRICK";
-    } else if (resource == 1) {
-        return "ENERGY";
-    } else if (resource == 2) {
-        return "GLASS";
-    } else if (resource == 3) {
-        return "HEAT";
-    } else {
-        return "WIFI";
     }
 }
 

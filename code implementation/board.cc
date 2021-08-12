@@ -110,6 +110,7 @@ void Board::printBoard() {
     }
 
     int typeCount = 0, valueCount = 0, geeseCount = 0;
+    int vertixCount = 0, edgeCount = 0;
     char c;
 
     while (true) {
@@ -133,6 +134,11 @@ void Board::printBoard() {
             std::cout << std::endl;
         } else if (c == '_') {  // _ for space
             std::cout << " ";
+        } else if (c == 'X') {
+            boardFile >> c;
+            // **************
+        } else if (c == 'Y') {
+            boardFile >> c;
         } else {
             std::cout << c;
         }
