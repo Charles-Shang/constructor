@@ -106,6 +106,8 @@ void Game::duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers) {
                 std::cout << "You do not have enough resources" << std::endl;
             } else if (thisBoard.buildRoad(roadNum, curPlayer.getColour())) {
                 curPlayer.buildRoad(roadNum);
+                printBuilderColour(curPlayer.getColour());
+                std::cout << " has built: a road at" << roadNum << std::endl;
             } else {
                 std::cout << "You cannot build here." << std::endl;
             }
@@ -114,8 +116,12 @@ void Game::duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers) {
             std::cin >> housingNum;
             if (!curPlayer.canBuildResidence()) {
                 std::cout << "You do not have enough resources";
-            } else if (thisBoard.buildResidence(housingNum, curPlayer.getColour())) {
+            } else if (thisBoard.buildResidence(housingNum,
+                                                curPlayer.getColour())) {
                 curPlayer.buildResidence(housingNum);
+                printBuilderColour(curPlayer.getColour());
+                std::cout << " has built: a basement at" << housingNum
+                          << std::endl;
             } else {
                 std::cout << "You cannot build here." << std::endl;
             }
@@ -128,10 +134,15 @@ void Game::duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers) {
             } else if (!curPlayer.canUpgrade(housingNum)) {
                 std::cout << "You do not have enough resources" << std::endl;
             } else if (curPlayer.highestLevel(housingNum)) {
-                std::cout << "Your residence is already at the highest level" << std::endl;
+                std::cout << "Your residence is already at the highest level"
+                          << std::endl;
             } else {
-                curPlayer.upgradeResidence(housingNum);
-            } 
+                int idx = curPlayer.upgradeResidence(housingNum);
+                printBuilderColour(curPlayer.getColour());
+                std::cout << " has a level ";
+                curPlayer.printRecentUpgrade(idx);
+                std::cout << "residence at " << housingNum << std::endl;
+            }
         } else if (cmd == "trade") {
             int colour;
             int give;

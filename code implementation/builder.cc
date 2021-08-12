@@ -4,17 +4,39 @@ int Builder::getColour() { return colour; }
 
 // void Builder::rollDice() {}
 
-void Builder::upgradeResidence(int location) { builtLst[location].upgrade(); }
+int Builder::upgradeResidence(int location) {
+    int idx = 0;
+    for (auto res : builtLst) {
+        if (res.getLocation() == location) {
+            res.upgrade();
+            return idx;
+        }
+        ++idx;
+    }
+}
 
-// void Builder::printStatus(){}
+void Builder::printStatus() {}
 
-// void Builder::printResidence(){}
+void Builder::printResidence() {}
 
-// void Builder::buildRoad(int location){}
+void Builder::printRecentUpgrade(int idx) {
+    std::cout << builtLst[idx].getLevel();
+}
 
-// void Builder::buildResidence(int location) {
-    
-// }
+void Builder::buildRoad(int location) {
+    roadLst.emplace_back(location);
+    resources[3] -= 1;
+    resources[4] -= 1;
+}
+
+void Builder::buildResidence(int location) {
+    Residence newResidence{location, 0, 1};
+    builtLst.emplace_back(newResidence);
+    resources[0] -= 1;
+    resources[1] -= 1;
+    resources[2] -= 1;
+    resources[4] -= 1;
+}
 
 int Builder::calculatePoints() {
     int point = 0;

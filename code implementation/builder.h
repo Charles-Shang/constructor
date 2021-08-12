@@ -5,6 +5,7 @@
 #include "buildertype.h"
 #include "residence.h"
 #include <algorithm>
+#include <iostream>
 
 class Builder {
     // the color of the builder (0 - blue, 1 - red, 2 - orange, 3 - yellow)
@@ -23,7 +24,7 @@ class Builder {
     // roll the dice (apply algorithms based on whether user has a fair dice)
     void rollDice();
     // if possible, upgrade the cuurent residence to the next level
-    void upgradeResidence(int location);
+    int upgradeResidence(int location); // return the idx of the residence in builtLst
     void printStatus();
     void printResidence();         // display built residence
     void buildRoad(int location);  // build a road at the location
@@ -40,6 +41,7 @@ class Builder {
     bool haveResidence(int location);  // determine if the builder have a
                                        // residence at the location
     bool highestLevel(int location);
+    void printRecentUpgrade(int idx);  // print the most recent upgraded residence's level
 };
 
 #endif
