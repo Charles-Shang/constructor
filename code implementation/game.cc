@@ -371,8 +371,9 @@ void Game::saveGame() {
 
 void Game::beginGame() {
     int location;
+    
     for (int i = 0; i < 4; ++i) {
-        cout << "Builder" << allPlayers[i].getColourName()
+        cout << "Builder " << allPlayers[i].getColourName()
              << ", where do you want to build a basement?" << endl;
         cin >> location;
         if (thisBoard.buildRes(location, allPlayers[i].getColour())) {
@@ -383,6 +384,7 @@ void Game::beginGame() {
             cout << "You cannot build here." << endl;
         }
     }
+
     for (int i = 3; i >= 0; --i) {
         cout << "Builder" << allPlayers[i].getColourName()
              << ", where do you want to build a basement?" << endl;

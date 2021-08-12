@@ -7,12 +7,12 @@ Vertices::Vertices(int _location, bool _canBuildResidence, int _whichBuilder)
       whichBuilder{_whichBuilder} {}
 
 void Vertices::addResidence(int builder) {
-    if (!canBuildResidence) {
+    if (canBuildResidence) {
         canBuildResidence = false;
         whichBuilder = builder;
         notifyObservers();
     } else {
-        std::cout << "cannot build residence at this location" << std::endl;
+        std::cout << "You cannot build residence at this location" << std::endl;
         return;
     }
 }
