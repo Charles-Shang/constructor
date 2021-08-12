@@ -22,6 +22,8 @@ class Board {
     bool buildRes(int location, int builder);
     int vertexToTile(int vertexLocation);
     int edgeToTile(int edgeLocation);
+    std::string getBoardData(); // in layout.txt format
+    int whichHasGeese();
 };
 
 #endif

@@ -86,3 +86,10 @@ bool Tile::addResidence(int location, int builder) {
         return false;
     }
 }
+
+std::string Tile::getData(){
+    std::string data = "";
+    data = std::to_string(type) + " " + std::to_string(tileValue);
+    return data;
+
+}

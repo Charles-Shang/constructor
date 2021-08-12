@@ -168,3 +168,15 @@ int Board::vertexToTile(int vertexLocation) {
 int Board::edgeToTile(int edgeLocation) {
     return edgeMap[edgeLocation].front();
 }
+
+std::string Board::getBoardData() {
+    std::string data = "";
+    for (size_t i = 0; i < tiles.size(); i++) data += tiles[i].getData() + "";
+    return data;
+}
+
+int Board::whichHasGeese() {
+    for (size_t i = 0; i < tiles.size(); i++)
+        if (tiles[i].getHasGeese()) return i;
+    return 99999;  // this should never reach
+}
