@@ -26,6 +26,7 @@ class Edge {
     // testing functions
     int getLocation();
     void displayNeighbourVertices();
+    std::vector<std::shared_ptr<Vertices>> getVerticeNeighbour();
 };
 
 #endif

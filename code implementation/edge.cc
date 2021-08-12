@@ -39,3 +39,8 @@ bool Edge::checkCanBuildRoad(int color) {
 
     return true;
 }
+
+std::vector<std::shared_ptr<Vertices>> Edge::getVerticeNeighbour()
+{
+    return connectedVertices;
+}

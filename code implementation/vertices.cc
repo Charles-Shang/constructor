@@ -10,7 +10,7 @@ void Vertices::addResidence(int builder) {
     if (!canBuildResidence) {
         canBuildResidence = false;
         whichBuilder = builder;
-        updateAvailableResidence();  
+        notifyObservers();
     } else {
         std::cout << "cannot build residence at this location" << std::endl;
         return;
@@ -26,13 +26,21 @@ int Vertices::getLocation() { return location; }
 void Vertices::displayNeighbourEdges() {
     std::cout << "Vertice: |" << location << "|" << std::endl;
     std::cout << "Connected edges are: " << std::endl;
-    for (size_t i = 0; i < connectedEdges.size(); i++) {
+    for (size_t i = 0; i < connectedEdges.size(); i++)
         std::cout << connectedEdges[i]->getLocation() << " ";
-    }
 
     std::cout << std::endl;
 }
 
-bool Vertices::checkCanBuildResidence() {
-    return canBuildResidence;
+bool Vertices::checkCanBuildResidence() { return canBuildResidence; }
+
+void Vertices::notifyObservers() {
+    for (auto ob : observers) ob->notify();
+}
+
+void Vertices::notify() { canBuildResidence = false; }
+
+void Vertices::attachALL() {
+    for (auto edge : connectedEdges)
+        for (auto vertix : edge->getVerticeNeighbour()) attach(vertix);
 }
