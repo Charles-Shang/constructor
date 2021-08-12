@@ -1,7 +1,7 @@
 #ifndef _RESIDENCE_H_
 #define _RESIDENCE_H_
 
-#include "residencetype.h";
+#include "residencetype.h"
 
 class Residence {
     int location;

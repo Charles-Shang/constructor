@@ -69,11 +69,13 @@ void Board::initBoard(int *resources, int *tileValues) {
         for (int vertexNum = 0; vertexNum < 6; ++vertexNum) {
             tileFile >> location;
             theTile.addVertices(allVertices[location]);
+            verticeMap[location].emplace_back(i);
         }
         // read the edges of this tile
         for (int edgeNum = 0; edgeNum < 6; ++edgeNum) {
             tileFile >> location;
             theTile.addEdge(allEdges[location]);
+            edgeMap[location].emplace_back(i);
         }
 
         tiles.emplace_back(theTile);
@@ -135,7 +137,7 @@ void Board::printBoard() {
 void Board::displayTile() {
     for (int i = 0; i < 19; i++) {
         tiles[i].displayVNE();
-        }
+    }
 }
 
 void Board::displayConnections() {
@@ -143,20 +145,19 @@ void Board::displayConnections() {
         tiles[i].displayConnections();
     }
 }
-bool Board::buildResidence(int location, int builder) {
-    int tileNum = vertexToTile(location);
-    return tiles[tileNum].addRoad(location, builder);
-}
+// bool Board::buildResidence(int location, int builder) {
+//     int tileNum = vertexToTile(location);
+//     return tiles[tileNum].addRoad(location, builder);
+// }
 
-bool Board::buildRoad(int location, int builder) {
-    int tileNum = edgeToTile(location);
-    return tiles[tileNum].addRoad(location, builder);
-}
+// bool Board::buildRoad(int location, int builder) {
+//     int tileNum = edgeToTile(location);
+//     return tiles[tileNum].addRoad(location, builder);
+// }
 
 int Board::vertexToTile(int vertexLocation) {
-
+    return verticeMap[vertexLocation].front();
 }
-int Board::edgeToTile(int vertexLocation) {
-    
+int Board::edgeToTile(int edgeLocation) {
+    return edgeMap[edgeLocation].front();
 }
-
