@@ -67,6 +67,7 @@ void Game::printHelp() {
 }
 
 void Game::moveGeese() {
+    // everyone randomly lose resources
     for (auto curPlayer : allPlayers) {
         if (curPlayer.calculateResouceSum() >= 10) {
             int lose = curPlayer.calculateResouceSum() / 2;
@@ -78,9 +79,13 @@ void Game::moveGeese() {
             }
         }
     }
+    // move Geese
+    cout << "Choose where to place the GEESE." << endl;
+
 }
 
 void Game::gainResources(int diceResult) {
+    
     
 }
 
