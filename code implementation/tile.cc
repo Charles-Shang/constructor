@@ -87,9 +87,20 @@ bool Tile::addResidence(int location, int builder) {
     }
 }
 
-std::string Tile::getData(){
+std::string Tile::getData() {
     std::string data = "";
     data = std::to_string(type) + " " + std::to_string(tileValue);
     return data;
+}
 
+int Tile::getType() { return type; }
+
+std::vector<int> Tile::playersResources() {
+    std::vector<int> players;
+    for (auto vertex : theVertices) {
+        if (vertex->getWhichBuilder() != -1) {
+            players.emplace_back(vertex->getWhichBuilder());
+        }
+    }
+    return players;
 }

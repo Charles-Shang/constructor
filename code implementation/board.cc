@@ -180,3 +180,11 @@ int Board::whichHasGeese() {
         if (tiles[i].getHasGeese()) return i;
     return 99999;  // this should never reach
 }
+
+int Board::gainResources(int diceResult) {
+    return tiles[diceResult].getType();
+}
+
+std::vector<int> Board::playersResources(int diceResult) {
+    return tiles[diceResult].playersResources();
+}
