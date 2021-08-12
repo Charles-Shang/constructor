@@ -66,3 +66,22 @@ void Tile::displayConnections() {
         theEdges[i]->displayNeighbourVertices();
     }
 }
+
+bool Tile::addRoad(int location, int builder) {
+    Edge toBeBuilt = &theEdges[location];       // how to dereference this ptr?
+    if (toBeBuilt.canBuildRoad()) {
+        toBeBuilt.addRoad();
+        return true;
+    } else {
+        return false;
+    }
+}
+bool Tile::addResidence(int location, int builder) {
+    Vertices toBeBuilt = &theVertices[location];       // how to dereference this ptr?
+    if (toBeBuilt.getCanBuildResidence()) {
+        toBeBuilt.addResidence();
+        return true;
+    } else {
+        return false;
+    }
+}
