@@ -85,7 +85,13 @@ void Game::moveGeese() {
 
 }
 
-void Game::gainResources(int diceResult) {}
+void Game::gainResources(int diceResult) {
+    int resource = thisBoard.gainResources(diceResult);
+    std::vector<int> playerGainsResource = thisBoard.playersResources(diceResult);
+    for (int i : playerGainsResource) {
+        allPlayers[i].modifiesResources(resource, 1);
+    }
+}
 
 void Game::beginTurn() {
     thisBoard.printBoard();
