@@ -11,6 +11,10 @@ class Board {
     // initialize the board
     void initBoard(int *resources, int *tileValues);
     void printBoard();  // display the board
+    bool buildRoad(int location, int builder);
+    bool buildResidence(int location, int builder);
+    int vertexToTile(int vertexLocation);
+    int edgeToTile(int edgeLocation);
 };
 
 #endif

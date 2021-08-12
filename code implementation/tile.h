@@ -29,6 +29,8 @@ class Tile {
     bool getHasGeese();
     void addVertices(const std::shared_ptr<Vertices> &vertice);
     void addEdge(const std::shared_ptr<Edge> &edge);
+    bool addRoad(int location, int builder);
+    bool addResidence(int location, int builder);
 };
 
 #endif

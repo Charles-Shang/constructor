@@ -10,6 +10,7 @@ class Builder {
     int colour;
     bool fairDice;  // truth value for the builder's dice being a fair dice
     std::vector<Residence> builtLst;  // a vector list of built residence
+    std::vector<int> roadLst;
     /* a vector list of resources owned
      * Note that the vector list has only 5 fields, we specify the order as:
      * 0 - Brick, 1 - Energy, 2 - Glass, 3 - Heat, 4 - Wifi
