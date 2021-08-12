@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
-#include "buildertype.h"
 #include "residence.h"
 
 class Builder {

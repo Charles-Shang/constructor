@@ -3,7 +3,6 @@
 
 #include <vector>
 #include "edge.h"
-#include "tiletype.h"
 #include "vertices.h"
 
 class Tile {

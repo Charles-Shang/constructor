@@ -3,7 +3,6 @@
 
 #include <memory>
 #include <vector>
-#include "residencetype.h"
 
 class Observer;
 
