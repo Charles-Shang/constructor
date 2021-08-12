@@ -48,3 +48,5 @@ void Vertices::attachALL() {
 std::vector<std::shared_ptr<Edge>> Vertices::getConnectedEdges() {
     return connectedEdges;
 }
+
+int Vertices::getWhichBuilder() { return whichBuilder; }

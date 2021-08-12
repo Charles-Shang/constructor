@@ -6,8 +6,6 @@
 #include "board.h"
 #include "builder.h"
 
-class Board;
-
 class Game {
     Board thisBoard;  // the board in the game
     std::vector<Builder> allPlayers;
