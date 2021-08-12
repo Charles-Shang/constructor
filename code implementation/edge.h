@@ -20,7 +20,7 @@ class Edge {
     Edge(int _location, bool _hasRoad = false, int _whichBuilder = -1);
     bool addRoad(int builder);  // build a road at the location of the edge
     // produce the truth value of whether a builder can build a road at location
-    bool getCanBuildRoad();
+    bool checkCanBuildRoad();
     // add edge neighbours of vertices
     void addVerticeNeighbour(const std::shared_ptr<Vertices> &vertice);
 

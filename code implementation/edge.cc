@@ -30,6 +30,6 @@ bool Edge::addRoad(int builder) {
 }
 
 // 这个还没完善，得检查是不是真的可以
-bool Edge::getCanBuildRoad() {
+bool Edge::checkCanBuildRoad() {
     return canBuildRoad;
 }

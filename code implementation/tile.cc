@@ -69,7 +69,7 @@ void Tile::displayConnections() {
 
 bool Tile::addRoad(int location, int builder) {
     auto toBeBuilt = theEdges[location];
-    if (toBeBuilt->getCanBuildRoad()) {
+    if (toBeBuilt->checkCanBuildRoad()) {
         toBeBuilt->addRoad(builder);
         return true;
     } else {
