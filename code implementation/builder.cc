@@ -158,3 +158,11 @@ std::vector<int> Builder::listAllRss() {
 
     return rssLst;
 }
+
+int Builder::getResLevelOnVertex(int vertexNum) {
+    for (auto res : builtLst) {
+        if (res.getLocation() == vertexNum) {
+            return res.getBuildingPoints();
+        }
+    }
+}

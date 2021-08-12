@@ -53,7 +53,7 @@ class Builder {
     void modifiesResources(int res, int add);
     std::string getData();
     std::vector<int> listAllRss();
-
+    int getResLevelOnVertex(int vertexNum);
 
 };
 

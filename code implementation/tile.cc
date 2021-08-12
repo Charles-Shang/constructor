@@ -39,9 +39,7 @@ void Tile::addVertices(std::shared_ptr<Vertices> &vertice) {
     theVertices.emplace_back(vertice);
 }
 
-void Tile::addEdge(std::shared_ptr<Edge> &edge) {
-    theEdges.emplace_back(edge);
-}
+void Tile::addEdge(std::shared_ptr<Edge> &edge) { theEdges.emplace_back(edge); }
 
 void Tile::displayVNE() {
     std::cout << (tileNum < 10 ? " " : "") << tileNum << " ";
@@ -105,4 +103,16 @@ std::vector<int> Tile::getAllPlayOnTheTile() {
     return players;
 }
 
+std::vector<int> Tile::getResLocOnTheTile() {
+    std::vector<int> locations;
+    for (auto vertex : theVertices) {
+        if (vertex->getWhichBuilder() != -1) {
+            locations.emplace_back(vertex->getLocation());
+        }
+    }
+    return locations;
+}
+
 void Tile::updateGeese(bool state) { hasGeese = state; }
+
+int Tile::getTileNum() { return tileNum; }

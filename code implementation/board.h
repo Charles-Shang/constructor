@@ -24,10 +24,12 @@ class Board {
     int edgeToTile(int edgeLocation);
     std::string getBoardData(); // in layout.txt format
     int whichHasGeese();
-    int gainResources(int diceResult);
+    int getRssOnTile(int tileNum);
     std::vector<int> getPlayersOnTile(int location);
+    std::vector<int> getResLocOnTile(int location);
 
     void transferGeese(int current, int destination);
+    std::vector<int> tileValToNum(int value);
 
 };
 

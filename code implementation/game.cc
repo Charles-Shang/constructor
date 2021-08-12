@@ -141,9 +141,18 @@ void Game::moveGeese() {
 }
 
 void Game::gainResources(int diceResult) {
-    int resource = thisBoard.gainResources(diceResult);
-    std::vector<int> playerGainsRss = thisBoard.getPlayersOnTile(diceResult);
-    for (int i : playerGainsRss) allPlayers[i].modifiesResources(resource, 1);
+    std::vector<int> tileNumLst = thisBoard.tileValToNum(diceResult);
+    for (int curTile : tileNumLst) {
+        int rss = thisBoard.getRssOnTile(curTile);
+        std::vector<int> playerLst = thisBoard.getPlayersOnTile(curTile);
+        std::vector<int> locationLst = thisBoard.getResLocOnTile(curTile);
+        int idx = 0;
+        for (int player : playerLst) {
+            int level = allPlayers[player].getResLevelOnVertex(locationLst[idx]);
+            allPlayers[player].modifiesResources(rss, level);
+            ++idx;
+        }
+    }
 }
 
 void Game::beginTurn() {
