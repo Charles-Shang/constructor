@@ -18,3 +18,18 @@ void Edge::displayNeighbourVertices() {
     }
     std::cout << std::endl;
 }
+
+bool Edge::addRoad(int builder) {
+    if (canBuildRoad) {
+        hasRoad = true;
+        whichBuilder = builder;
+        canBuildRoad = false;
+        updateAvailableRoad();
+    } else {
+        return false;
+    }
+}
+
+bool Edge::getCanBuildRoad() {
+    return canBuildRoad;
+}
