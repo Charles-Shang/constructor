@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "board.h"
-//#include "builder.h"
+#include "builder.h"
 
 class Game {
     Board thisBoard;  // the board in the game
@@ -13,8 +13,8 @@ class Game {
     void initializeGame(int inputReadMode, std::string fileName = "");
     void play();  // start the Game of Constructor
     void printHelp();
-    //void beginTurn(Builder curPlayer);
-    //void duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers);
+    void beginTurn(Builder curPlayer);
+    void duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers);
 
     // testing
     void newMain();
