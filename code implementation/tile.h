@@ -28,9 +28,9 @@ class Tile {
     // testing function
     void displayVNE();
     void displayConnections();
-    
-    // bool addRoad(int location, int builder);
-    // bool addResidence(int location, int builder);
+
+    bool addRoad(int location, int builder);
+    bool addResidence(int location, int builder);
 };
 
 #endif

@@ -76,6 +76,7 @@ bool Tile::addRoad(int location, int builder) {
         return false;
     }
 }
+
 bool Tile::addResidence(int location, int builder) {
     Vertices toBeBuilt = &theVertices[location];       // how to dereference this ptr?
     if (toBeBuilt.getCanBuildResidence()) {

@@ -145,20 +145,22 @@ void Board::displayConnections() {
         tiles[i].displayConnections();
     }
 }
-// bool Board::buildResidence(int location, int builder) {
-//     int tileNum = vertexToTile(location);
-//     return tiles[tileNum].addRoad(location, builder);
-// }
 
-// bool Board::buildRoad(int location, int builder) {
-//     int tileNum = edgeToTile(location);
-//     return tiles[tileNum].addRoad(location, builder);
-// }
-//
+bool Board::buildResidence(int location, int builder) {
+    int tileNum = vertexToTile(location);
+    return tiles[tileNum].addResidence(location, builder);
+}
+
+bool Board::buildRoad(int location, int builder) {
+    int tileNum = edgeToTile(location);
+    return tiles[tileNum].addRoad(location, builder);
+}
+
 
 int Board::vertexToTile(int vertexLocation) {
     return verticeMap[vertexLocation].front();
 }
+
 int Board::edgeToTile(int edgeLocation) {
     return edgeMap[edgeLocation].front();
 }
