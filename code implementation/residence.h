@@ -12,6 +12,8 @@ class Residence {
     // upgrade the cuurent residence to the next level
     void upgrade();
     int getBuildingPoints();
+    int getLevel();
+    int getLocation();
 };
 
 #endif

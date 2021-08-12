@@ -4,6 +4,7 @@
 #include <vector>
 #include "buildertype.h"
 #include "residence.h"
+#include <algorithm>
 
 class Builder {
     // the color of the builder (0 - blue, 1 - red, 2 - orange, 3 - yellow)
@@ -28,7 +29,17 @@ class Builder {
     void buildRoad(int location);  // build a road at the location
     // build a residence(basement) at the location
     void buildResidence(int location);
-    int calculatePoints();  // calculate owned building points
+    int calculatePoints();     // calculate owned building points
+    bool canBuildResidence();  // determine if the builder have enough resources
+                               // to build a residence
+    bool canBuildRoad();  // determine if the builder have enough resources to
+                          // build a road
+    bool canUpgrade(
+        int location);  // determine if the builder have enough resources to
+                        // upgrade the residence at location
+    bool haveResidence(int location);  // determine if the builder have a
+                                       // residence at the location
+    bool highestLevel(int location);
 };
 
 #endif

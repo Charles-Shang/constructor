@@ -8,3 +8,11 @@ void Residence::upgrade() {
     ++level;
     ++buildingPoints;
 }
+
+int Residence::getLevel() {
+    return level;
+}
+
+int Residence::getLocation() {
+    return location;
+}
