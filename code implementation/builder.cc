@@ -2,6 +2,19 @@
 
 int Builder::getColour() { return colour; }
 
+std::string Builder::getColourName() {
+    switch (colour) {
+        case 0:
+            return "Blue";
+        case 1:
+            return "Red";
+        case 2:
+            return "Orange";
+        default:
+            return "Yellow";
+    }
+}
+
 // void Builder::rollDice() {}
 
 int Builder::upgradeResidence(int location) {
@@ -17,7 +30,11 @@ int Builder::upgradeResidence(int location) {
 
 void Builder::printStatus() {}
 
-void Builder::printResidence() {}
+void Builder::printResidence() {
+    std::cout << getColourName() << " has built:" << std::endl;
+    for (auto res : builtLst)
+        std::cout << res.getLocation() << " " << res.getResType() << std::endl;
+}
 
 void Builder::printRecentUpgrade(int idx) {
     std::cout << builtLst[idx].getLevel();

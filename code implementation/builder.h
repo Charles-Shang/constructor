@@ -21,6 +21,7 @@ class Builder {
 
    public:
     int getColour();
+    std::string getColourName();    
     // roll the dice (apply algorithms based on whether user has a fair dice)
     void rollDice();
     // if possible, upgrade the cuurent residence to the next level

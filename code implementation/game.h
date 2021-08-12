@@ -12,8 +12,8 @@ class Game {
    public:
     void initializeGame(int inputReadMode, std::string fileName = "");
     void play();  // start the Game of Constructor
-    void printHelp();
-    void beginTurn(Builder curPlayer);
+    void printHelp(); // display help command message
+    void beginTurn(Builder curPlayer); // start a round for a player
     void duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers);
 
     // testing

@@ -15,6 +15,7 @@ class Residence {
     int getBuildingPoints();
     int getLevel();
     int getLocation();
+    std::string getResidenceType();
 };
 
 #endif
