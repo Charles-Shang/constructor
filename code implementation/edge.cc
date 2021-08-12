@@ -33,22 +33,20 @@ bool Edge::checkCanBuildRoad(int colour) {
     for (auto nbrVertices : connectedVertices) {
         if (nbrVertices->getWhichBuilder() == colour) {
             return true;  // if one of the neighbour vertices is the same colour
+        } else if (nbrVertices->getWhichBuilder() != -1) {
+            continue;
         } else {
-            for (auto nbrVertices : connectedVertices) {
-                for (auto nbrEdges : nbrVertices->getConnectedEdges()) {
-                    if (nbrEdges->getWhichBuilder() == whichBuilder &&
-                        nbrEdges->getLocation() != location) {
-                        if ((nbrVertices->getWhichBuilder() == -1) ||
-                            nbrVertices->getWhichBuilder() == whichBuilder) {
-                            return true;
-                        }
-                    }
+            // iterate through every neighbour edges to see if we have a
+            // neighbour road
+            for (auto nbrEdges : nbrVertices->getConnectedEdges()) {
+                if (nbrEdges->getWhichBuilder() == colour &&
+                    nbrEdges->getLocation() != location) {
+                    return true;
                 }
             }
         }
     }
     return false;
 }
-
 
 int Edge::getWhichBuilder() { return whichBuilder; }
