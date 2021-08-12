@@ -25,7 +25,8 @@ int main(int argc, char* argv[]) {
     unsigned seed = 1000;
 
     for (int i = 0; i < argc; i++) {
-        if (argv[i] == "seed") {
+        std::string flags{argv[i]};
+        if (flags == "seed") {
             try {
                 seed = std::stoi(std::string{argv[++i]});
             } catch (std::invalid_argument& e) {
@@ -35,13 +36,13 @@ int main(int argc, char* argv[]) {
                 std::cerr << e.what() << std::endl;
                 return -1;
             }
-        } else if (argv[i] == "load") {
+        } else if (flags == "load") {
             load = true;
             std::cin >> loadedFile;
-        } else if (argv[i] == "board") {
+        } else if (flags == "board") {
             board = true;
             std::cin >> boardFile;
-        } else if (argv[i] == "random-board") {
+        } else if (flags == "random-board") {
             decision = 3;
             randomBoard = true;
         }
