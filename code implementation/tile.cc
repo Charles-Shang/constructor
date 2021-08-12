@@ -68,9 +68,10 @@ void Tile::displayConnections() {
 }
 
 bool Tile::addRoad(int location, int builder) {
-    Edge toBeBuilt = &theEdges[location];       // how to dereference this ptr?
-    if (toBeBuilt.canBuildRoad()) {
-        toBeBuilt.addRoad();
+    auto toBeBuilt = theEdges[location];
+    if (toBeBuilt->canBuildRoad()) {
+        toBeBuilt->addRoad(); //这里不需要传进入builder吗
+        
         return true;
     } else {
         return false;
@@ -78,9 +79,9 @@ bool Tile::addRoad(int location, int builder) {
 }
 
 bool Tile::addResidence(int location, int builder) {
-    Vertices toBeBuilt = &theVertices[location];       // how to dereference this ptr?
-    if (toBeBuilt.getCanBuildResidence()) {
-        toBeBuilt.addResidence();
+    auto toBeBuilt = theVertices[location];
+    if (toBeBuilt->getCanBuildResidence()) {
+        toBeBuilt->addResidence(builder);
         return true;
     } else {
         return false;
