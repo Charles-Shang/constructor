@@ -175,7 +175,8 @@ void Game::moveGeese() {
                 continue;
             }
 
-            if (std::count(stolenLst.begin(), stolenLst.end(), chosenToSteal))
+            if (std::count(stolenLst.begin(), stolenLst.end(),
+                           getColourIndex(chosenToSteal)))
                 break;
             else
                 cout << "Input is not found in provided lst. Try again!"
@@ -476,7 +477,7 @@ void Game::printBoard() {
             printTileType(thisBoard.getTileTypeAtLocation(typeCount++));
         } else if (c == 'V') {  // V for Value
             boardFile >> c;
-            printTileValue(thisBoard.getTileValueAtLocation(typeCount++));
+            printTileValue(thisBoard.getTileValueAtLocation(valueCount++));
         } else if (c == 'G') {  // G for Geese
             boardFile >> c >> c >> c >> c >> c;
             if (!thisBoard.getTileHasGeeseAtLocation(geeseCount++)) {
