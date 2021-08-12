@@ -18,6 +18,8 @@ class Game {
     void beginTurn();  // start a round for a player
     void duringTheTurn();
     void beginGame();
+    void moveGeese();
+    void gainResources(int diceResult);
     // testing
     void newMain();
     void saveGame();

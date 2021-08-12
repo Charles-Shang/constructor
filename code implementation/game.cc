@@ -66,6 +66,24 @@ void Game::printHelp() {
     cout << "help" << endl;
 }
 
+void Game::moveGeese() {
+    for (auto curPlayer : allPlayers) {
+        if (curPlayer.calculateResouceSum() >= 10) {
+            int lose = curPlayer.calculateResouceSum() / 2;
+            cout << "Builder " << curPlayer.getColourName() << " loses " << lose
+                 << " resources to the geese. They lose:" << endl;
+            for (int i = 0; i < lose; ++i) {
+                int resource = 2;  // random number between 0-4
+                curPlayer.modifiesResources(resource, -1);
+            }
+        }
+    }
+}
+
+void Game::gainResources(int diceResult) {
+    
+}
+
 void Game::beginTurn() {
     thisBoard.printBoard();
     cout << "Builder " << allPlayers[curTurn].getColourName() << "'s turn."
@@ -89,6 +107,11 @@ void Game::beginTurn() {
             int diceResult =
                 allPlayers[curTurn]
                     .rollDice();  // what happens after rolled dice?
+            if (diceResult == 7) {
+                moveGeese();
+            } else {
+                gainResources(diceResult);
+            }
         } else {
             cout << "Invalid Command!";
             cout << "Try again with \"load\", \"fair\" or \"roll\"" << endl;

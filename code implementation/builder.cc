@@ -136,3 +136,15 @@ std::string Builder::getData() {
 
     return data;
 }
+
+int Builder::calculateResouceSum() {
+    int sum = 0;
+    for (int i : resources) {
+        sum += i;
+    }
+    return sum;
+}
+
+void Builder::modifiesResources(int res, int add) {
+    resources[res] += add;
+}
