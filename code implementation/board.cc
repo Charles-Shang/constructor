@@ -45,6 +45,10 @@ void setupVerticesAndEdges(std::vector<std::shared_ptr<Vertices>> &allVertices,
     }
 }
 
+void setupVerticesObservers(std::vector<std::shared_ptr<Vertices>> &all) {
+    for (size_t i = 0; i < all.size(); i++) all[i]->attachALL();
+}
+
 void Board::initBoard(int *resources, int *tileValues) {
     std::ifstream tileFile;
 
@@ -54,16 +58,17 @@ void Board::initBoard(int *resources, int *tileValues) {
         std::cerr << "Opening file tileVertices.txt failed." << std::endl;
     }
     int location;
+
+    // create all vertices and edges pointers
+    std::vector<std::shared_ptr<Vertices>> allVertices;
+    std::vector<std::shared_ptr<Edge>> allEdges;
+    setupVerticesAndEdges(allVertices, allEdges);
+    setupVerticesObservers(allVertices);
+
     for (int i = 0; i < 19; i++) {
         tileFile >> location;
         // add resources and values to tile
         Tile theTile{resources[i], i, tileValues[i]};
-
-        // create all vertices and edges pointers
-        std::vector<std::shared_ptr<Vertices>> allVertices;
-        std::vector<std::shared_ptr<Edge>> allEdges;
-
-        setupVerticesAndEdges(allVertices, allEdges);
 
         // read the vertices of this tile
         for (int vertexNum = 0; vertexNum < 6; ++vertexNum) {
@@ -155,7 +160,6 @@ bool Board::buildRoad(int location, int builder) {
     int tileNum = edgeToTile(location);
     return tiles[tileNum].addRoad(location, builder);
 }
-
 
 int Board::vertexToTile(int vertexLocation) {
     return verticeMap[vertexLocation].front();

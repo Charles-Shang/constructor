@@ -4,7 +4,7 @@
 class Observer {
    public:
     // update the availability of building residence for neighbour vertices
-    virtual void update();
+    virtual void notify();
     virtual ~Observer() = default;  // destructor
 };
 

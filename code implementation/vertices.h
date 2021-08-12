@@ -1,16 +1,15 @@
 #ifndef _VERTICES_H_
 #define _VERTICES_H_
 
-
 #include <memory>
 #include <vector>
 #include "edge.h"
-//#include "observer.h"
-//#include "subject.h"
+#include "observer.h"
+#include "subject.h"
 
 class Edge;
 
-class Vertices /*:  public Observer, public Subject */ {
+class Vertices : public Observer, public Subject {
     int location;  // location on the board
     // truth value of whether a residence can build at the location
     bool canBuildResidence;
@@ -24,12 +23,11 @@ class Vertices /*:  public Observer, public Subject */ {
              int _whichBuilder = -1);
     // build a residence (basement) at the location
     void addResidence(int builder);
-    // update the availability of building residence at the location
-    void updateAvailableResidence();
     // notify all neighbour to update the availability of building residences
     void notifyObservers();
     // update the availability of building residence for neighbour vertices
-    void update();
+    void notify();
+    void attachALL();
 
     void addEdgeNeighbour(const std::shared_ptr<Edge> &edge);
     bool checkCanBuildResidence();
