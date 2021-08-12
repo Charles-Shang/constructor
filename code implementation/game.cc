@@ -35,7 +35,8 @@ void loadFromLayout(Board &thisBoard, std::string fileName) {
 
 // void loadFromRandom(Board &thisBoard) {}
 
-void Game::initializeGame(int inputMode, std::string fileName, unsigned _seed) {
+void Game::initializeGame(int inputMode, std::string fileName,
+                          std::default_random_engine _rng) {
     /*
      * 1. -load
      * 2. -board
@@ -43,7 +44,7 @@ void Game::initializeGame(int inputMode, std::string fileName, unsigned _seed) {
      * 4. layout.txt
      */
 
-    seed = _seed;
+    seed = _rng;
 
     switch (inputMode) {
         default:
@@ -84,10 +85,7 @@ void Game::moveGeese() {
 
 }
 
-void Game::gainResources(int diceResult) {
-    
-    
-}
+void Game::gainResources(int diceResult) {}
 
 void Game::beginTurn() {
     thisBoard.printBoard();
