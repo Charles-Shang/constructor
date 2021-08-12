@@ -1,5 +1,7 @@
 #include "builder.h"
 
+Builder::Builder(unsigned _seed) : seed{_seed} {}
+
 int Builder::getColour() { return colour; }
 
 std::string Builder::getColourName() {
@@ -15,7 +17,27 @@ std::string Builder::getColourName() {
     }
 }
 
-// void Builder::rollDice() {}
+int Builder::rollDice() {
+    if (fairDice) {
+        int a = 2;  // random number
+        int b = 3;  // random number
+        return a + b;
+    } else {
+        while (true) {
+            std::cout << "Input a roll between 2 and 12:" << std::endl;
+            int rollNum;
+            try {
+                std::cin >> rollNum;
+            } catch (const std::exception& e) {
+                std::cerr << "Invalid roll" << std::endl;
+            }
+
+            if (2 <= rollNum && rollNum <= 12) break;
+        }
+    }
+}
+
+void Builder::switchFairDice(bool state) { fairDice = state; }
 
 // assume the residece at location is belong to the builder
 std::string Builder::upgradeResidence(int location) {

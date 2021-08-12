@@ -6,6 +6,7 @@
  */
 
 #include <stdio.h>
+#include <chrono>
 #include <fstream>
 #include <iostream>
 #include "game.h"
@@ -14,15 +15,62 @@ using std::cin;
 using std::string;
 
 int main(int argc, char* argv[]) {
-    if (argc != 2) {
-        std::cout << "Usage: " << argv[0] << " needs a layout.txt file."
-                  << std::endl;
-        return 1;
+    bool load = false, board = false, randomBoard = false;
+    std::string loadedFile, boardFile, finalFile = "layout.txt";
+    int decision = 4;
+
+    // unsigned seed =
+    // std::chrono::system_clock::now().time_since_epoch().count();
+    unsigned seed = 1000;
+
+    for (int i = 0; i < argc; i++) {
+        if (argv[i] == "seed") {
+            try {
+                seed = std::stoi(std::string{argv[++i]});
+            } catch (std::invalid_argument& e) {
+                std::cerr << e.what() << std::endl;
+                return 1;
+            } catch (std::out_of_range& e) {
+                std::cerr << e.what() << std::endl;
+                return -1;
+            }
+        } else if (argv[i] == "load") {
+            load = true;
+            std::cin >> loadedFile;
+        } else if (argv[i] == "board") {
+            board = true;
+            std::cin >> boardFile;
+        } else if (argv[i] == "random-board") {
+            decision = 3;
+            randomBoard = true;
+        }
+    }
+
+    if (load && board) {
+        while (true) {
+            std::cout << "Only 'load' or 'board', choose again." << std::endl;
+            std::string temp;
+            if (temp == "load") {
+                finalFile = loadedFile;
+                randomBoard = false;
+                decision = 1;
+                board = false;
+                break;
+            } else if (temp == "board") {
+                finalFile = boardFile;
+                randomBoard = false;
+                decision = 2;
+                load = false;
+                break;
+            }
+        }
     }
 
     Game g;
-    g.initializeGame(4, argv[1]);
+    g.initializeGame(decision, finalFile, seed);
+    // g.play();
 
+    // below command is only for temp use, will be delated eventually
     string command;
     while (true) {
         std::cin >> command;

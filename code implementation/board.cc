@@ -49,7 +49,7 @@ void setupVerticesObservers(std::vector<std::shared_ptr<Vertices>> &all) {
     for (size_t i = 0; i < all.size(); i++) all[i]->attachALL();
 }
 
-void Board::initBoard(int *resources, int *tileValues) {
+void Board::defaultInitBoard(int *resources, int *tileValues) {
     std::ifstream tileFile;
 
     try {

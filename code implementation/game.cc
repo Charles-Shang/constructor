@@ -7,12 +7,12 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-void loadFromLayout(Board& thisBoard, std::string fileName) {
+void loadFromLayout(Board &thisBoard, std::string fileName) {
     std::ifstream layoutFile;
 
     try {
         layoutFile = std::ifstream{fileName};
-    } catch (const std::exception& e) {
+    } catch (const std::exception &e) {
         std::cerr << "Opening file layout.txt failed." << endl;
     }
 
@@ -26,18 +26,26 @@ void loadFromLayout(Board& thisBoard, std::string fileName) {
         tileValues[i] = num;
     }
 
-    thisBoard.initBoard(resources, tileValues);
+    thisBoard.defaultInitBoard(resources, tileValues);
 }
 
-void Game::initializeGame(int inputReadMode, std::string fileName) {
+// void loadFromBoard(Board &thisBoard, std::string fileName) {}
+
+// void loadFromLoad(Board &thisBoard, std::string fileName) {}
+
+// void loadFromRandom(Board &thisBoard, std::string fileName) {}
+
+void Game::initializeGame(int inputMode, std::string fileName, unsigned _seed) {
     /*
-     * 1. -random-board
-     * 2. -load
-     * 3. -board
+     * 1. -load
+     * 2. -board
+     * 3. -random-board
      * 4. layout.txt
      */
 
-    switch (inputReadMode) {
+    seed = _seed;
+
+    switch (inputMode) {
         default:
             loadFromLayout(thisBoard, fileName);
             break;
@@ -58,7 +66,7 @@ void Game::printHelp() {
     cout << "help" << endl;
 }
 
-void Game::beginTurn(Builder curPlayer) {
+void Game::beginTurn(Builder &curPlayer) {
     thisBoard.printBoard();
     cout << "Builder " << curPlayer.getColourName() << "'s turn." << endl;
 
@@ -66,31 +74,32 @@ void Game::beginTurn(Builder curPlayer) {
     while (true) {
         try {
             cin >> cmd;
-        } catch (std::ios::failure&) {
+        } catch (std::ios::failure &) {
             if (cin.eof()) break;
             cin.clear();
             cin.ignore();
         }
 
         if (cmd == "load") {
-            break;
+            curPlayer.switchFairDice(false);
         } else if (cmd == "fair") {
-            break;
+            curPlayer.switchFairDice(true);
         } else if (cmd == "roll") {
-            curPlayer.rollDice();  // what happens after rolled dice?
-            break;
+            int diceResult =
+                curPlayer.rollDice();  // what happens after rolled dice?
         } else {
             cout << "Invalid Command!";
             cout << "Try again with \"load\", \"fair\" or \"roll\"" << endl;
         }
     }
 }
-void Game::duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers) {
+
+void Game::duringTheTurn(Builder &curPlayer, std::vector<Builder> &allPlayers) {
     std::string cmd;
     while (true) {
         try {
             cin >> cmd;
-        } catch (std::ios::failure&) {
+        } catch (std::ios::failure &) {
             if (cin.eof()) break;
             cin.clear();
             cin.ignore();
@@ -158,9 +167,10 @@ void Game::duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers) {
                 cout << "Builder " << curPlayer.getColourName() << " gained: ";
                 cout << "1 " << getResourceName(take) << ", lose 1 "
                      << getResourceName(give) << endl;
-                cout << "Builder " << allPlayers[colour].getColourName() << " gained: ";
+                cout << "Builder " << allPlayers[colour].getColourName()
+                     << " gained: ";
                 cout << "1 " << getResourceName(give) << ", lose 1 "
-                     << getResourceName(take) << endl;  
+                     << getResourceName(take) << endl;
             } else {
                 cout << "No builders gained resources." << endl;
             }
@@ -180,18 +190,19 @@ void Game::duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers) {
 
 std::string getResourceName(int resource) {
     if (resource == 0) {
-        return "Brick";
+        return "BRICK";
     } else if (resource == 1) {
-        return "Energy";
+        return "ENERGY";
     } else if (resource == 2) {
-        return "Glass";
+        return "GLASS";
     } else if (resource == 3) {
-        return "Heat";
+        return "HEAT";
     } else {
-        return "Wifi";
+        return "WIFI";
     }
 }
-void Game::beginGame(std::vector<Builder> allPlayers) {
+
+void Game::beginGame(std::vector<Builder> &allPlayers) {
     int location;
     for (int i = 0; i < 4; ++i) {
         cout << "Builder" << allPlayers[i].getColourName()
@@ -220,7 +231,7 @@ void Game::beginGame(std::vector<Builder> allPlayers) {
 }
 
 void Game::play() {
-    Builder Blue, Red, Orange, Yellow;
+    Builder Blue(seed), Red(seed), Orange(seed), Yellow(seed);
     std::vector<Builder> allPlayers = {Blue, Red, Orange, Yellow};
     int curPlayer = 0;  // reprents by color index
     // now start the game

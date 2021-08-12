@@ -12,7 +12,7 @@ class Board {
 
    public:
     // initialize the board
-    void initBoard(int *resources, int *tileValues);
+    void defaultInitBoard(int *resources, int *tileValues);
     void printBoard();  // display the board
 
     // testing functions
