@@ -17,14 +17,13 @@ std::string Builder::getColourName() {
 
 // void Builder::rollDice() {}
 
-int Builder::upgradeResidence(int location) {
-    int idx = 0;
-    for (auto res : builtLst) {
-        if (res.getLocation() == location) {
-            res.upgrade();
-            return idx;
+// assume the residece at location is belong to the builder
+std::string Builder::upgradeResidence(int location) {
+    for (auto residence : builtLst) {
+        if (residence.getLocation() == location) {
+            residence.upgrade();
+            return residence.getResType();
         }
-        ++idx;
     }
 }
 
@@ -42,8 +41,8 @@ void Builder::printRecentUpgrade(int idx) {
 
 void Builder::buildRoad(int location) {
     roadLst.emplace_back(location);
-    resources[3] -= 1;
-    resources[4] -= 1;
+    resources[3]--;
+    resources[4]--;
 }
 
 void Builder::buildResidence(int location) {
@@ -64,13 +63,10 @@ int Builder::calculatePoints() {
 }
 
 bool Builder::canBuildResidence() {
-    return (resources[0] >= 1 && resources[1] >= 1 && resources[2] >= 1 &&
-            resources[4] >= 1);
+    return (resources[0] && resources[1] && resources[2] && resources[4]);
 }
 
-bool Builder::canBuildRoad() {
-    return (resources[3] >= 1 && resources[4] >= 1);
-}
+bool Builder::canBuildRoad() { return (resources[3] && resources[4]); }
 
 bool Builder::canUpgrade(int location) {
     if (builtLst[location].getLevel() == 0) {
@@ -83,12 +79,10 @@ bool Builder::canUpgrade(int location) {
 }
 
 bool Builder::haveResidence(int location) {
-    int length = builtLst.size();
-    for (int i = 0; i < length; ++i) {
-        if (builtLst[i].getLocation() == location) {
-            return true;
-        }
-    }
+    for (size_t i = 0; i < builtLst.size(); i++)
+        if (builtLst[i].getLocation() == location) return true;
+
+    return false;
 }
 
 bool Builder::highestLevel(int location) {

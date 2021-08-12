@@ -24,12 +24,12 @@ bool Edge::addRoad(int builder) {
         hasRoad = true;
         whichBuilder = builder;
         canBuildRoad = false;
-        updateAvailableRoad();
     } else {
         return false;
     }
 }
 
+// 这个还没完善，得检查是不是真的可以
 bool Edge::getCanBuildRoad() {
     return canBuildRoad;
 }

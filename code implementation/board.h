@@ -19,7 +19,7 @@ class Board {
     void displayTile();
     void displayConnections();
     bool buildRoad(int location, int builder);
-    bool buildResidence(int location, int builder);
+    bool buildRes(int location, int builder);
     int vertexToTile(int vertexLocation);
     int edgeToTile(int edgeLocation);
 };

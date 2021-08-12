@@ -25,7 +25,8 @@ class Builder {
     // roll the dice (apply algorithms based on whether user has a fair dice)
     void rollDice();
     // if possible, upgrade the cuurent residence to the next level
-    int upgradeResidence(int location); // return the idx of the residence in builtLst
+    // return the type of the upgraded residence in builtLst
+    std::string upgradeResidence(int location); 
     void printStatus();
     void printResidence();         // display built residence
     void buildRoad(int location);  // build a road at the location

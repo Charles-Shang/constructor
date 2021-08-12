@@ -70,7 +70,7 @@ void Game::beginTurn(Builder curPlayer) {
             std::cin.clear();
             std::cin.ignore();
         }
-        
+
         if (cmd == "load") {
             break;
         } else if (cmd == "fair") {
@@ -105,43 +105,38 @@ void Game::duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers) {
             int roadNum = 0;
             std::cin >> roadNum;
             if (!curPlayer.canBuildRoad()) {
-                cout << "You do not have enough resources" << endl;
+                cout << "You do not have enough resources." << endl;
             } else if (thisBoard.buildRoad(roadNum, curPlayer.getColour())) {
                 curPlayer.buildRoad(roadNum);
                 cout << curPlayer.getColourName();
-                cout << " has built: a road at" << roadNum << endl;
+                cout << " has built: a road at " << roadNum << endl;
             } else {
                 cout << "You cannot build here." << endl;
             }
         } else if (cmd == "build-res") {
-            int housingNum = 0;
-            std::cin >> housingNum;
+            int location = 0;
+            std::cin >> location;
             if (!curPlayer.canBuildResidence()) {
-                cout << "You do not have enough resources";
-            } else if (thisBoard.buildResidence(housingNum,
-                                                curPlayer.getColour())) {
-                curPlayer.buildResidence(housingNum);
+                cout << "You do not have enough resources.";
+            } else if (thisBoard.buildRes(location, curPlayer.getColour())) {
+                curPlayer.buildResidence(location);
                 cout << curPlayer.getColourName();
-                cout << " has built: a basement at" << housingNum << endl;
+                cout << " has built: a basement at " << location << endl;
             } else {
                 cout << "You cannot build here." << endl;
             }
         } else if (cmd == "improve") {
-            int housingNum = 0;
-            std::cin >> housingNum;
-            if (!curPlayer.haveResidence(housingNum)) {
-                cout << "You do not have a residence at " << housingNum << endl;
-            } else if (!curPlayer.canUpgrade(housingNum)) {
-                cout << "You do not have enough resources" << endl;
-            } else if (curPlayer.highestLevel(housingNum)) {
-                cout << "Your residence is already at the highest level"
-                     << endl;
+            int location = 0;
+            std::cin >> location;
+            if (!curPlayer.haveResidence(location)) {
+                cout << "You do not have a residence at " << location << endl;
+            } else if (!curPlayer.canUpgrade(location)) {
+                cout << "You do not have enough resources." << endl;
+            } else if (curPlayer.highestLevel(location)) {
+                cout << "The residence is at the highest level." << endl;
             } else {
-                int idx = curPlayer.upgradeResidence(housingNum);
-                cout << curPlayer.getColourName();
-                cout << " has a level ";
-                curPlayer.printRecentUpgrade(idx);
-                cout << "residence at " << housingNum << endl;
+                cout << "The residence at " << location << " is now a ";
+                cout << curPlayer.upgradeResidence(location) << endl;
             }
         } else if (cmd == "trade") {
             int colour;

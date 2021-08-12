@@ -146,7 +146,7 @@ void Board::displayConnections() {
     }
 }
 
-bool Board::buildResidence(int location, int builder) {
+bool Board::buildRes(int location, int builder) {
     int tileNum = vertexToTile(location);
     return tiles[tileNum].addResidence(location, builder);
 }

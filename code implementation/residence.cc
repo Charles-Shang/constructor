@@ -25,10 +25,10 @@ std::string Residence::getResType(){
     switch (level)
     {
     case 0:
-        return "BASEMENT";
+        return "B";
     case 1:
-        return "HOUSE";
+        return "H";
     default:
-        return "TOWER";
+        return "T";
     }
 }
