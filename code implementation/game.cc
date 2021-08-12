@@ -198,26 +198,26 @@ void Game::play() {
     }
 }
 
-// void Game::newMain() {
-//     char cmd;
-//     while (true) {
-//         std::cin >> cmd;
-//         if (cmd == 'b') {
-//             thisBoard.printBoard();
-//         } else if (cmd == 't') {
-//             thisBoard.displayTile();
-//         } else if (cmd == 'c') {
-//             thisBoard.displayConnections();
-//         } else if (cmd == 'm') {
-//             for (int i = 0; i < 53; i++)
-//                 std::cout << thisBoard.vertexToTile(i) << " ";
+void Game::newMain() {
+    char cmd;
+    while (true) {
+        std::cin >> cmd;
+        if (cmd == 'b') {
+            thisBoard.printBoard();
+        } else if (cmd == 't') {
+            thisBoard.displayTile();
+        } else if (cmd == 'c') {
+            thisBoard.displayConnections();
+        } else if (cmd == 'm') {
+            for (int i = 0; i < 53; i++)
+                std::cout << thisBoard.vertexToTile(i) << " ";
 
-//             std::cout << std::endl;
+            std::cout << std::endl;
 
-//             for (int i = 0; i < 72; i++)
-//                 std::cout << thisBoard.edgeToTile(i) << " ";
+            for (int i = 0; i < 72; i++)
+                std::cout << thisBoard.edgeToTile(i) << " ";
 
-//             std::cout << std::endl;
-//         }
-//     }
-// }
+            std::cout << std::endl;
+        }
+    }
+}
