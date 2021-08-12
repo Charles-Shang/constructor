@@ -102,15 +102,36 @@ void Game::duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers) {
         } else if (cmd == "build-road") {
             int roadNum = 0;
             std::cin >> roadNum;
-            curPlayer.buildRoad(roadNum);
+            if (!thisBoard.buildRoad(roadNum, curPlayer.getColour())) {
+                std::cout << "You cannot build here." << std::endl;
+            } else if (curPlayer.canBuildRoad()) {
+                curPlayer.buildRoad(roadNum);
+            } else {
+                std::cout << "You do not have enough resources" << std::endl;
+            }
         } else if (cmd == "build-res") {
             int housingNum = 0;
             std::cin >> housingNum;
-            curPlayer.buildResidence(housingNum);
+            if (!thisBoard.buildResidence(housingNum, curPlayer.getColour())) {
+                std::cout << "You cannot build here.";
+            } else if (curPlayer.canBuildResidence()) {
+                curPlayer.buildResidence(housingNum);
+            } else {
+                std::cout << "You do not have enough resources" << std::endl;
+            }
         } else if (cmd == "improve") {
             int housingNum = 0;
             std::cin >> housingNum;
-            curPlayer.upgradeResidence(housingNum);
+            if (!curPlayer.haveResidence(housingNum)) {
+                std::cout << "You do not have a residence at " << housingNum
+                          << std::endl;
+            } else if (!curPlayer.canUpgrade(housingNum)) {
+                std::cout << "You do not have enough resources" << std::endl;
+            } else if (curPlayer.highestLevel(housingNum)) {
+                std::cout << "Your residence is already at the highest level" << std::endl;
+            } else {
+                curPlayer.upgradeResidence(housingNum);
+            } 
         } else if (cmd == "trade") {
             int colour;
             int give;
