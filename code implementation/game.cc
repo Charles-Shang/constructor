@@ -317,16 +317,22 @@ void Game::duringTheTurn() {
             std::string answer;
             cin >> answer;
             if (answer == "yes") {
-                allPlayers[curTurn].trade(give, take);
-                allPlayers[colour].trade(take, give);
-                cout << "Builder " << allPlayers[curTurn].getColourName()
-                     << " gained: ";
-                cout << "1 " << getRssType(take) << ", lose 1 "
-                     << getRssType(give) << endl;
-                cout << "Builder " << allPlayers[colour].getColourName()
-                     << " gained: ";
-                cout << "1 " << getRssType(give) << ", lose 1 "
-                     << getRssType(take) << endl;
+                if (allPlayers[curTurn].getRss(give) >= 1 &&
+                    allPlayers[colour].getRss(take) >= 1) {
+                    allPlayers[curTurn].trade(give, take);
+                    allPlayers[colour].trade(take, give);
+                    cout << "Builder " << allPlayers[curTurn].getColourName()
+                         << " gained: ";
+                    cout << "1 " << getRssType(take) << ", lose 1 "
+                         << getRssType(give) << endl;
+                    cout << "Builder " << allPlayers[colour].getColourName()
+                         << " gained: ";
+                    cout << "1 " << getRssType(give) << ", lose 1 "
+                         << getRssType(take) << endl;
+                } else {
+                    cout << "You do not have enough resources to trade."
+                         << endl;
+                }
             } else {
                 cout << "No builders gained resources." << endl;
             }

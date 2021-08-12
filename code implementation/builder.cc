@@ -222,3 +222,12 @@ std::string Builder::getRoadDisplayOnBoard(int edgeLocation)
     return data;
     
 }
+
+void Builder::trade(int give, int take) {
+    resources[give]--;
+    resources[take]++;
+}
+
+int Builder::getRss(int rss) {
+    return resources[rss];
+}

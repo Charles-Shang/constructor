@@ -53,6 +53,7 @@ class Builder {
     std::string getData();
     std::vector<int> listAllRss();
     int getResLevelOnVertex(int vertexNum);
+    int getRss(int rss);
 
 
     std::string colourShortName();
