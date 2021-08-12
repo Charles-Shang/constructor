@@ -1,17 +1,17 @@
 #ifndef _BUILDER_H_
 #define _BUILDER_H_
 
-#include <random>
 #include <algorithm>
 #include <iostream>
+#include <random>
 #include <vector>
 #include "residence.h"
 
 class Builder {
-    std::default_random_engine seed;
     // the color of the builder (0 - blue, 1 - red, 2 - orange, 3 - yellow)
     int colour;
     bool fairDice;  // truth value for the builder's dice being a fair dice
+    std::default_random_engine seed;
     std::vector<Residence> builtLst;  // a vector list of built residence
     std::vector<int> roadLst;
     /* a vector list of resources owned
@@ -21,7 +21,7 @@ class Builder {
     std::vector<int> resources;
 
    public:
-    Builder(std::default_random_engine _rng);
+    Builder(int _colour, std::default_random_engine _rng);
     int getColour();
     std::string getColourName();
     // roll the dice (apply algorithms based on whether user has a fair dice)
@@ -55,11 +55,9 @@ class Builder {
     int getResLevelOnVertex(int vertexNum);
     int getRss(int rss);
 
-
     std::string colourShortName();
     std::string getResDisplayOnBoard(int vertixLocation);
     std::string getRoadDisplayOnBoard(int edgeLocation);
-
 };
 
 #endif

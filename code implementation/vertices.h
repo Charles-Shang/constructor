@@ -32,7 +32,7 @@ class Vertices : public Observer, public Subject {
     void addEdgeNeighbour(const std::shared_ptr<Edge> &edge);
     bool checkCanBuildResidence();
     int getWhichBuilder();
-    std::vector<std::shared_ptr<Edge>> getConnectedEdges();
+    std::vector<std::shared_ptr<Edge>> &getConnectedEdges();
 
     // testing
     int getLocation();

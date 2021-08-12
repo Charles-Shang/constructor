@@ -1,6 +1,7 @@
 #include "builder.h"
 
-Builder::Builder(std::default_random_engine _rng) : seed{_rng} {}
+Builder::Builder(int _colour, std::default_random_engine _rng)
+: colour{_colour}, fairDice{false}, seed{_rng} {}
 
 int Builder::getColour() { return colour; }
 

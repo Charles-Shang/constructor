@@ -6,15 +6,11 @@ Vertices::Vertices(int _location, bool _canBuildResidence, int _whichBuilder)
       canBuildResidence{_canBuildResidence},
       whichBuilder{_whichBuilder} {}
 
+// assume can build
 void Vertices::addResidence(int builder) {
-    if (canBuildResidence) {
-        canBuildResidence = false;
-        whichBuilder = builder;
-        notifyObservers();
-    } else {
-        std::cout << "You cannot build residence at this location" << std::endl;
-        return;
-    }
+    canBuildResidence = false;
+    whichBuilder = builder;
+    notifyObservers();
 }
 
 void Vertices::addEdgeNeighbour(const std::shared_ptr<Edge> &edge) {
@@ -42,10 +38,11 @@ void Vertices::notify() { canBuildResidence = false; }
 
 void Vertices::attachALL() {
     for (auto edge : connectedEdges)
-        for (auto vertix : edge->getVerticeNeighbour()) attach(vertix);
+        for (auto vertex : edge->getVerticeNeighbour())
+            if (vertex->getLocation() != location) attach(vertex);
 }
 
-std::vector<std::shared_ptr<Edge>> Vertices::getConnectedEdges() {
+std::vector<std::shared_ptr<Edge>> &Vertices::getConnectedEdges() {
     return connectedEdges;
 }
 

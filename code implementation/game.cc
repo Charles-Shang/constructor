@@ -371,19 +371,24 @@ void Game::saveGame() {
 
 void Game::beginGame() {
     int location;
-    
-    for (int i = 0; i < 4; ++i) {
+
+    for (int i = 0; i < 4; i++) {
         cout << "Builder " << allPlayers[i].getColourName()
              << ", where do you want to build a basement?" << endl;
-        cin >> location;
-        if (thisBoard.buildRes(location, allPlayers[i].getColour())) {
-            allPlayers[i].buildResidence(location, true);
-            cout << allPlayers[i].getColourName();
-            cout << " has built: a basement at " << location << endl;
-        } else {
-            cout << "You cannot build here." << endl;
+        while (true) {
+            cin >> location;
+            if (thisBoard.buildRes(location, allPlayers[i].getColour())) {
+                allPlayers[i].buildResidence(location, true);
+                cout << allPlayers[i].getColourName();
+                cout << " has built: a basement at " << location << endl;
+                break;
+            } else {
+                cout << "You cannot build here. Try again!" << endl;
+            }
         }
     }
+
+    cout << " --------- First Round build Ends --------- " << endl;
 
     for (int i = 3; i >= 0; --i) {
         cout << "Builder" << allPlayers[i].getColourName()
@@ -400,7 +405,7 @@ void Game::beginGame() {
 }
 
 void Game::play() {
-    Builder Blue(seed), Red(seed), Orange(seed), Yellow(seed);
+    Builder Blue(0, seed), Red(1, seed), Orange(2, seed), Yellow(3, seed);
     allPlayers = {Blue, Red, Orange, Yellow};
     curTurn = 0;  // reprents by color index
     // now start the game
@@ -446,6 +451,13 @@ void Game::newMain() {
 
             for (int i = 0; i < 72; i++) cout << thisBoard.edgeToTile(i) << " ";
             cout << endl;
+        } else if (cmd == 'a') {
+            Builder Blue(0, seed), Red(1, seed), Orange(2, seed),
+                Yellow(3, seed);
+            allPlayers = {Blue, Red, Orange, Yellow};
+            for (size_t i = 0; i < allPlayers.size(); i++) {
+                cout << allPlayers[i].getColourName() << endl;
+            }
         }
     }
 }
