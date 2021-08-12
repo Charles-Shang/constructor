@@ -36,3 +36,7 @@ void Vertices::displayNeighbourEdges() {
 bool Vertices::checkCanBuildResidence() {
     return canBuildResidence;
 }
+
+std::vector<std::shared_ptr<Edge>> Vertices::getConnectedEdges() {
+    return connectedEdges;
+}

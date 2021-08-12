@@ -28,14 +28,27 @@ bool Edge::addRoad(int builder) {
     }
 }
 
-// 这个还没完善，得检查是不是真的可以
-bool Edge::checkCanBuildRoad(int color) {
-
+bool Edge::checkCanBuildRoad(int colour) {
     if (hasRoad) return false;
-
-
-    
-
-
-    return true;
+    for (auto nbrVertices : connectedVertices) {
+        if (nbrVertices->getWhichBuilder() == colour) {
+            return true;  // if one of the neighbour vertices is the same colour
+        } else {
+            for (auto nbrVertices : connectedVertices) {
+                for (auto nbrEdges : nbrVertices->getConnectedEdges()) {
+                    if (nbrEdges->getWhichBuilder() == whichBuilder &&
+                        nbrEdges->getLocation() != location) {
+                        if ((nbrVertices->getWhichBuilder() == -1) ||
+                            nbrVertices->getWhichBuilder() == whichBuilder) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
 }
+
+
+int Edge::getWhichBuilder() { return whichBuilder; }
