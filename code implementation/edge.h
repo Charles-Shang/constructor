@@ -22,6 +22,7 @@ class Edge {
     bool checkCanBuildRoad(int colour);
     // add edge neighbours of vertices
     void addVerticeNeighbour(const std::shared_ptr<Vertices> &vertice);
+    int getWhichBuilder();
 
     // testing functions
     int getLocation();

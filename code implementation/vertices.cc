@@ -44,3 +44,7 @@ void Vertices::attachALL() {
     for (auto edge : connectedEdges)
         for (auto vertix : edge->getVerticeNeighbour()) attach(vertix);
 }
+
+std::vector<std::shared_ptr<Edge>> Vertices::getConnectedEdges() {
+    return connectedEdges;
+}
