@@ -1,6 +1,8 @@
 #ifndef _RESIDENCE_H_
 #define _RESIDENCE_H_
 
+#include <string>
+
 class Residence {
     int location;
     int level;  // the level of residence (0 - basement, 1 - house, 2 - tower)

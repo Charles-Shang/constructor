@@ -57,6 +57,8 @@ std::string Builder::upgradeResidence(int location) {
             return residence.getResType();
         }
     }
+
+    return "you should not see this"; // this should not be reached
 }
 
 void Builder::printStatus() {
@@ -166,6 +168,8 @@ int Builder::getResLevelOnVertex(int vertexNum) {
             return res.getBuildingPoints();
         }
     }
+
+    return 99999; // this should not be reached
 }
 
 std::string Builder::colourShortName() {

@@ -23,6 +23,7 @@ bool Edge::addRoad(int builder) {
     if (!hasRoad) {
         hasRoad = true;
         whichBuilder = builder;
+        return true;
     } else {
         return false;
     }
