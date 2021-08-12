@@ -19,7 +19,7 @@ std::string Builder::getColourName() {
 
 int Builder::rollDice() {
     if (fairDice) {
-        std::vector<int> diceValue = {1, 2, 3, 4 ,5, 6};
+        std::vector<int> diceValue = {1, 2, 3, 4, 5, 6};
         std::shuffle(diceValue.begin(), diceValue.end(), seed);
         int a = diceValue[0];
         std::shuffle(diceValue.begin(), diceValue.end(), seed);
@@ -142,12 +142,19 @@ std::string Builder::getData() {
 
 int Builder::calculateResouceSum() {
     int sum = 0;
-    for (int i : resources) {
-        sum += i;
-    }
+    for (int i : resources) sum += i;
     return sum;
 }
 
-void Builder::modifiesResources(int res, int add) {
-    resources[res] += add;
+void Builder::modifiesResources(int res, int add) { resources[res] += add; }
+
+std::vector<int> Builder::listAllRss() {
+    std::vector<int> rssLst;
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < resources[i]; j++) {
+            rssLst.emplace_back(i);
+        }
+    }
+
+    return rssLst;
 }

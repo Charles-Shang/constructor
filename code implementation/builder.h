@@ -51,8 +51,10 @@ class Builder {
     void trade(int give, int take);
     int calculateResouceSum();
     void modifiesResources(int res, int add);
-
     std::string getData();
+    std::vector<int> listAllRss();
+
+
 };
 
 #endif

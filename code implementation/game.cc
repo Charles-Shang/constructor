@@ -67,22 +67,50 @@ void Game::printHelp() {
     cout << "help" << endl;
 }
 
+std::string getRssType(int type) {
+    switch (type) {
+        case 0:
+            return "BRICK";
+        case 1:
+            return "ENERGY";
+        case 2:
+            return "GLASS";
+        case 3:
+            return "HEAT";
+        case 4:
+            return "WIFI";
+        default:
+            return "PARK";
+    }
+}
+
 void Game::moveGeese() {
     // everyone randomly lose resources
     for (auto curPlayer : allPlayers) {
-        if (curPlayer.calculateResouceSum() >= 10) {
-            int lose = curPlayer.calculateResouceSum() / 2;
+        int totalRss = curPlayer.calculateResouceSum();
+        if (totalRss >= 10) {
+            int lose = totalRss / 2;
             cout << "Builder " << curPlayer.getColourName() << " loses " << lose
                  << " resources to the geese. They lose:" << endl;
+
+            std::vector<int> lostList = {0, 0, 0, 0, 0};
+            std::vector<int> rssLst = curPlayer.listAllRss();
             for (int i = 0; i < lose; ++i) {
-                int resource = 2;  // random number between 0-4
-                curPlayer.modifiesResources(resource, -1);
+                std::shuffle(rssLst.begin(), rssLst.end(), seed);
+                int index = rssLst[0];
+                curPlayer.modifiesResources(index, -1);
+                lostList[index]++;
+                rssLst.erase(rssLst.begin());
             }
+
+            for (int i = 0; i < 5; i++)
+                cout << lostList[i] << " " << getResourceName(i) << endl;
+        
+        
         }
     }
     // move Geese
     cout << "Choose where to place the GEESE." << endl;
-
 }
 
 void Game::gainResources(int diceResult) {}
