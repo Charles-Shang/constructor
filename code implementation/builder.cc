@@ -55,7 +55,13 @@ std::string Builder::upgradeResidence(int location) {
     }
 }
 
-void Builder::printStatus() {}
+void Builder::printStatus() {
+    std::cout << getColourName() << " has " << calculatePoints()
+              << " building points, " << resources[0] << " brick, "
+              << resources[1] << " energy, " << std::endl;
+    std::cout << resources[2] << " glass, " << resources[3] << " head, and "
+              << resources[3] << "WiFi." << std::endl;
+}
 
 void Builder::printResidence() {
     std::cout << getColourName() << " has built:" << std::endl;
