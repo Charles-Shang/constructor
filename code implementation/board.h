@@ -13,7 +13,7 @@ class Board {
    public:
     // initialize the board
     void defaultInitBoard(int *resources, int *tileValues);
-    void printBoard();  // display the board
+    
 
     // testing functions
     void displayTile();
@@ -30,6 +30,11 @@ class Board {
 
     void transferGeese(int current, int destination);
     std::vector<int> tileValToNum(int value);
+
+
+    int getTileValueAtLocation(int location);
+    std::string getTileTypeAtLocation(int location);
+    bool getTileHasGeeseAtLocation(int location);
 
 };
 

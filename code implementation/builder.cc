@@ -167,3 +167,54 @@ int Builder::getResLevelOnVertex(int vertexNum) {
         }
     }
 }
+
+std::string Builder::colourShortName() {
+    switch (colour) {
+        case 0:
+            return "B";
+        case 1:
+            return "R";
+        case 2:
+            return "O";
+        default:
+            return "Y";
+    }
+}
+
+std::string Builder::getResDisplayOnBoard(int vertixLocation)
+{
+
+    std::string data = "";
+    for (size_t i = 0; i < builtLst.size(); i++)
+    {
+        if(builtLst[i].getLocation() == vertixLocation)
+        {
+            data += colourShortName() + builtLst[i].getResType();
+            return data;
+        }
+    }
+
+    if (vertixLocation <= 9) data += " ";
+    data += std::to_string(vertixLocation);
+    return data;
+    
+}
+
+std::string Builder::getRoadDisplayOnBoard(int edgeLocation)
+{
+
+    std::string data = "";
+    for (size_t i = 0; i < roadLst.size(); i++)
+    {
+        if(roadLst[i] == edgeLocation)
+        {
+            data += colourShortName() + "R";
+            return data;
+        }
+    }
+
+    if (edgeLocation <= 9) data += " ";
+    data += std::to_string(edgeLocation);
+    return data;
+    
+}

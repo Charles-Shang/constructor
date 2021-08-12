@@ -25,6 +25,14 @@ class Game {
     // testing
     void newMain();
     void saveGame();
+
+    void printBoard();  // display the board
+
+    std::string resBuiltInWhichColour(int location);
+    std::string roadBuiltInWhichColour(int location);
+
 };
+
+
 
 #endif

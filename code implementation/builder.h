@@ -55,6 +55,11 @@ class Builder {
     std::vector<int> listAllRss();
     int getResLevelOnVertex(int vertexNum);
 
+
+    std::string colourShortName();
+    std::string getResDisplayOnBoard(int vertixLocation);
+    std::string getRoadDisplayOnBoard(int edgeLocation);
+
 };
 
 #endif

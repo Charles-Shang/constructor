@@ -203,7 +203,8 @@ void Game::gainResources(int diceResult) {
         std::vector<int> locationLst = thisBoard.getResLocOnTile(curTile);
         int idx = 0;
         for (int player : playerLst) {
-            int level = allPlayers[player].getResLevelOnVertex(locationLst[idx]);
+            int level =
+                allPlayers[player].getResLevelOnVertex(locationLst[idx]);
             allPlayers[player].modifiesResources(rss, level);
             ++idx;
         }
@@ -211,7 +212,7 @@ void Game::gainResources(int diceResult) {
 }
 
 void Game::beginTurn() {
-    thisBoard.printBoard();
+    printBoard();
     cout << "Builder " << allPlayers[curTurn].getColourName() << "'s turn."
          << endl;
 
@@ -257,7 +258,7 @@ void Game::duringTheTurn() {
         }
 
         if (cmd == "board") {
-            thisBoard.printBoard();
+            printBoard();
         } else if (cmd == "status") {
             for (int i = 0; i < 4; ++i) allPlayers[i].printStatus();
         } else if (cmd == "residences") {
@@ -424,7 +425,7 @@ void Game::newMain() {
     while (true) {
         cin >> cmd;
         if (cmd == 'b') {
-            thisBoard.printBoard();
+            printBoard();
         } else if (cmd == 't') {
             thisBoard.displayTile();
         } else if (cmd == 'c') {
@@ -438,4 +439,89 @@ void Game::newMain() {
             cout << endl;
         }
     }
+}
+
+// format tile's value with approporiate spacing and output to standard output
+void printTileType(std::string tileTypeName) {
+    std::string blank = "   ";
+    std::cout << tileTypeName << blank.substr(0, 6 - tileTypeName.size());
+}
+
+// format tile's type with approporiate spacing and output to standard output
+void printTileValue(int tileValue) {
+    if (tileValue < 10) std::cout << " ";
+    std::cout << tileValue;
+}
+
+// display the board
+void Game::printBoard() {
+    std::ifstream boardFile;
+
+    try {
+        boardFile = std::ifstream{"boardTemplate.txt"};
+    } catch (const std::exception &e) {
+        std::cerr << "Opening file boardTemplate.txt failed." << std::endl;
+    }
+
+    int typeCount = 0, valueCount = 0, geeseCount = 0;
+    int vertixCount = 0, edgeCount = 0;
+    char c;
+
+    while (true) {
+        boardFile >> c;
+        if (boardFile.eof()) break;
+
+        if (c == 'T') {  // T for Type
+            boardFile >> c >> c >> c >> c >> c;
+            printTileType(thisBoard.getTileTypeAtLocation(typeCount++));
+        } else if (c == 'V') {  // V for Value
+            boardFile >> c;
+            printTileValue(thisBoard.getTileValueAtLocation(typeCount++));
+        } else if (c == 'G') {  // G for Geese
+            boardFile >> c >> c >> c >> c >> c;
+            if (!thisBoard.getTileHasGeeseAtLocation(geeseCount++)) {
+                std::cout << "      ";
+            } else {
+                std::cout << "GEESE ";
+            }
+        } else if (c == ',') {  // , for new line
+            std::cout << std::endl;
+        } else if (c == '_') {  // _ for space
+            std::cout << " ";
+        } else if (c == 'X') {
+            boardFile >> c;
+            cout << resBuiltInWhichColour(vertixCount++);
+        } else if (c == 'Y') {
+            boardFile >> c;
+            cout << roadBuiltInWhichColour(edgeCount++);
+        } else {
+            std::cout << c;
+        }
+    }
+}
+
+std::string Game::resBuiltInWhichColour(int location) {
+    std::string temp = "";
+    if (location <= 9) temp += " ";
+    temp += std::to_string(location);
+
+    for (size_t i = 0; i < allPlayers.size(); i++) {
+        std::string newTemp = allPlayers[i].getResDisplayOnBoard(location);
+        if (newTemp != temp) return newTemp;
+    }
+
+    return temp;
+}
+
+std::string Game::roadBuiltInWhichColour(int location) {
+    std::string temp = "";
+    if (location <= 9) temp += " ";
+    temp += std::to_string(location);
+
+    for (size_t i = 0; i < allPlayers.size(); i++) {
+        std::string newTemp = allPlayers[i].getRoadDisplayOnBoard(location);
+        if (newTemp != temp) return newTemp;
+    }
+
+    return temp;
 }
