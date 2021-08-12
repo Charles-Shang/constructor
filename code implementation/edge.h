@@ -10,7 +10,6 @@ class Vertices;
 class Edge {
     int location;      // location on the board
     bool hasRoad;      // truth value for whether a road is built
-    bool canBuildRoad;
     int whichBuilder;  // which builder built the road
     // vector list of shared pointer of vertices that are neighbours of edge
     std::vector<std::shared_ptr<Vertices>> connectedVertices;

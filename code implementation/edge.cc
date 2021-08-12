@@ -20,10 +20,9 @@ void Edge::displayNeighbourVertices() {
 }
 
 bool Edge::addRoad(int builder) {
-    if (canBuildRoad) {
+    if (!hasRoad) {
         hasRoad = true;
         whichBuilder = builder;
-        canBuildRoad = false;
     } else {
         return false;
     }
@@ -31,5 +30,10 @@ bool Edge::addRoad(int builder) {
 
 // 这个还没完善，得检查是不是真的可以
 bool Edge::checkCanBuildRoad() {
-    return canBuildRoad;
+
+    if (hasRoad) return false;
+    
+
+
+    return true;
 }
