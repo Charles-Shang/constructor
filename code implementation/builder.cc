@@ -36,7 +36,7 @@ int Builder::rollDice() {
             }
 
             if (2 <= rollNum && rollNum <= 12)
-                break;
+                return rollNum;
             else
                 std::cout << "Invalid roll" << std::endl;
         }
