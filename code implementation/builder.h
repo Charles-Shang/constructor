@@ -1,6 +1,7 @@
 #ifndef _BUILDER_H_
 #define _BUILDER_H_
 
+#include <random>
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -8,7 +9,7 @@
 #include "residence.h"
 
 class Builder {
-    unsigned seed;
+    std::default_random_engine seed;
     // the color of the builder (0 - blue, 1 - red, 2 - orange, 3 - yellow)
     int colour;
     bool fairDice;  // truth value for the builder's dice being a fair dice
@@ -21,7 +22,7 @@ class Builder {
     std::vector<int> resources;
 
    public:
-    Builder(unsigned _seed);
+    Builder(std::default_random_engine _rng);
     int getColour();
     std::string getColourName();
     // roll the dice (apply algorithms based on whether user has a fair dice)

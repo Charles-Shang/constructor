@@ -1,6 +1,6 @@
 #include "builder.h"
 
-Builder::Builder(unsigned _seed) : seed{_seed} {}
+Builder::Builder(std::default_random_engine _rng) : seed{_rng} {}
 
 int Builder::getColour() { return colour; }
 
@@ -19,8 +19,11 @@ std::string Builder::getColourName() {
 
 int Builder::rollDice() {
     if (fairDice) {
-        int a = 2;  // random number
-        int b = 3;  // random number
+        std::vector<int> diceValue = {1, 2, 3, 4 ,5, 6};
+        std::shuffle(diceValue.begin(), diceValue.end(), seed);
+        int a = diceValue[0];
+        std::shuffle(diceValue.begin(), diceValue.end(), seed);
+        int b = diceValue[0];
         return a + b;
     } else {
         while (true) {

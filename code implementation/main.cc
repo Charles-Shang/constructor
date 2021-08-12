@@ -6,6 +6,7 @@
  */
 
 #include <stdio.h>
+#include <random>
 #include <chrono>
 #include <fstream>
 #include <iostream>
@@ -66,8 +67,10 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    std::default_random_engine rng{seed};
+
     Game g;
-    g.initializeGame(decision, finalFile, seed);
+    g.initializeGame(decision, finalFile, rng);
     // g.play();
 
     // below command is only for temp use, will be delated eventually
