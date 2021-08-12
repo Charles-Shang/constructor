@@ -22,8 +22,8 @@ class Tile {
     std::string getTileType();
     int getTileValue();
     bool getHasGeese();
-    void addVertices(const std::shared_ptr<Vertices> &vertice);
-    void addEdge(const std::shared_ptr<Edge> &edge);
+    void addVertices(std::shared_ptr<Vertices> &vertice);
+    void addEdge(std::shared_ptr<Edge> &edge);
     int getType();
 
     // testing function
@@ -32,9 +32,11 @@ class Tile {
 
     bool addRoad(int location, int builder);
     bool addResidence(int location, int builder);
-    std::vector<int> playersResources();
+    std::vector<int> getAllPlayOnTheTile();
 
     std::string getData();
+
+    void updateGeese(bool state);
 };
 
 #endif

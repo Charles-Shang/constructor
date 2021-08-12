@@ -105,20 +105,45 @@ void Game::moveGeese() {
 
             for (int i = 0; i < 5; i++)
                 cout << lostList[i] << " " << getResourceName(i) << endl;
-        
-        
         }
     }
     // move Geese
     cout << "Choose where to place the GEESE." << endl;
+
+    int desitation, current = thisBoard.whichHasGeese();
+    while (true) {
+        try {
+            std::cin >> desitation;
+        } catch (const std::exception &e) {
+            cout << "Invalid Number. Try again with 0-18!" << endl;
+            continue;
+        }
+
+        if (!(0 <= desitation && desitation <= 18)) {
+            cout << "Invalid Number. Try again with 0-18!" << endl;
+            continue;
+        } else if (desitation == current) {
+            cout << "Cannot choose the current (" << current << ")" << endl;
+            continue;
+        }
+
+        break;
+    }
+
+    thisBoard.transferGeese(current, desitation);
+    cout << "Now Geese is at tile " << desitation << "." << endl;
+
+    std::vector<int> whoseBeenStolen;
+    // *****************
+
+
+
 }
 
 void Game::gainResources(int diceResult) {
     int resource = thisBoard.gainResources(diceResult);
-    std::vector<int> playerGainsResource = thisBoard.playersResources(diceResult);
-    for (int i : playerGainsResource) {
-        allPlayers[i].modifiesResources(resource, 1);
-    }
+    std::vector<int> playerGainsRss = thisBoard.getPlayersOnTile(diceResult);
+    for (int i : playerGainsRss) allPlayers[i].modifiesResources(resource, 1);
 }
 
 void Game::beginTurn() {

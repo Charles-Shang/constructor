@@ -181,10 +181,13 @@ int Board::whichHasGeese() {
     return 99999;  // this should never reach
 }
 
-int Board::gainResources(int diceResult) {
-    return tiles[diceResult].getType();
+int Board::gainResources(int diceResult) { return tiles[diceResult].getType(); }
+
+std::vector<int> Board::getPlayersOnTile(int location) {
+    return tiles[location].getAllPlayOnTheTile();
 }
 
-std::vector<int> Board::playersResources(int diceResult) {
-    return tiles[diceResult].playersResources();
+void Board::transferGeese(int current, int destination) {
+    tiles[current].updateGeese(false);
+    tiles[destination].updateGeese(true);
 }

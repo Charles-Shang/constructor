@@ -25,7 +25,10 @@ class Board {
     std::string getBoardData(); // in layout.txt format
     int whichHasGeese();
     int gainResources(int diceResult);
-    std::vector<int> playersResources(int diceResult);
+    std::vector<int> getPlayersOnTile(int location);
+
+    void transferGeese(int current, int destination);
+
 };
 
 #endif

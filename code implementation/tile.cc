@@ -35,11 +35,11 @@ int Tile::getTileValue() { return tileValue; }
 
 bool Tile::getHasGeese() { return hasGeese; }
 
-void Tile::addVertices(const std::shared_ptr<Vertices> &vertice) {
+void Tile::addVertices(std::shared_ptr<Vertices> &vertice) {
     theVertices.emplace_back(vertice);
 }
 
-void Tile::addEdge(const std::shared_ptr<Edge> &edge) {
+void Tile::addEdge(std::shared_ptr<Edge> &edge) {
     theEdges.emplace_back(edge);
 }
 
@@ -95,7 +95,7 @@ std::string Tile::getData() {
 
 int Tile::getType() { return type; }
 
-std::vector<int> Tile::playersResources() {
+std::vector<int> Tile::getAllPlayOnTheTile() {
     std::vector<int> players;
     for (auto vertex : theVertices) {
         if (vertex->getWhichBuilder() != -1) {
@@ -104,3 +104,5 @@ std::vector<int> Tile::playersResources() {
     }
     return players;
 }
+
+void Tile::updateGeese(bool state) { hasGeese = state; }
