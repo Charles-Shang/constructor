@@ -13,16 +13,15 @@ class Board {
    public:
     // initialize the board
     void defaultInitBoard(int *resources, int *tileValues);
-    
 
     // testing functions
     void displayTile();
     void displayConnections();
     bool buildRoad(int location, int builder);
     bool buildRes(int location, int builder);
-    int vertexToTile(int vertexLocation);
+    int vertexToTile(int vertexLocation);  // get tile number based on vertices
     int edgeToTile(int edgeLocation);
-    std::string getBoardData(); // in layout.txt format
+    std::string getBoardData();  // in layout.txt format
     int whichHasGeese();
     int getRssOnTile(int tileNum);
     std::vector<int> getPlayersOnTile(int location);
@@ -31,11 +30,9 @@ class Board {
     void transferGeese(int current, int destination);
     std::vector<int> tileValToNum(int value);
 
-
     int getTileValueAtLocation(int location);
     std::string getTileTypeAtLocation(int location);
     bool getTileHasGeeseAtLocation(int location);
-
 };
 
 #endif
