@@ -26,13 +26,19 @@ int Builder::rollDice() {
         while (true) {
             std::cout << "Input a roll between 2 and 12:" << std::endl;
             int rollNum;
+
             try {
                 std::cin >> rollNum;
-            } catch (const std::exception& e) {
-                std::cerr << "Invalid roll" << std::endl;
+            } catch (std::ios::failure &) {
+                std::cout << "Invalid roll" << std::endl;
+                std::cin.clear();
+                std::cin.ignore();
             }
 
-            if (2 <= rollNum && rollNum <= 12) break;
+            if (2 <= rollNum && rollNum <= 12)
+                break;
+            else
+                std::cout << "Invalid roll" << std::endl;
         }
     }
 }
