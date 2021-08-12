@@ -143,3 +143,20 @@ void Board::displayConnections() {
         tiles[i].displayConnections();
     }
 }
+bool Board::buildResidence(int location, int builder) {
+    int tileNum = vertexToTile(location);
+    return tiles[tileNum].addRoad(location, builder);
+}
+
+bool Board::buildRoad(int location, int builder) {
+    int tileNum = edgeToTile(location);
+    return tiles[tileNum].addRoad(location, builder);
+}
+
+int Board::vertexToTile(int vertexLocation) {
+
+}
+int Board::edgeToTile(int vertexLocation) {
+    
+}
+

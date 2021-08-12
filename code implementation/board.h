@@ -15,6 +15,10 @@ class Board {
     // testing functions
     void displayTile();
     void displayConnections();
+    bool buildRoad(int location, int builder);
+    bool buildResidence(int location, int builder);
+    int vertexToTile(int vertexLocation);
+    int edgeToTile(int edgeLocation);
 };
 
 #endif
