@@ -33,7 +33,7 @@ void loadFromLayout(Board &thisBoard, std::string fileName) {
 
 // void loadFromLoad(Board &thisBoard, std::string fileName) {}
 
-// void loadFromRandom(Board &thisBoard, std::string fileName) {}
+// void loadFromRandom(Board &thisBoard) {}
 
 void Game::initializeGame(int inputMode, std::string fileName, unsigned _seed) {
     /*
@@ -66,9 +66,10 @@ void Game::printHelp() {
     cout << "help" << endl;
 }
 
-void Game::beginTurn(Builder &curPlayer) {
+void Game::beginTurn() {
     thisBoard.printBoard();
-    cout << "Builder " << curPlayer.getColourName() << "'s turn." << endl;
+    cout << "Builder " << allPlayers[curTurn].getColourName() << "'s turn."
+         << endl;
 
     std::string cmd;
     while (true) {
@@ -81,12 +82,13 @@ void Game::beginTurn(Builder &curPlayer) {
         }
 
         if (cmd == "load") {
-            curPlayer.switchFairDice(false);
+            allPlayers[curTurn].switchFairDice(false);
         } else if (cmd == "fair") {
-            curPlayer.switchFairDice(true);
+            allPlayers[curTurn].switchFairDice(true);
         } else if (cmd == "roll") {
             int diceResult =
-                curPlayer.rollDice();  // what happens after rolled dice?
+                allPlayers[curTurn]
+                    .rollDice();  // what happens after rolled dice?
         } else {
             cout << "Invalid Command!";
             cout << "Try again with \"load\", \"fair\" or \"roll\"" << endl;
@@ -94,7 +96,7 @@ void Game::beginTurn(Builder &curPlayer) {
     }
 }
 
-void Game::duringTheTurn(Builder &curPlayer, std::vector<Builder> &allPlayers) {
+void Game::duringTheTurn() {
     std::string cmd;
     while (true) {
         try {
@@ -110,15 +112,16 @@ void Game::duringTheTurn(Builder &curPlayer, std::vector<Builder> &allPlayers) {
         } else if (cmd == "status") {
             for (int i = 0; i < 4; ++i) allPlayers[i].printStatus();
         } else if (cmd == "residences") {
-            curPlayer.printResidence();
+            allPlayers[curTurn].printResidence();
         } else if (cmd == "build-road") {
             int roadNum = 0;
             cin >> roadNum;
-            if (!curPlayer.canBuildRoad()) {
+            if (!allPlayers[curTurn].canBuildRoad()) {
                 cout << "You do not have enough resources." << endl;
-            } else if (thisBoard.buildRoad(roadNum, curPlayer.getColour())) {
-                curPlayer.buildRoad(roadNum);
-                cout << curPlayer.getColourName();
+            } else if (thisBoard.buildRoad(roadNum,
+                                           allPlayers[curTurn].getColour())) {
+                allPlayers[curTurn].buildRoad(roadNum);
+                cout << allPlayers[curTurn].getColourName();
                 cout << " has built: a road at " << roadNum << endl;
             } else {
                 cout << "You cannot build here." << endl;
@@ -126,11 +129,12 @@ void Game::duringTheTurn(Builder &curPlayer, std::vector<Builder> &allPlayers) {
         } else if (cmd == "build-res") {
             int location = 0;
             cin >> location;
-            if (!curPlayer.canBuildResidence()) {
+            if (!allPlayers[curTurn].canBuildResidence()) {
                 cout << "You do not have enough resources.";
-            } else if (thisBoard.buildRes(location, curPlayer.getColour())) {
-                curPlayer.buildResidence(location, false);
-                cout << curPlayer.getColourName();
+            } else if (thisBoard.buildRes(location,
+                                          allPlayers[curTurn].getColour())) {
+                allPlayers[curTurn].buildResidence(location, false);
+                cout << allPlayers[curTurn].getColourName();
                 cout << " has built: a basement at " << location << endl;
             } else {
                 cout << "You cannot build here." << endl;
@@ -138,22 +142,22 @@ void Game::duringTheTurn(Builder &curPlayer, std::vector<Builder> &allPlayers) {
         } else if (cmd == "improve") {
             int location = 0;
             cin >> location;
-            if (!curPlayer.haveResidence(location)) {
+            if (!allPlayers[curTurn].haveResidence(location)) {
                 cout << "You do not have a residence at " << location << endl;
-            } else if (!curPlayer.canUpgrade(location)) {
+            } else if (!allPlayers[curTurn].canUpgrade(location)) {
                 cout << "You do not have enough resources." << endl;
-            } else if (curPlayer.highestLevel(location)) {
+            } else if (allPlayers[curTurn].highestLevel(location)) {
                 cout << "The residence is at the highest level." << endl;
             } else {
                 cout << "The residence at " << location << " is now a ";
-                cout << curPlayer.upgradeResidence(location) << endl;
+                cout << allPlayers[curTurn].upgradeResidence(location) << endl;
             }
         } else if (cmd == "trade") {
             int colour;
             int give;
             int take;
             cin >> colour >> give >> take;
-            cout << curPlayer.getColourName() << " offers "
+            cout << allPlayers[curTurn].getColourName() << " offers "
                  << allPlayers[colour].getColourName() << " one "
                  << getResourceName(give) << " for one "
                  << getResourceName(take) << "." << endl;
@@ -162,9 +166,10 @@ void Game::duringTheTurn(Builder &curPlayer, std::vector<Builder> &allPlayers) {
             std::string answer;
             cin >> answer;
             if (answer == "yes") {
-                curPlayer.trade(give, take);
+                allPlayers[curTurn].trade(give, take);
                 allPlayers[colour].trade(take, give);
-                cout << "Builder " << curPlayer.getColourName() << " gained: ";
+                cout << "Builder " << allPlayers[curTurn].getColourName()
+                     << " gained: ";
                 cout << "1 " << getResourceName(take) << ", lose 1 "
                      << getResourceName(give) << endl;
                 cout << "Builder " << allPlayers[colour].getColourName()
@@ -177,13 +182,31 @@ void Game::duringTheTurn(Builder &curPlayer, std::vector<Builder> &allPlayers) {
         } else if (cmd == "next") {
             break;
         } else if (cmd == "save") {
-            std::string saveFile;
-            cin >> saveFile;
-            // how do we save?
+            saveGame();
         } else if (cmd == "help") {
             printHelp();
         } else {
             cout << "Invalid command" << endl;
+        }
+    }
+}
+
+void Game::saveGame() {
+    std::string saveFile;
+    while (true) {
+        cin >> saveFile;
+
+        std::ofstream file(saveFile);
+        if (file.is_open()) {
+            file << curTurn << std::endl;
+            for (size_t i = 0; i < allPlayers.size(); i++)
+                file << allPlayers[i].getData() << std::endl;
+
+            // board
+
+        } else {
+            std::cout << "Unable to save file to " << saveFile << std::endl;
+            std::cout << "Try another file." << saveFile << std::endl;
         }
     }
 }
@@ -202,7 +225,7 @@ std::string getResourceName(int resource) {
     }
 }
 
-void Game::beginGame(std::vector<Builder> &allPlayers) {
+void Game::beginGame() {
     int location;
     for (int i = 0; i < 4; ++i) {
         cout << "Builder" << allPlayers[i].getColourName()
@@ -232,15 +255,15 @@ void Game::beginGame(std::vector<Builder> &allPlayers) {
 
 void Game::play() {
     Builder Blue(seed), Red(seed), Orange(seed), Yellow(seed);
-    std::vector<Builder> allPlayers = {Blue, Red, Orange, Yellow};
-    int curPlayer = 0;  // reprents by color index
+    allPlayers = {Blue, Red, Orange, Yellow};
+    curTurn = 0;  // reprents by color index
     // now start the game
-    beginGame(allPlayers);
+    beginGame();
     while (true) {
-        beginTurn(allPlayers[curPlayer]);
-        duringTheTurn(allPlayers[curPlayer], allPlayers);
+        beginTurn();
+        duringTheTurn();
 
-        if (allPlayers[curPlayer].calculatePoints() == 10) {
+        if (allPlayers[curTurn].calculatePoints() == 10) {
             // not in the guideline
             cout << "Congratulations! You win!" << endl;
             cout << "Would you like to play again?" << endl;
@@ -253,10 +276,10 @@ void Game::play() {
                 break;  // end the game (do we need to destroy anything?)
             }
         }
-        if (curPlayer == 4)
-            curPlayer = 0;
+        if (curTurn == 4)
+            curTurn = 0;
         else
-            ++curPlayer;
+            ++curTurn;
     }
 }
 

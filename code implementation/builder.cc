@@ -118,3 +118,15 @@ bool Builder::haveResidence(int location) {
 bool Builder::highestLevel(int location) {
     return builtLst[location].getLevel() == 2;
 }
+
+std::string Builder::getData() {
+    std::string data;
+    for (size_t i = 0; i < resources.size(); i++) data += resources[i] + " ";
+    data += "r ";
+    for (size_t i = 0; i < roadLst.size(); i++) data += roadLst[i] + " ";
+    data += "h";
+    for (size_t i = 0; i < builtLst.size(); i++)
+        data += " " + builtLst[i].getData();
+
+    return data;
+}

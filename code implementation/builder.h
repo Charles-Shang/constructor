@@ -48,6 +48,8 @@ class Builder {
     // print the most recent upgraded residence's level
     void printRecentUpgrade(int idx);
     void trade(int give, int take);
+
+    std::string getData();
 };
 
 #endif

@@ -7,17 +7,20 @@
 
 class Game {
     Board thisBoard;  // the board in the game
+    std::vector<Builder> allPlayers;
     unsigned seed;
+    int curTurn;
 
    public:
     void initializeGame(int inputMode, std::string fileName, unsigned _seed);
     void play();                         // start the Game of Constructor
     void printHelp();                    // display help command message
-    void beginTurn(Builder &curPlayer);  // start a round for a player
-    void duringTheTurn(Builder &curPlayer, std::vector<Builder> &allPlayers);
-    void beginGame(std::vector<Builder> &allPlayers);
+    void beginTurn();  // start a round for a player
+    void duringTheTurn();
+    void beginGame();
     // testing
     void newMain();
+    void saveGame();
 };
 
 #endif
