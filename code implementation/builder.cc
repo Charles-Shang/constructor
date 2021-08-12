@@ -45,13 +45,15 @@ void Builder::buildRoad(int location) {
     resources[4]--;
 }
 
-void Builder::buildResidence(int location) {
+void Builder::buildResidence(int location, bool first) {
     Residence newResidence{location, 0, 1};
     builtLst.emplace_back(newResidence);
-    resources[0] -= 1;
-    resources[1] -= 1;
-    resources[2] -= 1;
-    resources[4] -= 1;
+    if (!first) {
+        resources[0] -= 1;
+        resources[1] -= 1;
+        resources[2] -= 1;
+        resources[4] -= 1;
+    }
 }
 
 int Builder::calculatePoints() {

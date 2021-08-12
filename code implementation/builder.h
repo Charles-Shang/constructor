@@ -31,7 +31,7 @@ class Builder {
     void printResidence();         // display built residence
     void buildRoad(int location);  // build a road at the location
     // build a residence(basement) at the location
-    void buildResidence(int location);
+    void buildResidence(int location, bool first);
     int calculatePoints();     // calculate owned building points
     bool canBuildResidence();  // determine if the builder have enough resources
                                // to build a residence

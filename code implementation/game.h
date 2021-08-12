@@ -15,7 +15,7 @@ class Game {
     void printHelp(); // display help command message
     void beginTurn(Builder curPlayer); // start a round for a player
     void duringTheTurn(Builder curPlayer, std::vector<Builder> allPlayers);
-
+    void beginGame(std::vector<Builder> allPlayers);
     // testing
     void newMain();
 };
