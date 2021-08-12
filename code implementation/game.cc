@@ -225,7 +225,8 @@ void Game::saveGame() {
             for (size_t i = 0; i < allPlayers.size(); i++)
                 file << allPlayers[i].getData() << std::endl;
 
-            // board
+            file << thisBoard.getBoardData() << std::endl;
+            file << thisBoard.whichHasGeese();
 
         } else {
             std::cout << "Unable to save file to " << saveFile << std::endl;

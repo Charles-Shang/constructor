@@ -31,6 +31,8 @@ class Tile {
 
     bool addRoad(int location, int builder);
     bool addResidence(int location, int builder);
+
+    std::string getData();
 };
 
 #endif
