@@ -7,13 +7,13 @@ int Builder::getColour() { return colour; }
 std::string Builder::getColourName() {
     switch (colour) {
         case 0:
-            return "Blue";
+            return "BLUE";
         case 1:
-            return "Red";
+            return "RED";
         case 2:
-            return "Orange";
+            return "ORANGE";
         default:
-            return "Yellow";
+            return "YELLOW";
     }
 }
 
@@ -36,6 +36,7 @@ int Builder::rollDice() {
                 std::cout << "Invalid roll" << std::endl;
                 std::cin.clear();
                 std::cin.ignore();
+                continue;
             }
 
             if (2 <= rollNum && rollNum <= 12)
