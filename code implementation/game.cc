@@ -201,15 +201,12 @@ void Game::duringTheTurn() {
                      << endl;
             }
         } else if (cmd == "trade") {
-            while (true) {
-                int colour, give, take;
-                cin >> colour >> give >> take;
+            int colour, give, take;
+            cin >> colour >> give >> take;
 
-                if (colour == curPlayer) {
-                    cout << "You can't trade with yourself! Try Again!" << endl;
-                    continue;
-                }
-
+            if (colour == curPlayer) {
+                cout << "You can't trade with yourself! Try Again!" << endl;
+            } else {
                 cout << allPlayers[curPlayer]->getBuilderName() << " offers "
                      << allPlayers[colour]->getBuilderName() << " one "
                      << getRssType(give) << " for one " << getRssType(take)
@@ -241,6 +238,7 @@ void Game::duringTheTurn() {
                     cout << "No builders gained resources." << endl;
                 }
             }
+
         } else if (cmd == "next") {
             break;
         } else if (cmd == "save") {
@@ -367,14 +365,18 @@ std::string Game::builtInWhichColour(int location, std::string type) {
     if (location <= 9) temp += " ";
     temp += std::to_string(location);
 
+    std::cout << "Location is at : " << location << std::endl;
+
     for (auto player : allPlayers) {
         std::string newTemp;
-        if (type == "residence")
-            newTemp = player->getResDisplay(location, "residence");
-        else
-            newTemp = player->getResDisplay(location, "road");
+        if (player->haveResidence(location)) {
+            if (type == "residence")
+                newTemp = player->getResDisplay(location, "residence");
+            else
+                newTemp = player->getResDisplay(location, "road");
 
-        if (newTemp != temp) return newTemp;
+            if (newTemp != temp) return newTemp;
+        }
     }
 
     return temp;

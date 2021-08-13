@@ -54,6 +54,8 @@ std::string Builder::getResDisplay(int location, std::string type) {
     if (type == "residence") {
         for (auto residence : builtLst) {
             if (residence.getLocation() == location) {
+                std::cout << "Location: " << location
+                          << " level: " << residence.getLevel() << std::endl;
                 data += colourShortName() + residence.getResType();
                 return data;
             }
@@ -138,13 +140,14 @@ void Builder::printStatus() {
               << " building points, " << resources[0] << " brick, "
               << resources[1] << " energy, ";
     std::cout << resources[2] << " glass, " << resources[3] << " heat, and "
-              << resources[3] << " WiFi." << std::endl;
+              << resources[4] << " WiFi." << std::endl;
 }
 
 void Builder::printResidence() {
     std::cout << getBuilderName() << " has built:" << std::endl;
     for (auto res : builtLst)
-        std::cout << formatInt(res.getLocation()) << " " << res.getResType() << std::endl;
+        std::cout << formatInt(res.getLocation()) << " " << res.getResType()
+                  << std::endl;
 }
 
 bool Builder::haveEnoughRssForResidence() {
@@ -153,7 +156,7 @@ bool Builder::haveEnoughRssForResidence() {
 }
 
 bool Builder::haveEnoughRssForRoad() {
-    return resources[3] > 0 && resources[4] > 0;
+    return resources[3] >= 1 && resources[4] >= 1;
 }
 
 bool Builder::haveRssForImprove(int location) {
@@ -165,7 +168,9 @@ bool Builder::haveRssForImprove(int location) {
         }
     }
 
-    if (level == 2) {
+    level++;
+
+    if (level == 1) {
         return resources[2] >= 2 && resources[3] >= 3;
     } else {
         return resources[0] >= 3 && resources[1] >= 2 && resources[2] >= 1 &&
@@ -226,8 +231,6 @@ void Builder::trade(int give, int take) {
     resources[give]--;
     resources[take]++;
 }
-
-
 
 std::string Builder::getData() {
     std::string data = "";
