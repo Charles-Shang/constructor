@@ -38,7 +38,7 @@ class Board {
     void transferGeese(int current, int destination);
 
     // assume returned vector list is sorted and unique
-    std::vector<int> getPlayersOnTile(int location);
+    std::vector<int> getPlayersOnTile(int location, bool nonRepeat = true);
 
     bool checkCanBuildRoadAt(int location);
 

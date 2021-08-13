@@ -136,7 +136,7 @@ void Board::transferGeese(int current, int destination) {
     tiles[destination].updateGeese(true);
 }
 
-std::vector<int> Board::getPlayersOnTile(int location) {
+std::vector<int> Board::getPlayersOnTile(int location, bool nonRepeat) {
     std::vector<int> tileVertices = tiles[location].getTheVertices();
     std::vector<int> players;
     for (auto vertexLocation : tileVertices) {
@@ -144,8 +144,11 @@ std::vector<int> Board::getPlayersOnTile(int location) {
         if (builderNum != -1) players.emplace_back(builderNum);
     }
 
-    std::sort(players.begin(), players.end());
-    players.erase(std::unique(players.begin(), players.end()), players.end());
+    if (nonRepeat) {
+        std::sort(players.begin(), players.end());
+        players.erase(std::unique(players.begin(), players.end()),
+                      players.end());
+    }
 
     return players;
 }
@@ -160,6 +163,4 @@ std::vector<int> Board::tileValToNum(int tileValue) {
     return tileNums;
 }
 
-int Board::getRssOnTile(int curTile) {
-    return tiles[curTile].getTileTypeNum();
-}
+int Board::getRssOnTile(int curTile) { return tiles[curTile].getTileTypeNum(); }
