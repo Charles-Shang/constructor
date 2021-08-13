@@ -25,6 +25,9 @@ void Game::initializeGame(int inputMode, std::string fileName) {
         case 2:
             thisBoard.initSelection(2, fileName);
             break;
+        case 3:
+            thisBoard.initSelection(3);
+            break;
         default:
             thisBoard.initSelection(4);
             break;

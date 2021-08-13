@@ -43,8 +43,29 @@ void Board::setupVerticesAndEdgesRelation() {
     }
 }
 
+void Board::setSeed(std::default_random_engine _rng) { seed = _rng; }
+
 void Board::initSelection(int mode, std::string fileName) {
-    if (mode == 2 || mode == 4) {
+    if (mode == 3) {
+        std::vector<int> tileValueList = {2,  12, 7, 3, 4, 5, 6, 8,  9, 10,
+                                          11, 3,  4, 5, 6, 8, 9, 10, 11};
+        for (int i = 0; i < 19; i++) {
+            std::shuffle(tileValueList.begin(), tileValueList.end(), seed);
+            tileValues.emplace_back(tileValueList[0]);
+            tileValueList.erase(tileValueList.begin());
+        }
+
+        std::vector<int> typeList = {4, 4, 4, 3, 3, 3, 0, 0, 0, 0,
+                                     1, 1, 1, 1, 2, 2, 2, 2, 5};
+        for (int i = 0; i < 19; i++) {
+            std::shuffle(typeList.begin(), typeList.end(), seed);
+            resources.emplace_back(typeList[0]);
+            typeList.erase(typeList.begin());
+        }
+
+        defaultInitBoard();
+
+    } else if (mode == 2 || mode == 4) {
         std::ifstream layoutFile;
 
         try {
