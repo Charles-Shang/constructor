@@ -473,12 +473,20 @@ void Game::gainResources(int diceResult) {
         int rss = thisBoard.getRssOnTile(curTile);
         std::vector<int> playerLst = thisBoard.getPlayersOnTile(curTile);
         std::vector<int> locationLst = thisBoard.getResLocOnTile(curTile);
+        bool gained = false;
         int idx = 0;
         for (int player : playerLst) {
             int level =
                 allPlayers[player]->getResLevelOnVertex(locationLst[idx]);
             allPlayers[player]->modifiesResources(rss, level);
+            cout << "Builder " << allPlayers[player]->getBuilderName() <<
+            " gained:" << endl;
+            cout << level << " " << getRssType(rss) << endl;
+            gained = true;
             ++idx;
+        }
+        if (!gained) {
+            cout << "No builders gained resources." << endl;
         }
     }
 }
