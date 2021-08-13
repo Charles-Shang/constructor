@@ -25,6 +25,7 @@ void Game::initializeGame(int inputMode, std::string fileName) {
 
     switch (inputMode) {
         case 2:
+            thisBoard.init(2, fileName);
             break;
         default:
             thisBoard.init(4);

@@ -44,7 +44,7 @@ void Board::setupVerticesAndEdgesRelation() {
 }
 
 void Board::init(int mode, std::string fileName) {
-    if (mode == 4) {
+    if (mode == 2 || mode == 4) {
         std::ifstream layoutFile;
 
         try {
@@ -61,7 +61,6 @@ void Board::init(int mode, std::string fileName) {
             resources.emplace_back(num);
             layoutFile >> num;
             tileValues.emplace_back(num);
-            ;
         }
 
         defaultInitBoard();
