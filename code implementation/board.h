@@ -27,7 +27,7 @@ class Board {
     void init(int mode, std::string fileName = "layout.txt");
     void setupVerticesAndEdgesRelation();
 
-    bool checkCanBuildResAt(int location);
+    bool checkCanBuildResAt(int location, int builder, bool first = false);
     void buildResAt(int location, int builder);
 
     bool checkCanBuildRoadAt(int location);

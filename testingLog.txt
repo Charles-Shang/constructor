@@ -31,3 +31,11 @@ build-road 48
 build-road 56
 build-road 52
 build-road 44
+build-res 1
+build-res 3
+build-res 36
+improve 49
+improve 2
+improve 0
+trade 1 0 1
+trade 1 3 1

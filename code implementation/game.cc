@@ -68,7 +68,7 @@ void Game::beginGame() {
              << ", where do you want to build a basement?" << endl;
         while (true) {
             cin >> location;
-            if (thisBoard.checkCanBuildResAt(location)) {
+            if (thisBoard.checkCanBuildResAt(location, i, true)) {
                 thisBoard.buildResAt(location, i);
                 allPlayers[i]->buildResidence(location, true);
                 cout << allPlayers[i]->getBuilderName() << " has built: ";
@@ -85,7 +85,7 @@ void Game::beginGame() {
              << ", where do you want to build a basement?" << endl;
         while (true) {
             cin >> location;
-            if (thisBoard.checkCanBuildResAt(location)) {
+            if (thisBoard.checkCanBuildResAt(location, i, true)) {
                 thisBoard.buildResAt(location, i);
                 allPlayers[i]->buildResidence(location, true);
                 cout << allPlayers[i]->getBuilderName() << " has built: ";
@@ -107,6 +107,7 @@ void Game::beginTurn() {
 
     std::string cmd;
 
+    // extrafeature
     std::cout << "Choose your dice and roll!" << std::endl;
     std::cout << "Commands: \"load\", \"fair\" and \"roll\"." << std::endl;
     while (true) {
@@ -174,23 +175,22 @@ void Game::duringTheTurn() {
         } else if (cmd == "build-res") {
             int location = 0;
             cin >> location;
-            if (!thisBoard.checkCanBuildResAt(location)) {
+            if (!thisBoard.checkCanBuildResAt(location, curPlayer)) {
                 cout << "You cannot build here." << endl;
             } else if (!allPlayers[curPlayer]->haveEnoughRssForResidence()) {
                 cout << "You do not have enough resources.";
-            } else if (thisBoard.checkCanBuildResAt(location)) {
+            } else {
                 thisBoard.buildResAt(location, curPlayer);
                 allPlayers[curPlayer]->buildResidence(location);
                 cout << allPlayers[curPlayer]->getBuilderName();
                 cout << " has built: a basement at " << location << endl;
-            } else {
-                cout << "You cannot build here." << endl;
             }
         } else if (cmd == "improve") {
             int location = 0;
             cin >> location;
             if (!allPlayers[curPlayer]->haveResidence(location)) {
-                cout << "You do not have a residence at " << location << endl;
+                cout << "You do not have a residence at " << location << "."
+                     << endl;  // extra feature
             } else if (allPlayers[curPlayer]->highestLevel(location)) {
                 cout << "The residence is at the highest level." << endl;
             } else if (!allPlayers[curPlayer]->haveRssForImprove(location)) {
@@ -201,38 +201,45 @@ void Game::duringTheTurn() {
                      << endl;
             }
         } else if (cmd == "trade") {
-            int colour;
-            int give;
-            int take;
-            cin >> colour >> give >> take;
-            cout << allPlayers[curPlayer]->getBuilderName() << " offers "
-                 << allPlayers[colour]->getBuilderName() << " one "
-                 << getRssType(give) << " for one " << getRssType(take) << "."
-                 << endl;
-            cout << "Does " << allPlayers[colour]->getBuilderName()
-                 << " accept this offer?" << endl;
-            std::string answer;
-            cin >> answer;
-            if (answer == "yes") {
-                if (allPlayers[curPlayer]->getNumOfRssOf(give) >= 1 &&
-                    allPlayers[colour]->getNumOfRssOf(give) >= 1) {
-                    allPlayers[curPlayer]->trade(give, take);
-                    allPlayers[colour]->trade(take, give);
-                    cout << "Builder "
-                         << allPlayers[curPlayer]->getBuilderName()
-                         << " gained: ";
-                    cout << "1 " << getRssType(take) << ", lose 1 "
-                         << getRssType(give) << endl;
-                    cout << "Builder " << allPlayers[colour]->getBuilderName()
-                         << " gained: ";
-                    cout << "1 " << getRssType(give) << ", lose 1 "
-                         << getRssType(take) << endl;
-                } else {
-                    cout << "You do not have enough resources to trade."
-                         << endl;
+            while (true) {
+                int colour, give, take;
+                cin >> colour >> give >> take;
+
+                if (colour == curPlayer) {
+                    cout << "You can't trade with yourself! Try Again!" << endl;
+                    continue;
                 }
-            } else {
-                cout << "No builders gained resources." << endl;
+
+                cout << allPlayers[curPlayer]->getBuilderName() << " offers "
+                     << allPlayers[colour]->getBuilderName() << " one "
+                     << getRssType(give) << " for one " << getRssType(take)
+                     << "." << endl;
+                cout << "Does " << allPlayers[colour]->getBuilderName()
+                     << " accept this offer?" << endl;
+                std::string answer;
+                cin >> answer;
+                if (answer == "yes") {
+                    if (allPlayers[curPlayer]->getNumOfRssOf(give) >= 1 &&
+                        allPlayers[colour]->getNumOfRssOf(give) >= 1) {
+                        allPlayers[curPlayer]->trade(give, take);
+                        allPlayers[colour]->trade(take, give);
+                        cout << "Builder "
+                             << allPlayers[curPlayer]->getBuilderName()
+                             << " gained: ";
+                        cout << "1 " << getRssType(take) << ", lose 1 "
+                             << getRssType(give) << endl;
+                        cout << "Builder "
+                             << allPlayers[colour]->getBuilderName()
+                             << " gained: ";
+                        cout << "1 " << getRssType(give) << ", lose 1 "
+                             << getRssType(take) << endl;
+                    } else {
+                        cout << "You do not have enough resources to trade."
+                             << endl;
+                    }
+                } else {
+                    cout << "No builders gained resources." << endl;
+                }
             }
         } else if (cmd == "next") {
             break;
@@ -291,7 +298,7 @@ bool Game::play() {
             }
         }
 
-        curPlayer = curPlayer == 4 ? 0 : curPlayer + 1;
+        curPlayer = curPlayer == 3 ? 0 : curPlayer + 1;
         std::cout << "----- Move to the next turn -----" << std::endl;
     }
 }

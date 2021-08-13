@@ -101,8 +101,17 @@ void Board::defaultInitBoard() {
     }
 }
 
-bool Board::checkCanBuildResAt(int location) {
-    return allVertices[location]->getCanBuildResidence();
+bool Board::checkCanBuildResAt(int location, int builder, bool first) {
+    if (!allVertices[location]->getCanBuildResidence()) return false;
+
+    if (first) return true;
+
+    std::vector<int> neigherEdge = allVertices[location]->getEdgeNeighbours();
+
+    for (auto index : neigherEdge)
+        if (allEdges[index]->getWhichBuilder() == builder) return true;
+
+    return false;
 }
 
 // note: it also notifies the neighbours
