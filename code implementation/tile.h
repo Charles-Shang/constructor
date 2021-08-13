@@ -17,7 +17,9 @@ class Tile {
    public:
     Tile(int _type, int _tileNum, int _tileValue, int _load = 0);
     std::string getTileType();
+    int getTileTypeNum();
     int getTileValue();
+    int getTileNum();
     bool getHasGeese();
     void addVertices(int vertice);
     void addEdge(int edge);

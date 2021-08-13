@@ -42,6 +42,9 @@ class Board {
 
     bool checkCanBuildRoadAt(int location);
 
+    // use for gain resource
+    std::vector<int> tileValToNum(int tileValue);
+    int getRssOnTile(int curTile);
 };
 
 #endif

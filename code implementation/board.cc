@@ -149,3 +149,17 @@ std::vector<int> Board::getPlayersOnTile(int location) {
 
     return players;
 }
+
+std::vector<int> Board::tileValToNum(int tileValue) {
+    std::vector<int> tileNums;
+    for (auto tile : tiles) {
+        if (tile.getTileValue() == tileValue) {
+            tileNums.emplace_back(tile.getTileNum());
+        }
+    }
+    return tileNums;
+}
+
+int Board::getRssOnTile(int curTile) {
+    return tiles[curTile].getTileTypeNum();
+}
