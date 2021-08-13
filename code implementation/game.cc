@@ -165,7 +165,8 @@ void Game::duringTheTurn() {
         } else if (cmd == "build-road") {
             int roadNum = 0;
             cin >> roadNum;
-            if (!thisBoard.checkCanBuildRoadAt(curPlayer, roadNum)) {
+            if (roadNum > 71 || roadNum < 0 || 
+                !thisBoard.checkCanBuildRoadAt(curPlayer, roadNum)) {
                 cout << "You cannot build here." << endl;
             } else if (!allPlayers[curPlayer]->haveEnoughRssForRoad()) {
                 cout << "You do not have enough resources." << endl;
@@ -178,7 +179,8 @@ void Game::duringTheTurn() {
         } else if (cmd == "build-res") {
             int location = 0;
             cin >> location;
-            if (!thisBoard.checkCanBuildResAt(location, curPlayer)) {
+            if (location > 53 || location < 0 ||
+                !thisBoard.checkCanBuildResAt(location, curPlayer)) {
                 cout << "You cannot build here." << endl;
             } else if (!allPlayers[curPlayer]->haveEnoughRssForResidence()) {
                 cout << "You do not have enough resources.";
@@ -191,7 +193,8 @@ void Game::duringTheTurn() {
         } else if (cmd == "improve") {
             int location = 0;
             cin >> location;
-            if (!allPlayers[curPlayer]->haveResidence(location)) {
+            if (location > 53 || location < 0 ||
+                !allPlayers[curPlayer]->haveResidence(location)) {
                 cout << "You do not have a residence at " << location << "."
                      << endl;  // extra feature
             } else if (allPlayers[curPlayer]->highestLevel(location)) {
