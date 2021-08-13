@@ -178,6 +178,6 @@ build-road 20
 build-res 12
 next
 yes
-
+19 32 0 40 23 44 53 28
 
 next load roll 7

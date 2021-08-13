@@ -24,7 +24,7 @@ class Board {
 
    public:
     // initialize the board
-    void init(int mode, std::string fileName = "layout.txt");
+    void initSelection(int mode, std::string fileName = "layout.txt");
     void setupVerticesAndEdgesRelation();
 
     bool checkCanBuildResAt(int location, int builder, bool first = false);

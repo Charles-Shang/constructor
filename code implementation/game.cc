@@ -23,10 +23,10 @@ void Game::initializeGame(int inputMode, std::string fileName) {
 
     switch (inputMode) {
         case 2:
-            thisBoard.init(2, fileName);
+            thisBoard.initSelection(2, fileName);
             break;
         default:
-            thisBoard.init(4);
+            thisBoard.initSelection(4);
             break;
     }
 }
@@ -488,13 +488,10 @@ void Game::moveGeese() {
 
 void Game::gainResources(int diceResult) {
     std::vector<int> tileNumLst = thisBoard.tileValToNum(diceResult);
-    // testing
-    cout << "Tiles to gaine resources are: ";
-    for (int i : tileNumLst) {
-        cout << i << " ";
-    } 
-    cout << endl;
-    // test end
+    std::sort(tileNumLst.begin(), tileNumLst.end());
+    tileNumLst.erase(std::unique(tileNumLst.begin(), tileNumLst.end()),
+                     tileNumLst.end());
+
     bool gained = false;
     for (int curTile : tileNumLst) {
         if (thisBoard.getTileHasGeeseAtLocation(curTile)) {

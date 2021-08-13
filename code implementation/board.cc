@@ -43,7 +43,7 @@ void Board::setupVerticesAndEdgesRelation() {
     }
 }
 
-void Board::init(int mode, std::string fileName) {
+void Board::initSelection(int mode, std::string fileName) {
     if (mode == 2 || mode == 4) {
         std::ifstream layoutFile;
 
