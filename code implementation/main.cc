@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
 
     for (int i = 1; i < argc; i++) {
         std::string flags{argv[i]};
-        if (flags == "seed") {
+        if (flags == "-seed") {
             try {
                 seed = std::stoi(std::string{argv[++i]});
             } catch (std::invalid_argument& e) {
@@ -33,13 +33,14 @@ int main(int argc, char* argv[]) {
                 std::cerr << e.what() << std::endl;
                 return -1;
             }
-        } else if (flags == "load") {
+        } else if (flags == "-load") {
             load = true;
-            std::cin >> loadedFile;
-        } else if (flags == "board") {
+            loadedFile = std::string{argv[++i]};
+        } else if (flags == "-board") {
+            std::cout << "In Board" << std::endl;
             board = true;
-            std::cin >> boardFile;
-        } else if (flags == "random-board") {
+            boardFile = std::string{argv[++i]};
+        } else if (flags == "-random-board") {
             decision = 3;
             randomBoard = true;
         }
@@ -95,5 +96,5 @@ int main(int argc, char* argv[]) {
         g.initializeGame(decision, finalFile);
     }
 
-    std::cout << " Bye!" <<std::endl;
+    std::cout << " Bye!" << std::endl;
 }

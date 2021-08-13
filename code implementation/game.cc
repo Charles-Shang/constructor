@@ -9,8 +9,6 @@ using std::endl;
 
 Game::Game(std::default_random_engine _rng) : seed{_rng} {}
 
-// void loadFromBoard(Board &thisBoard, std::string fileName) {}
-
 // void loadFromLoad(Board &thisBoard, std::string fileName) {}
 
 // void loadFromRandom(Board &thisBoard) {}
