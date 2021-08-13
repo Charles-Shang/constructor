@@ -144,7 +144,6 @@ void Game::duringTheTurn() {
             } else if (thisBoard.checkCanBuildResAt(location)) {
                 thisBoard.buildResAt(location, curPlayer);
                 allPlayers[curPlayer]->buildResidence(location);
-
                 cout << allPlayers[curPlayer]->getBuilderName();
                 cout << " has built: a basement at " << location << endl;
             } else {
@@ -254,37 +253,6 @@ bool Game::play() {
         }
 
         curPlayer = curPlayer == 4 ? 0 : curPlayer + 1;
-    }
-}
-
-void Game::newMain() {
-    char cmd;
-    while (true) {
-        cin >> cmd;
-        return;
-        // if (cmd == 'a') {
-        //     // printBoard();
-        // } else if (cmd == 'b') {
-        //     thisBoard.displayTile();
-        // } else if (cmd == 'c') {
-        //     thisBoard.displayConnections();
-        // } else if (cmd == 'd') {
-        //     for (int i = 0; i < 53; i++)
-        //         cout << thisBoard.vertexToTile(i) << " ";
-        //     cout << endl;
-
-        //     for (int i = 0; i < 72; i++) cout << thisBoard.edgeToTile(i) << "
-        //     "; cout << endl;
-        // } else if (cmd == 'e') {
-        //     Builder Blue(0, seed), Red(1, seed), Orange(2, seed),
-        //         Yellow(3, seed);
-        //     allPlayers = {Blue, Red, Orange, Yellow};
-        //     for (size_t i = 0; i < allPlayers.size(); i++) {
-        //         cout << allPlayers[i].getColourName() << endl;
-        //     }
-        // } else if (cmd == 'q') {
-        //     return;
-        // }
     }
 }
 

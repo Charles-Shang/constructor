@@ -12,9 +12,6 @@
 #include <random>
 #include "game.h"
 
-using std::cin;
-using std::string;
-
 int main(int argc, char* argv[]) {
     bool load = false, board = false, randomBoard = false;
     std::string loadedFile, boardFile, finalFile = "layout.txt";
@@ -68,6 +65,26 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    std::ifstream defaultFile{finalFile};
+
+    if (defaultFile.fail() && !board && !load && !randomBoard) {
+        std::cout << finalFile << " does not exists!" << std::endl;
+        std::cout << "Do you want to use a random board? (Y/N)" << std::endl;
+        std::string answer;
+        while (true) {
+            std::cin >> answer;
+            if (answer == "y" || answer == "Y") {
+                randomBoard = true;
+                decision = 3;
+            } else if (answer == "n" || answer == "N") {
+                std::cout << "Alright! Good Bye!!" << std::endl;
+                return 0;
+            } else {
+                std::cout << "Invalid command! Try with Y or N!" << std::endl;
+            }
+        }
+    }
+
     std::default_random_engine rng{seed};
 
     Game g{rng};
@@ -77,17 +94,4 @@ int main(int argc, char* argv[]) {
         std::cout << "New Game starts!" << std::endl;
         g.initializeGame(decision, finalFile);
     }
-
-    // below command is only for temp use, will be delated eventually
-    // string command;
-    // while (true) {
-    //     std::cin >> command;
-    //     if (command == "test") {
-    //         std::cout << "Testing mode enabled!" << std::endl;
-    //         g.newMain();
-    //     } else if (command == "play") {
-    //         std::cout << "Play mode enabled!" << std::endl;
-    //         g.play();
-    //     }
-    // }
 }
