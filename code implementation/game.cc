@@ -471,6 +471,16 @@ void Game::gainResources(int diceResult) {
         int rss = thisBoard.getRssOnTile(curTile);
         std::vector<int> playerLst = thisBoard.getPlayersOnTile(curTile);
         std::vector<int> locationLst = thisBoard.getResLocOnTile(curTile);
+        // testing
+        for (int i : playerLst) {
+            cout << i << " ";
+        }
+        cout << endl;
+        for (int i : locationLst) {
+            cout << i << " ";
+        }
+        cout << endl;
+        // testing ends
         bool gained = false;
         int idx = 0;
         for (int player : playerLst) {
