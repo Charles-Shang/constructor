@@ -167,9 +167,7 @@ next load roll 4
 next load roll 4
 next load roll 4
 next load roll 11
-
-
-
+next load roll 12
 improve 19
 improve 19
 improve 24
@@ -178,6 +176,8 @@ improve 28
 improve 28
 build-road 20
 build-res 12
+next
+yes
 
 
 next load roll 7
