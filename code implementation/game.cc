@@ -57,7 +57,7 @@ int getColourIndex(std::string colour) {
     else if (colour == "YELLOW")
         return 3;
 
-    return 99999;  // this should never be reached
+    return 99998;  // this should never be reached
 }
 
 void Game::beginGame() {
@@ -495,6 +495,7 @@ void Game::gainResources(int diceResult) {
             gained = true;
             ++idx;
         }
+
         if (!gained) {
             cout << "No builders gained resources." << endl;
         }
