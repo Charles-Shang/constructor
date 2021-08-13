@@ -39,6 +39,6 @@ std::string Residence::getData() {
 }
 
 void Residence::clearRes() {
-    int level = 0;
-    int buildingPoints = 1;
+    level = 0;
+    buildingPoints = 1;
 }
