@@ -30,9 +30,7 @@ std::string Tile::getTileType() {
 
 int Tile::getTileValue() { return tileValue; }
 
-bool Tile::getHasGeese() {
-    return hasGeese;
-}
+bool Tile::getHasGeese() { return hasGeese; }
 
 void Tile::addVertices(int vertice) { theVertices.emplace_back(vertice); }
 
