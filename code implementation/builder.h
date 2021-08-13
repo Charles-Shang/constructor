@@ -40,9 +40,22 @@ class Builder {
 
     // determine if the builder have enough resources to build a residence
     bool haveEnoughRssForResidence();
+
+    bool haveRssForImprove(int location);
+
     // determine if the builder have enough resources to build a road
     bool haveEnoughRssForRoad();
+
+    // if possible, upgrade the cuurent residence to the next level
+    // return the type of the upgraded residence in builtLst
+    std::string upgradeResidence(int location);
+
     int getResLevelOnVertex(int vertexNum);
+
+    bool highestLevel(int location);
+
+    bool haveResidence(int location);
+
 };
 
 #endif

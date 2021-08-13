@@ -2,11 +2,11 @@
 #define _BOARD_H_
 
 #include <map>
-#include <vector>
 #include <memory>
+#include <vector>
+#include "edge.h"
 #include "tile.h"
 #include "vertices.h"
-#include "edge.h"
 
 class Board {
     std::vector<Tile> tiles;  // vector list of tiles on board
@@ -26,14 +26,16 @@ class Board {
     // initialize the board
     void init(int mode, std::string fileName = "layout.txt");
     void setupVerticesAndEdgesRelation();
-    
+
     bool checkCanBuildResAt(int location);
     void buildResAt(int location, int builder);
+
+    bool checkCanBuildRoadAt(int location);
 
     std::string getTileTypeAtLocation(int location);
     int getTileValueAtLocation(int location);
     bool getTileHasGeeseAtLocation(int location);
-    
+
     int whichHasGeese();
     void transferGeese(int current, int destination);
 
