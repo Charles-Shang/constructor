@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <memory>
 #include <random>
 #include <vector>
 #include "residence.h"
@@ -12,7 +13,8 @@ class Builder {
     int colour;
     bool fairDice;  // truth value for the builder's dice being a fair dice
     std::default_random_engine seed;
-    std::vector<Residence> builtLst;  // a vector list of built residence
+    // a vector list of built residence
+    std::vector<std::shared_ptr<Residence>> builtLst;
     std::vector<int> roadLst;
     /* a vector list of resources owned
      * Note that the vector list has only 5 fields, we specify the order as:
@@ -25,7 +27,7 @@ class Builder {
     std::string getBuilderName();
     void buildResidence(int location, bool first = false);
     std::string colourShortName();
-    std::string getResDisplay(int location, std::string type);
+    std::string getResOrRoadDisplay(int location, std::string type);
     int calculatePoints();
 
     void switchFairDice(bool state);

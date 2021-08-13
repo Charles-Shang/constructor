@@ -78,3 +78,26 @@ next load roll 11
 next load roll 11
 improve 19
 board
+next load roll 6
+next load roll 6
+next load roll 6
+next load roll 6
+next load roll 6
+next load roll 6
+next load roll 4
+next load roll 4
+next load roll 4
+next load roll 4
+next load roll 4
+next load roll 4
+next load roll 11
+next load roll 11
+next load roll 11
+next load roll 11
+next load roll 11
+next load roll 11
+next load roll 11
+next load roll 11
+next load roll 8
+next load roll 8
+build-road 38

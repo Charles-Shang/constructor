@@ -26,7 +26,8 @@ std::string formatInt(int num) {
 }
 
 void Builder::buildResidence(int location, bool first) {
-    Residence newResidence{location};
+    std::shared_ptr<Residence> newResidence =
+        std::make_shared<Residence>(location);
     builtLst.emplace_back(newResidence);
     if (!first) {
         resources[0]--;
@@ -49,14 +50,12 @@ std::string Builder::colourShortName() {
     }
 }
 
-std::string Builder::getResDisplay(int location, std::string type) {
+std::string Builder::getResOrRoadDisplay(int location, std::string type) {
     std::string data = "";
     if (type == "residence") {
         for (auto residence : builtLst) {
-            if (residence.getLocation() == location) {
-                std::cout << "Location: " << location
-                          << " level: " << residence.getLevel() << std::endl;
-                data += colourShortName() + residence.getResType();
+            if (residence->getLocation() == location) {
+                data += colourShortName() + residence->getResType();
                 return data;
             }
         }
@@ -76,9 +75,8 @@ std::string Builder::getResDisplay(int location, std::string type) {
 
 int Builder::calculatePoints() {
     int point = 0;
-    for (Residence res : builtLst) {
-        point += res.getBuildingPoints();
-    }
+    for (auto res : builtLst) point += res->getBuildingPoints();
+
     return point;
 }
 
@@ -146,7 +144,7 @@ void Builder::printStatus() {
 void Builder::printResidence() {
     std::cout << getBuilderName() << " has built:" << std::endl;
     for (auto res : builtLst)
-        std::cout << formatInt(res.getLocation()) << " " << res.getResType()
+        std::cout << formatInt(res->getLocation()) << " " << res->getResType()
                   << std::endl;
 }
 
@@ -162,8 +160,8 @@ bool Builder::haveEnoughRssForRoad() {
 bool Builder::haveRssForImprove(int location) {
     int level = 0;
     for (auto single : builtLst) {
-        if (single.getLocation() == location) {
-            level = single.getLevel();
+        if (single->getLocation() == location) {
+            level = single->getLevel();
             break;
         }
     }
@@ -181,8 +179,8 @@ bool Builder::haveRssForImprove(int location) {
 bool Builder::highestLevel(int location) {
     int level = 0;
     for (auto single : builtLst) {
-        if (single.getLocation() == location) {
-            level = single.getLevel();
+        if (single->getLocation() == location) {
+            level = single->getLevel();
             break;
         }
     }
@@ -191,7 +189,7 @@ bool Builder::highestLevel(int location) {
 
 bool Builder::haveResidence(int location) {
     for (auto single : builtLst) {
-        if (single.getLocation() == location) {
+        if (single->getLocation() == location) {
             return true;
         }
     }
@@ -202,9 +200,9 @@ bool Builder::haveResidence(int location) {
 // assume the residece at location is belong to the builder
 std::string Builder::upgradeResidence(int location) {
     for (auto residence : builtLst) {
-        if (residence.getLocation() == location) {
-            residence.upgrade();
-            return residence.getResType();
+        if (residence->getLocation() == location) {
+            residence->upgrade();
+            return residence->getResType();
         }
     }
 
@@ -212,8 +210,8 @@ std::string Builder::upgradeResidence(int location) {
 }
 int Builder::getResLevelOnVertex(int vertexNum) {
     for (auto res : builtLst) {
-        if (res.getLocation() == vertexNum) {
-            return res.getBuildingPoints();
+        if (res->getLocation() == vertexNum) {
+            return res->getBuildingPoints();
         }
     }
     return 99999;  // this should not be reached
@@ -241,7 +239,7 @@ std::string Builder::getData() {
         data += formatInt(roadLst[i]) + " ";
     data += "h";
     for (size_t i = 0; i < builtLst.size(); i++)
-        data += " " + builtLst[i].getData();
+        data += " " + builtLst[i]->getData();
 
     return data;
 }

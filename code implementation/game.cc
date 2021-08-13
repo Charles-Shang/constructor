@@ -365,15 +365,13 @@ std::string Game::builtInWhichColour(int location, std::string type) {
     if (location <= 9) temp += " ";
     temp += std::to_string(location);
 
-    std::cout << "Location is at : " << location << std::endl;
-
     for (auto player : allPlayers) {
         std::string newTemp;
         if (player->haveResidence(location)) {
             if (type == "residence")
-                newTemp = player->getResDisplay(location, "residence");
+                newTemp = player->getResOrRoadDisplay(location, "residence");
             else
-                newTemp = player->getResDisplay(location, "road");
+                newTemp = player->getResOrRoadDisplay(location, "road");
 
             if (newTemp != temp) return newTemp;
         }
