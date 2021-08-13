@@ -490,6 +490,13 @@ void Game::moveGeese() {
 
 void Game::gainResources(int diceResult) {
     std::vector<int> tileNumLst = thisBoard.tileValToNum(diceResult);
+    // testing
+    cout << "Tiles to gaine resources are: ";
+    for (int i : tileNumLst) {
+        cout << i << " ";
+    } 
+    cout << endl;
+    // test end
     bool gained = false;
     for (int curTile : tileNumLst) {
         if (thisBoard.getTileHasGeeseAtLocation(curTile)) {
