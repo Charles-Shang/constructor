@@ -10,7 +10,7 @@ void Board::setupVerticesAndEdgesRelation() {
     try {
         neighbourFile = std::ifstream{"neighbours.txt"};
     } catch (const std::exception &e) {
-        std::cerr << "Opening files neighbours.txt or failed." << std::endl;
+        std::cerr << "Opening files neighbours.txt failed." << std::endl;
     }
 
     const int delimiter = 999;
@@ -65,7 +65,7 @@ void Board::initSelection(int mode, std::string fileName) {
 
         defaultInitBoard();
 
-    } else if (mode == 2 || mode == 4) {
+    } else if (mode == 2 || mode == 4 || mode == 1) {
         std::ifstream layoutFile;
 
         try {

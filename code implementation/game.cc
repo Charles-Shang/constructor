@@ -2,16 +2,14 @@
 #include <stdio.h>
 #include <fstream>
 #include <iostream>
+#include <sstream>
+#include <string>
 
 using std::cin;
 using std::cout;
 using std::endl;
 
 Game::Game(std::default_random_engine _rng) : seed{_rng} {}
-
-// void loadFromLoad(Board &thisBoard, std::string fileName) {}
-
-// void loadFromRandom(Board &thisBoard) {}
 
 void Game::initializeGame(int inputMode, std::string fileName) {
     /*
@@ -21,16 +19,82 @@ void Game::initializeGame(int inputMode, std::string fileName) {
      * 4. layout.txt
      */
 
-    switch (inputMode) {
-        case 2:
-            thisBoard.initSelection(2, fileName);
-            break;
-        case 3:
-            thisBoard.initSelection(3);
-            break;
-        default:
-            thisBoard.initSelection(4);
-            break;
+    if (inputMode == 1) {
+        std::ifstream loadFile;
+
+        try {
+            loadFile = std::ifstream{fileName};
+        } catch (const std::exception &e) {
+            std::cerr << "Opening file failed." << std::endl;
+        }
+
+        std::shared_ptr<Builder> Blue = std::make_shared<Builder>(0, seed);
+        std::shared_ptr<Builder> Red = std::make_shared<Builder>(1, seed);
+        std::shared_ptr<Builder> Orange = std::make_shared<Builder>(2, seed);
+        std::shared_ptr<Builder> Yellow = std::make_shared<Builder>(3, seed);
+        allPlayers = {Blue, Red, Orange, Yellow};
+
+        int playerCount = 0;
+        loadFile >> curPlayer;
+        std::string line;
+        std::string saveFile = "temp.txt";
+        std::ofstream file(saveFile);
+        int geeseLocation = 4;
+        std::getline(loadFile, line);
+        while (std::getline(loadFile, line)) {
+            std::istringstream linestream(line);
+
+            if (playerCount == 4) {
+                file << line << std::endl;
+                loadFile >> geeseLocation;
+                break;
+            }
+
+            int num;
+            std::string temp;
+            for (int i = 0; i < 5; i++) {
+                linestream >> num;
+                std::cout << "rss: " << endl;
+                allPlayers[playerCount]->setRss(num);
+            }
+
+            linestream >> temp;  // "r"
+            while (true) {
+                linestream >> temp;
+                if (temp == "h") break;
+                std::cout << std::stoi(temp) << std::endl;
+                allPlayers[playerCount]->setRoads(std::stoi(temp));
+            }
+
+            while (linestream >> temp) {
+                int loc = std::stoi(temp);
+                linestream >> temp;
+                allPlayers[playerCount]->addResidence(loc, temp);
+            }
+
+            playerCount++;
+        }
+
+        for (auto single : allPlayers) {
+            single->printStatus();
+        }
+
+        thisBoard.initSelection(1, saveFile);
+
+        thisBoard.transferGeese(thisBoard.whichHasGeese(), geeseLocation);
+
+        std::cout << "Haha" << std::endl;
+
+        for (auto single : allPlayers) {
+            single->printStatus();
+        }
+
+    } else if (inputMode == 2) {
+        thisBoard.initSelection(2, fileName);
+    } else if (inputMode == 3) {
+        thisBoard.initSelection(3);
+    } else {
+        thisBoard.initSelection(4);
     }
 }
 
@@ -274,19 +338,22 @@ void Game::printHelp() {
     cout << "help" << endl;
 }
 
-bool Game::play() {
-    std::shared_ptr<Builder> Blue = std::make_shared<Builder>(0, seed);
-    std::shared_ptr<Builder> Red = std::make_shared<Builder>(1, seed);
-    std::shared_ptr<Builder> Orange = std::make_shared<Builder>(2, seed);
-    std::shared_ptr<Builder> Yellow = std::make_shared<Builder>(3, seed);
-    allPlayers = {Blue, Red, Orange, Yellow};
-    curPlayer = 0;  // reprents by color index
-    // now start the game
-    std::cout << "----- Game setup -----" << std::endl;
-    printBoard();
-    beginGame();
-    printBoard();
-    std::cout << "----- Game starts -----" << std::endl;
+bool Game::play(bool load) {
+    if (!load) {
+        std::shared_ptr<Builder> Blue = std::make_shared<Builder>(0, seed);
+        std::shared_ptr<Builder> Red = std::make_shared<Builder>(1, seed);
+        std::shared_ptr<Builder> Orange = std::make_shared<Builder>(2, seed);
+        std::shared_ptr<Builder> Yellow = std::make_shared<Builder>(3, seed);
+        allPlayers = {Blue, Red, Orange, Yellow};
+        curPlayer = 0;  // reprents by color index
+        // now start the game
+        std::cout << "----- Game setup -----" << std::endl;
+        printBoard();
+        beginGame();
+        printBoard();
+        std::cout << "----- Game starts -----" << std::endl;
+    }
+
     while (true) {
         beginTurn();
         std::cout << "----- Game during the turn -----" << std::endl;

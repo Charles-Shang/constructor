@@ -28,8 +28,7 @@ class Game {
    public:
     Game(std::default_random_engine _rng);
     void initializeGame(int inputMode, std::string fileName);
-    bool play();  // start the Game of Constructor
-    void newMain();
+    bool play(bool load = false);  // start the Game of Constructor
     void clearAll();
 
     

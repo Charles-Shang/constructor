@@ -42,3 +42,16 @@ void Residence::clearRes() {
     level = 0;
     buildingPoints = 1;
 }
+
+void Residence::setType(std::string type) {
+    if (type == "B") {
+        level = 0;
+        buildingPoints = 1;
+    } else if (type == "H") {
+        level = 1;
+        buildingPoints = 2;
+    } else {
+        level = 2;
+        buildingPoints = 3;
+    }
+}

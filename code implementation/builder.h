@@ -66,6 +66,11 @@ class Builder {
 
     std::string getData();
     void clearBuilder();
+
+    // For load command
+    void setRss(int value);        // set resouces add it
+    void setRoads(int locations);  // add location of roads built
+    void addResidence(int location, std::string type);  // add residence built
 };
 
 #endif

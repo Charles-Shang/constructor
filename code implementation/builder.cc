@@ -272,3 +272,14 @@ void Builder::clearBuilder() {
     roadLst.clear();
     resources.clear();
 }
+
+void Builder::setRss(int value) { resources.emplace_back(value); }
+
+void Builder::setRoads(int location) { roadLst.emplace_back(location); }
+
+void Builder::addResidence(int location, std::string type) {
+    std::shared_ptr<Residence> newResidence =
+        std::make_shared<Residence>(location);
+    newResidence->setType(type);
+    builtLst.emplace_back(newResidence);
+}

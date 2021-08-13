@@ -89,19 +89,26 @@ int main(int argc, char* argv[]) {
 
     std::default_random_engine rng{seed};
 
-    /* if (decision == 1) {
-         //***
-    } else */
-    if (decision == 2) {
+    if (decision == 1) {
+        finalFile = loadedFile;
+    } else if (decision == 2) {
         finalFile = boardFile;
     }
 
     Game g{rng};
     g.initializeGame(decision, finalFile);
-    std::cout << "New Game starts!" << std::endl;
-    while (g.play()) {
+    if (load) {
+        std::cout << "Loaded Game starts!" << std::endl;
+    } else {
         std::cout << "New Game starts!" << std::endl;
-        g.initializeGame(decision, finalFile);
+    }
+    int firstResult = g.play(load);
+    if (firstResult) {
+        std::cout << "New Game starts!" << std::endl;
+        while (g.play()) {
+            std::cout << "New Game starts!" << std::endl;
+            g.initializeGame(decision, finalFile);
+        }
     }
 
     std::cout << " Bye!" << std::endl;

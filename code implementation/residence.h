@@ -23,6 +23,8 @@ class Residence {
     int getBuildingPoints();
     int getLevel();
 
+    void setType(std::string type);
+
     
     std::string getData();
 };
