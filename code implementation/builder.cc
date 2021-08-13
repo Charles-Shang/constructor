@@ -208,3 +208,9 @@ int Builder::getResLevelOnVertex(int vertexNum) {
 int Builder::getNumOfRssOf(int type){
 
 }
+
+void Builder::buildRoad(int roadNum) {
+    roadLst.emplace_back(roadNum);
+    resources[3]--;
+    resources[4]--;
+}
