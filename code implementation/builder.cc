@@ -202,6 +202,19 @@ std::string Builder::upgradeResidence(int location) {
     for (auto residence : builtLst) {
         if (residence->getLocation() == location) {
             residence->upgrade();
+            if (residence->getLevel() == 1) {
+                resources[2] -= 2;
+                resources[3] -= 3;
+            } else if (residence->getLevel() == 2) {
+                resources[0] -= 3;
+                resources[1] -= 2;
+                resources[2] -= 2;
+                resources[3] -= 2;
+                resources[4] -= 1;
+            } else {
+                std::cout << "Incorrect level at residence "
+                          << residence->getLocation() << std::endl;
+            }
             return residence->getResType();
         }
     }
