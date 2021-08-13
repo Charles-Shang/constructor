@@ -122,3 +122,9 @@ int Board::getTileValueAtLocation(int location) {
 bool Board::getTileHasGeeseAtLocation(int location) {
     return tiles[location].getHasGeese();
 }
+
+int Board::whichHasGeese() {
+    for (size_t i = 0; i < tiles.size(); i++)
+        if (tiles[i].getHasGeese()) return i;
+    return 99999;  // this should never reach
+}

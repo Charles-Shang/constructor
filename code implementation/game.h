@@ -15,16 +15,19 @@ class Game {
     // functions:
     void beginGame();
     void beginTurn();
-    void afterTurn();
-
-    void displayBoard();
+    void duringTheTurn();
+    void printBoard();
     std::string builtInWhichColour(int location, std::string type);
+
+    void moveGeese();
 
    public:
     Game(std::default_random_engine _rng);
     void initializeGame(int inputMode, std::string fileName);
-    void play();  // start the Game of Constructor
+    bool play();  // start the Game of Constructor
     void newMain();
+
+    
 };
 
 #endif

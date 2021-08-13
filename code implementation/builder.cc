@@ -62,3 +62,64 @@ std::string Builder::getResDisplay(int location, std::string type) {
     data += std::to_string(location);
     return data;
 }
+
+int Builder::calculatePoints() {
+    int point = 0;
+    for (Residence res : builtLst) {
+        point += res.getBuildingPoints();
+    }
+    return point;
+}
+
+void Builder::switchFairDice(bool state) { fairDice = state; }
+
+int Builder::rollDice() {
+    if (fairDice) {
+        std::vector<int> diceValue = {1, 2, 3, 4, 5, 6};
+        std::shuffle(diceValue.begin(), diceValue.end(), seed);
+        int a = diceValue[0];
+        std::shuffle(diceValue.begin(), diceValue.end(), seed);
+        int b = diceValue[0];
+        return a + b;
+    } else {
+        while (true) {
+            std::cout << "Input a roll between 2 and 12:" << std::endl;
+            int rollNum;
+
+            try {
+                std::cin >> rollNum;
+            } catch (std::ios::failure &) {
+                std::cout << "Invalid roll" << std::endl;
+                std::cin.clear();
+                std::cin.ignore();
+                continue;
+            }
+
+            if (2 <= rollNum && rollNum <= 12)
+                return rollNum;
+            else
+                std::cout << "Invalid roll" << std::endl;
+        }
+    }
+}
+
+int Builder::calculateResouceSum() {
+    int sum = 0;
+    for (int i : resources) sum += i;
+    return sum;
+}
+
+std::vector<int> Builder::listAllRss() {
+    std::vector<int> rssLst;
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < resources[i]; j++) {
+            rssLst.emplace_back(i);
+        }
+    }
+
+    return rssLst;
+}
+
+void Builder::modifiesResources(int resType, int delta) {
+    resources[resType] += delta;
+}

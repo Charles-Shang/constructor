@@ -25,9 +25,15 @@ class Builder {
     std::string getBuilderName();
     void buildResidence(int location, bool first = false);
     std::string colourShortName();
-
-
     std::string getResDisplay(int location, std::string type);
+    int calculatePoints();
+
+    void switchFairDice(bool state);
+    int rollDice();
+
+    int calculateResouceSum();
+    std::vector<int> listAllRss();
+    void modifiesResources(int resType, int delta);
 
 };
 

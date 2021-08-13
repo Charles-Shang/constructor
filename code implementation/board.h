@@ -34,6 +34,7 @@ class Board {
     int getTileValueAtLocation(int location);
     bool getTileHasGeeseAtLocation(int location);
     
+    int whichHasGeese();
 
 };
 

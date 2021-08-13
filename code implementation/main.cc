@@ -6,10 +6,10 @@
  */
 
 #include <stdio.h>
-#include <random>
 #include <chrono>
 #include <fstream>
 #include <iostream>
+#include <random>
 #include "game.h"
 
 using std::cin;
@@ -72,7 +72,11 @@ int main(int argc, char* argv[]) {
 
     Game g{rng};
     g.initializeGame(decision, finalFile);
-    g.play();
+    std::cout << "New Game starts!" << std::endl;
+    while (g.play()) {
+        std::cout << "New Game starts!" << std::endl;
+        g.initializeGame(decision, finalFile);
+    }
 
     // below command is only for temp use, will be delated eventually
     // string command;
