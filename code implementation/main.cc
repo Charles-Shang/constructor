@@ -35,10 +35,11 @@ int main(int argc, char* argv[]) {
             }
         } else if (flags == "-load") {
             load = true;
+            decision = 1;
             loadedFile = std::string{argv[++i]};
         } else if (flags == "-board") {
-            std::cout << "In Board" << std::endl;
             board = true;
+            decision = 2;
             boardFile = std::string{argv[++i]};
         } else if (flags == "-random-board") {
             decision = 3;
@@ -87,6 +88,13 @@ int main(int argc, char* argv[]) {
     }
 
     std::default_random_engine rng{seed};
+
+    /* if (decision == 1) {
+         //***
+    } else */
+    if (decision == 2) {
+        finalFile = boardFile;
+    }
 
     Game g{rng};
     g.initializeGame(decision, finalFile);

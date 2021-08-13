@@ -3,12 +3,14 @@
 
 #include <map>
 #include <memory>
+#include <random>
 #include <vector>
 #include "edge.h"
 #include "tile.h"
 #include "vertices.h"
 
 class Board {
+    std::default_random_engine seed;
     std::vector<Tile> tiles;  // vector list of tiles on board
     std::map<int, std::vector<int>> verticeMap;
     std::map<int, std::vector<int>> edgeMap;
@@ -24,7 +26,7 @@ class Board {
 
    public:
     // initialize the board
-    void init(int mode, std::string fileName = "layout.txt");
+    void initSelection(int mode, std::string fileName = "layout.txt");
     void setupVerticesAndEdgesRelation();
 
     bool checkCanBuildResAt(int location, int builder, bool first = false);
@@ -53,6 +55,7 @@ class Board {
     std::string getBoardData();  // in layout.txt format
     void clearBoard();
 
+    void setSeed(std::default_random_engine _rng);
 };
 
 #endif
