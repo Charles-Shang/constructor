@@ -7,32 +7,24 @@
 #include "builder.h"
 
 class Game {
-    Board thisBoard;  // the board in the game
-    std::vector<Builder> allPlayers;
     std::default_random_engine seed;
-    int curTurn;
+    Board thisBoard;  // the board in the game
+    std::vector<std::shared_ptr<Builder>> allPlayers;
+    int curPlayer;
+
+    // functions:
+    void beginGame();
+    void beginTurn();
+    void afterTurn();
+
+    void displayBoard();
+    std::string builtInWhichColour(int location, std::string type);
 
    public:
-    void initializeGame(int inputMode, std::string fileName,
-                        std::default_random_engine _rng);
-    void play();       // start the Game of Constructor
-    void printHelp();  // display help command message
-    void beginTurn();  // start a round for a player
-    void duringTheTurn();
-    void beginGame();
-    void moveGeese();
-    void gainResources(int diceResult);
-    // testing
+    Game(std::default_random_engine _rng);
+    void initializeGame(int inputMode, std::string fileName);
+    void play();  // start the Game of Constructor
     void newMain();
-    void saveGame();
-
-    void printBoard();  // display the board
-
-    std::string resBuiltInWhichColour(int location);
-    std::string roadBuiltInWhichColour(int location);
-
 };
-
-
 
 #endif

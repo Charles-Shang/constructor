@@ -10,12 +10,20 @@ class Residence {
 
    public:
     Residence(int _location, int _level = 0, int _buildingPoints = 1);
+    int getLocation();
+    std::string getResType();
+
+
+
+
+
+
     // upgrade the cuurent residence to the next level
     void upgrade();
     int getBuildingPoints();
     int getLevel();
-    int getLocation();
-    std::string getResType();
+
+    
     std::string getData();
 };
 

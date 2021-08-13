@@ -1,11 +1,7 @@
 #ifndef _VERTICES_H_
 #define _VERTICES_H_
 
-#include <memory>
 #include <vector>
-#include "edge.h"
-
-class Edge;
 
 class Vertices {
     int location;  // location on the board
@@ -13,27 +9,19 @@ class Vertices {
     bool canBuildResidence;
     int whichBuilder;  // the owner of the residence
     // vector list of shared pointer of edges that are neighbours of vertice
-    std::vector<std::shared_ptr<Edge>> connectedEdges;
+    std::vector<int> connectedEdges;
 
    public:
     // initially -1 represent no residence
-    Vertices(int _location, bool _canBuildResidence = true,
-             int _whichBuilder = -1);
-    // build a residence (basement) at the location
-    void addResidence(int builder);
+    Vertices(int _location, bool _canBuildRes = true, int _whichBuilder = -1);
+    void addEdgeNeighbour(const int &edge);
 
-    void addEdgeNeighbour(const std::shared_ptr<Edge> &edge);
-    bool checkCanBuildResidence();
-    int getWhichBuilder();
-    void notifyNeighbours();
-    std::vector<std::shared_ptr<Edge>> &getConnectedEdges();
-    void displayNeighbourEdges();
+    bool getCanBuildResidence();
+    void buildRes(int builder);
 
-    void setCannotBuildRes();
+    std::vector<int> getEdgeNeighbours();
 
-    // testing
-    int getLocation();
-    
+    void setCannotBuild();
 };
 
 #endif

@@ -2,10 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-void setupVerticesAndEdges(std::vector<std::shared_ptr<Vertices>> &allVertices,
-                           std::vector<std::shared_ptr<Edge>> &allEdges) {
-    const int totalVertices = 54;
-    const int totalEdges = 72;
+void Board::setupVerticesAndEdgesRelation() {
     int location;
     std::ifstream neighbourFile;
 
@@ -31,7 +28,7 @@ void setupVerticesAndEdges(std::vector<std::shared_ptr<Vertices>> &allVertices,
         while (true) {
             neighbourFile >> location;
             if (location == delimiter) break;
-            allVertices[j]->addEdgeNeighbour(allEdges[location]);
+            allVertices[j]->addEdgeNeighbour(location);
         }
     }
 
@@ -40,12 +37,36 @@ void setupVerticesAndEdges(std::vector<std::shared_ptr<Vertices>> &allVertices,
         while (true) {
             neighbourFile >> location;
             if (location == delimiter) break;
-            allEdges[j]->addVerticeNeighbour(allVertices[location]);
+            allEdges[j]->addVerticeNeighbour(location);
         }
     }
 }
 
-void Board::defaultInitBoard(int *resources, int *tileValues) {
+void Board::init(int mode, std::string fileName) {
+    if (mode == 4) {
+        std::ifstream layoutFile;
+
+        try {
+            layoutFile = std::ifstream{fileName};
+        } catch (const std::exception &e) {
+            std::cerr << "Opening file " << fileName << "failed." << std::endl;
+        }
+
+        int num;
+
+        for (int i = 0; i < 19; i++) {
+            layoutFile >> num;
+            if (layoutFile.eof()) break;
+            resources.emplace_back(num);
+            layoutFile >> num;
+            tileValues.emplace_back(num);;
+        }
+
+        defaultInitBoard();
+    }
+}
+
+void Board::defaultInitBoard() {
     std::ifstream tileFile;
 
     try {
@@ -55,26 +76,22 @@ void Board::defaultInitBoard(int *resources, int *tileValues) {
     }
     int location;
 
-    // create all vertices and edges pointers
-    std::vector<std::shared_ptr<Vertices>> allVertices;
-    std::vector<std::shared_ptr<Edge>> allEdges;
-    setupVerticesAndEdges(allVertices, allEdges);
+    setupVerticesAndEdgesRelation();
 
     for (int i = 0; i < 19; i++) {
         tileFile >> location;
-        // add resources and values to tile
         Tile theTile{resources[i], i, tileValues[i]};
 
         // read the vertices of this tile
         for (int vertexNum = 0; vertexNum < 6; ++vertexNum) {
             tileFile >> location;
-            theTile.addVertices(allVertices[location]);
+            theTile.addVertices(location);
             verticeMap[location].emplace_back(i);
         }
         // read the edges of this tile
         for (int edgeNum = 0; edgeNum < 6; ++edgeNum) {
             tileFile >> location;
-            theTile.addEdge(allEdges[location]);
+            theTile.addEdge(location);
             edgeMap[location].emplace_back(i);
         }
 
@@ -82,79 +99,24 @@ void Board::defaultInitBoard(int *resources, int *tileValues) {
     }
 }
 
-void Board::displayTile() {
-    for (int i = 0; i < 19; i++) {
-        tiles[i].displayVNE();
-    }
+bool Board::checkCanBuildResAt(int location) {
+    return allVertices[location]->getCanBuildResidence();
 }
 
-void Board::displayConnections() {
-    for (int i = 0; i < 19; i++) {
-        tiles[i].displayConnections();
-    }
-}
-
-bool Board::buildRes(int location, int builder) {
-    int tileNum = vertexToTile(location);
-    std::cout << "---This is at tile: " << tileNum << std::endl;
-    return tiles[tileNum].addResidence(location, builder);
-}
-
-bool Board::buildRoad(int location, int builder) {
-    int tileNum = edgeToTile(location);
-    return tiles[tileNum].addRoad(location, builder);
-}
-
-int Board::vertexToTile(int vertexLocation) {
-    return verticeMap[vertexLocation].front();
-}
-
-int Board::edgeToTile(int edgeLocation) {
-    return edgeMap[edgeLocation].front();
-}
-
-std::string Board::getBoardData() {
-    std::string data = "";
-    for (size_t i = 0; i < tiles.size(); i++) data += tiles[i].getData() + "";
-    return data;
-}
-
-int Board::whichHasGeese() {
-    for (size_t i = 0; i < tiles.size(); i++)
-        if (tiles[i].getHasGeese()) return i;
-    return 99999;  // this should never reach
-}
-
-int Board::getRssOnTile(int tileNum) { return tiles[tileNum].getType(); }
-
-std::vector<int> Board::getPlayersOnTile(int location) {
-    return tiles[location].getAllPlayOnTheTile();
-}
-std::vector<int> Board::getResLocOnTile(int location) {
-    return tiles[location].getResLocOnTheTile();
-}
-
-void Board::transferGeese(int current, int destination) {
-    tiles[current].updateGeese(false);
-    tiles[destination].updateGeese(true);
-}
-
-std::vector<int> Board::tileValToNum(int value) {
-    std::vector<int> tileNums;
-    for (auto eachTile : tiles) {
-        if (eachTile.getTileValue() == value) {
-            tileNums.emplace_back(eachTile.getTileNum());
-        }
-    }
-    return tileNums;
-}
-
-int Board::getTileValueAtLocation(int location) {
-    return tiles[location].getTileValue();
+// note: it also notifies the neighbours
+void Board::buildResAt(int location, int builder) {
+    allVertices[location]->buildRes(builder);
+    for (auto i : allVertices[location]->getEdgeNeighbours())
+        for (auto j : allEdges[i]->getVerticesNeighbours())
+            allVertices[j]->setCannotBuild();
 }
 
 std::string Board::getTileTypeAtLocation(int location) {
     return tiles[location].getTileType();
+}
+
+int Board::getTileValueAtLocation(int location) {
+    return tiles[location].getTileValue();
 }
 
 bool Board::getTileHasGeeseAtLocation(int location) {

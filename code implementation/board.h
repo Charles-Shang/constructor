@@ -3,36 +3,38 @@
 
 #include <map>
 #include <vector>
+#include <memory>
 #include "tile.h"
+#include "vertices.h"
+#include "edge.h"
 
 class Board {
     std::vector<Tile> tiles;  // vector list of tiles on board
     std::map<int, std::vector<int>> verticeMap;
     std::map<int, std::vector<int>> edgeMap;
+    std::vector<std::shared_ptr<Vertices>> allVertices;
+    std::vector<std::shared_ptr<Edge>> allEdges;
+    std::vector<int> resources;
+    std::vector<int> tileValues;
+
+    const int totalVertices = 54;
+    const int totalEdges = 72;
+
+    void defaultInitBoard();
 
    public:
     // initialize the board
-    void defaultInitBoard(int *resources, int *tileValues);
+    void init(int mode, std::string fileName = "layout.txt");
+    void setupVerticesAndEdgesRelation();
+    
+    bool checkCanBuildResAt(int location);
+    void buildResAt(int location, int builder);
 
-    // testing functions
-    void displayTile();
-    void displayConnections();
-    bool buildRoad(int location, int builder);
-    bool buildRes(int location, int builder);
-    int vertexToTile(int vertexLocation);  // get tile number based on vertices
-    int edgeToTile(int edgeLocation);
-    std::string getBoardData();  // in layout.txt format
-    int whichHasGeese();
-    int getRssOnTile(int tileNum);
-    std::vector<int> getPlayersOnTile(int location);
-    std::vector<int> getResLocOnTile(int location);
-
-    void transferGeese(int current, int destination);
-    std::vector<int> tileValToNum(int value);
-
-    int getTileValueAtLocation(int location);
     std::string getTileTypeAtLocation(int location);
+    int getTileValueAtLocation(int location);
     bool getTileHasGeeseAtLocation(int location);
+    
+
 };
 
 #endif

@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     // std::chrono::system_clock::now().time_since_epoch().count();
     unsigned seed = 1000;
 
-    for (int i = 0; i < argc; i++) {
+    for (int i = 1; i < argc; i++) {
         std::string flags{argv[i]};
         if (flags == "seed") {
             try {
@@ -70,20 +70,20 @@ int main(int argc, char* argv[]) {
 
     std::default_random_engine rng{seed};
 
-    Game g;
-    g.initializeGame(decision, finalFile, rng);
-    // g.play();
+    Game g{rng};
+    g.initializeGame(decision, finalFile);
+    g.play();
 
     // below command is only for temp use, will be delated eventually
-    string command;
-    while (true) {
-        std::cin >> command;
-        if (command == "test") {
-            std::cout << "Testing mode enabled!" << std::endl;
-            g.newMain();
-        } else if (command == "play") {
-            std::cout << "Play mode enabled!" << std::endl;
-            g.play();
-        }
-    }
+    // string command;
+    // while (true) {
+    //     std::cin >> command;
+    //     if (command == "test") {
+    //         std::cout << "Testing mode enabled!" << std::endl;
+    //         g.newMain();
+    //     } else if (command == "play") {
+    //         std::cout << "Play mode enabled!" << std::endl;
+    //         g.play();
+    //     }
+    // }
 }
