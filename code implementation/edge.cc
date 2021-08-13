@@ -55,3 +55,7 @@ std::vector<std::shared_ptr<Vertices>> &Edge::getVerticeNeighbour() {
 }
 
 int Edge::getWhichBuilder() { return whichBuilder; }
+
+void Edge::turnOffNeighbourVertices() {
+    for (auto single : connectedVertices) single->setCannotBuildRes();
+}

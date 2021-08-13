@@ -1,7 +1,7 @@
 CXX=g++ 
 CXXFLAGS=-std=c++14 -Wall -O -g -MMD -Werror=vla # use -MMD to generate dependencies
 SOURCES=$(wildcard *.cc)   # list of all .cc files in the current directory
-OBJECTS= main.o board.o game.o tile.o vertices.o edge.o  builder.o residence.o subject.o # .o files depend upon .cc files with same names
+OBJECTS= main.o board.o game.o tile.o vertices.o edge.o  builder.o residence.o # .o files depend upon .cc files with same names
 DEPENDS=${OBJECTS:.o=.d}   # .d file is list of dependencies for corresponding .cc file
 EXEC=ctor
 

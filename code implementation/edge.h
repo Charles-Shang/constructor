@@ -28,6 +28,7 @@ class Edge {
     int getLocation();
     void displayNeighbourVertices();
     std::vector<std::shared_ptr<Vertices>> &getVerticeNeighbour();
+    void turnOffNeighbourVertices();
 };
 
 #endif

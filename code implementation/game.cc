@@ -438,26 +438,28 @@ void Game::newMain() {
     char cmd;
     while (true) {
         cin >> cmd;
-        if (cmd == 'b') {
+        if (cmd == 'a') {
             printBoard();
-        } else if (cmd == 't') {
+        } else if (cmd == 'b') {
             thisBoard.displayTile();
         } else if (cmd == 'c') {
             thisBoard.displayConnections();
-        } else if (cmd == 'm') {
+        } else if (cmd == 'd') {
             for (int i = 0; i < 53; i++)
                 cout << thisBoard.vertexToTile(i) << " ";
             cout << endl;
 
             for (int i = 0; i < 72; i++) cout << thisBoard.edgeToTile(i) << " ";
             cout << endl;
-        } else if (cmd == 'a') {
+        } else if (cmd == 'e') {
             Builder Blue(0, seed), Red(1, seed), Orange(2, seed),
                 Yellow(3, seed);
             allPlayers = {Blue, Red, Orange, Yellow};
             for (size_t i = 0; i < allPlayers.size(); i++) {
                 cout << allPlayers[i].getColourName() << endl;
             }
+        } else if (cmd == 'q'){
+            return;
         }
     }
 }

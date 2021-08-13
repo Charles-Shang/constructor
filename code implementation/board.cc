@@ -45,10 +45,6 @@ void setupVerticesAndEdges(std::vector<std::shared_ptr<Vertices>> &allVertices,
     }
 }
 
-void setupVerticesObservers(std::vector<std::shared_ptr<Vertices>> &all) {
-    for (size_t i = 0; i < all.size(); i++) all[i]->attachALL();
-}
-
 void Board::defaultInitBoard(int *resources, int *tileValues) {
     std::ifstream tileFile;
 
@@ -63,7 +59,6 @@ void Board::defaultInitBoard(int *resources, int *tileValues) {
     std::vector<std::shared_ptr<Vertices>> allVertices;
     std::vector<std::shared_ptr<Edge>> allEdges;
     setupVerticesAndEdges(allVertices, allEdges);
-    setupVerticesObservers(allVertices);
 
     for (int i = 0; i < 19; i++) {
         tileFile >> location;
@@ -101,6 +96,7 @@ void Board::displayConnections() {
 
 bool Board::buildRes(int location, int builder) {
     int tileNum = vertexToTile(location);
+    std::cout << "---This is at tile: " << tileNum << std::endl;
     return tiles[tileNum].addResidence(location, builder);
 }
 

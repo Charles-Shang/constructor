@@ -78,6 +78,7 @@ bool Tile::addRoad(int location, int builder) {
 bool Tile::addResidence(int location, int builder) {
     auto toBeBuilt = theVertices[location];
     if (toBeBuilt->checkCanBuildResidence()) {
+        std::cout << "---Can build at location: " << location <<std::endl;
         toBeBuilt->addResidence(builder);
         return true;
     } else {
