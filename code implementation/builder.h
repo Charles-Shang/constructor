@@ -65,6 +65,7 @@ class Builder {
     void trade(int give, int take);
 
     std::string getData();
+    void clearBuilder();
 };
 
 #endif

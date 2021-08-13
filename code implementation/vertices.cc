@@ -24,3 +24,8 @@ void Vertices::setCannotBuild() { canBuildResidence = false; }
 int Vertices::getWhichBuilder() { return whichBuilder; }
 
 int Vertices::getLocation() { return location; }
+
+void Vertices::clearVertex() {
+    canBuildResidence = true;
+    whichBuilder = -1;
+}

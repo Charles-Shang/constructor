@@ -30,6 +30,7 @@ class Game {
     void initializeGame(int inputMode, std::string fileName);
     bool play();  // start the Game of Constructor
     void newMain();
+    void clearAll();
 
     
 };

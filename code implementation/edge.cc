@@ -19,3 +19,8 @@ int Edge::getLocation() { return location; }
 void Edge::setHasRoad(bool hasRd) { hasRoad = hasRd; }
 
 void Edge::setWhichBuilder(int colour) { whichBuilder = colour; }
+
+void Edge::clearEdge() {
+    hasRoad = false;
+    whichBuilder = -1;
+}

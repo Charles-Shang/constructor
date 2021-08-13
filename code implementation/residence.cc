@@ -37,3 +37,8 @@ std::string Residence::getData() {
     std::string data = formatInteger(location) + " " + getResType();
     return data;
 }
+
+void Residence::clearRes() {
+    int level = 0;
+    int buildingPoints = 1;
+}

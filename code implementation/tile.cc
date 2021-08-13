@@ -1,5 +1,5 @@
 #include "tile.h"
-#include <iostream>>
+#include <iostream>
 
 Tile::Tile(int _type, int _tileNum, int _tileValue, int _load)
     : type{_type}, tileNum{_tileNum}, tileValue{_tileValue} {
@@ -31,13 +31,6 @@ std::string Tile::getTileType() {
 int Tile::getTileValue() { return tileValue; }
 
 bool Tile::getHasGeese() {
-    // testing
-    if (hasGeese) {
-        std::cout << "tile " << tileNum << " has geese" << std::endl;
-    } else {
-        std::cout << "tile " << tileNum << "  does not have geese" << std::endl;
-    }
-    // test ends
     return hasGeese;
 }
 
@@ -57,4 +50,12 @@ std::string Tile::getData() {
     std::string data = "";
     data = std::to_string(type) + " " + std::to_string(tileValue);
     return data;
+}
+
+void Tile::clearTile() {
+    if (tileValue == 7) {
+        hasGeese = true;
+    } else {
+        hasGeese = false;
+    }
 }

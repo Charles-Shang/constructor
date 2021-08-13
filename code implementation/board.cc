@@ -219,3 +219,18 @@ std::string Board::getBoardData() {
     for (size_t i = 0; i < tiles.size(); i++) data += tiles[i].getData() + " ";
     return data;
 }
+
+void Board::clearBoard() {
+    // clear tiles
+    for (auto eachTile : tiles) {
+        eachTile.clearTile();
+    }
+    // clear vertices
+    for (auto eachVertex : allVertices) {
+        eachVertex->clearVertex();
+    }
+    // clear edges
+    for (auto eachEdge : allEdges) {
+        eachEdge->clearEdge();
+    }
+}
