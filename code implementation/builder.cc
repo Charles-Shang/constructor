@@ -94,7 +94,7 @@ int Builder::rollDice() {
         while (true) {
             std::cout << "Input a roll between 2 and 12:" << std::endl;
             int rollNum;
-
+            std::cout << "¿ ";
             try {
                 std::cin >> rollNum;
             } catch (std::ios::failure &) {

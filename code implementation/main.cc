@@ -74,6 +74,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Do you want to use a random board? (Y/N)" << std::endl;
         std::string answer;
         while (true) {
+            std::cout << "¿ ";
             std::cin >> answer;
             if (answer == "y" || answer == "Y") {
                 randomBoard = true;

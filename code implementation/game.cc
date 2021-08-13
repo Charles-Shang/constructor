@@ -135,6 +135,7 @@ void Game::beginGame() {
         cout << "Builder " << allPlayers[i]->getBuilderName()
              << ", where do you want to build a basement?" << endl;
         while (true) {
+            cout << "¿ ";
             cin >> location;
             if (location <= 53 && location >= 0 &&
                 thisBoard.checkCanBuildResAt(location, i, true)) {
@@ -153,6 +154,7 @@ void Game::beginGame() {
         cout << "Builder " << allPlayers[i]->getBuilderName()
              << ", where do you want to build a basement?" << endl;
         while (true) {
+            cout << "¿ ";
             cin >> location;
             if (location <= 53 && location >= 0 &&
                 thisBoard.checkCanBuildResAt(location, i, true)) {
@@ -180,6 +182,7 @@ void Game::beginTurn() {
     // extrafeature
     std::cout << "Choose your dice and roll!" << std::endl;
     std::cout << "Commands: \"load\", \"fair\" and \"roll\"." << std::endl;
+    cout << "¿ ";
     while (true) {
         try {
             cin >> cmd;
@@ -215,6 +218,7 @@ void Game::beginTurn() {
 void Game::duringTheTurn() {
     std::string cmd;
     while (true) {
+        cout << "¿ ";
         try {
             cin >> cmd;
         } catch (std::ios::failure &) {
@@ -231,6 +235,7 @@ void Game::duringTheTurn() {
             allPlayers[curPlayer]->printResidence();
         } else if (cmd == "build-road") {
             int roadNum = 0;
+            cout << "¿ ";
             cin >> roadNum;
             if (roadNum > 71 || roadNum < 0 ||
                 !thisBoard.checkCanBuildRoadAt(curPlayer, roadNum)) {
@@ -245,6 +250,7 @@ void Game::duringTheTurn() {
             }
         } else if (cmd == "build-res") {
             int location = 0;
+            cout << "¿ ";
             cin >> location;
             if (location > 53 || location < 0 ||
                 !thisBoard.checkCanBuildResAt(location, curPlayer)) {
@@ -259,6 +265,7 @@ void Game::duringTheTurn() {
             }
         } else if (cmd == "improve") {
             int location = 0;
+            cout << "¿ ";
             cin >> location;
             if (location > 53 || location < 0 ||
                 !allPlayers[curPlayer]->haveResidence(location)) {
@@ -275,6 +282,7 @@ void Game::duringTheTurn() {
             }
         } else if (cmd == "trade") {
             int colour, give, take;
+            cout << "¿ ";
             cin >> colour >> give >> take;
 
             if (colour == curPlayer) {
@@ -287,6 +295,7 @@ void Game::duringTheTurn() {
                 cout << "Does " << allPlayers[colour]->getBuilderName()
                      << " accept this offer?" << endl;
                 std::string answer;
+                cout << "¿ ";
                 cin >> answer;
                 if (answer == "yes") {
                     if (allPlayers[curPlayer]->getNumOfRssOf(give) >= 1 &&
@@ -364,6 +373,7 @@ bool Game::play(bool load) {
             cout << "Congratulations! You win!" << endl;
             cout << "Would you like to play again?" << endl;
             std::string newGame;
+            cout << "¿ ";
             cin >> newGame;
             if (newGame == "yes") {
                 clearAll();
@@ -488,6 +498,7 @@ void Game::moveGeese() {
 
     int desitation, current = thisBoard.whichHasGeese();
     while (true) {
+        cout << "¿ ";
         try {
             std::cin >> desitation;
         } catch (const std::exception &e) {
@@ -528,6 +539,7 @@ void Game::moveGeese() {
 
         std::string chosenToSteal;
         while (true) {
+            cout << "¿ ";
             try {
                 std::cin >> chosenToSteal;
             } catch (const std::exception &e) {
@@ -593,6 +605,7 @@ void Game::gainResources(int diceResult) {
 void Game::saveGame() {
     std::string saveFile;
     while (true) {
+        cout << "¿ ";
         cin >> saveFile;
 
         std::ofstream file(saveFile);
