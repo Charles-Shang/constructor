@@ -51,6 +51,7 @@ class Board {
     std::vector<int> getResLocOnTile(int location);
 
     std::string getBoardData();  // in layout.txt format
+    void clearBoard();
 
 };
 

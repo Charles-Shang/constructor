@@ -27,6 +27,7 @@ class Tile {
     std::vector<int> getTheVertices();
     std::vector<int> getResLocOnTheTile();
     std::string getData();
+    void clearTile();
 };
 
 #endif

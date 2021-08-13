@@ -292,6 +292,7 @@ bool Game::play() {
             std::string newGame;
             cin >> newGame;
             if (newGame == "yes") {
+                clearAll();
                 return true;
             } else if (newGame == "no") {
                 return false;  // end the game (do we need to destroy anything?)
@@ -530,5 +531,14 @@ void Game::saveGame() {
             std::cout << "Unable to save file to " << saveFile << std::endl;
             std::cout << "Try another file." << saveFile << std::endl;
         }
+    }
+}
+
+void Game::clearAll() {
+    // clear board
+    thisBoard.clearBoard();
+    // clear builder
+    for (auto eachBuilder : allPlayers) {
+        eachBuilder->clearBuilder();
     }
 }

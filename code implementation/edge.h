@@ -21,7 +21,7 @@ class Edge {
     int getLocation();
     void setHasRoad(bool hasRd);
     void setWhichBuilder(int colour);
-
+    void clearEdge();
 
 
     

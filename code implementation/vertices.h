@@ -25,6 +25,7 @@ class Vertices {
     int getLocation();
 
     int getWhichBuilder();
+    void clearVertex();
 
 };
 

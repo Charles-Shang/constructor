@@ -250,3 +250,12 @@ bool Builder::haveRoad(int location) {
 
     return false;
 }
+
+void Builder::clearBuilder() {
+    for (auto residence : builtLst) {
+        residence->clearRes();
+    }
+    builtLst.clear();
+    roadLst.clear();
+    resources.clear();
+}

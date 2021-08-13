@@ -49,3 +49,11 @@ std::string Tile::getData() {
     data = std::to_string(type) + " " + std::to_string(tileValue);
     return data;
 }
+
+void Tile::clearTile() {
+    if (tileValue == 7) {
+        hasGeese = true;
+    } else {
+        hasGeese = false;
+    }
+}
