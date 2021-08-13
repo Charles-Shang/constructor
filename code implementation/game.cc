@@ -174,7 +174,9 @@ void Game::duringTheTurn() {
         } else if (cmd == "build-res") {
             int location = 0;
             cin >> location;
-            if (!allPlayers[curPlayer]->haveEnoughRssForResidence()) {
+            if (!thisBoard.checkCanBuildResAt(location)) {
+                cout << "You cannot build here." << endl;
+            } else if (!allPlayers[curPlayer]->haveEnoughRssForResidence()) {
                 cout << "You do not have enough resources.";
             } else if (thisBoard.checkCanBuildResAt(location)) {
                 thisBoard.buildResAt(location, curPlayer);
@@ -504,8 +506,9 @@ void Game::saveGame() {
                 file << allPlayers[i]->getData() << std::endl;
 
             file << thisBoard.getBoardData() << std::endl;
-            file << thisBoard.whichHasGeese();
-
+            file << thisBoard.whichHasGeese() << std::endl;
+            std::cout << "File saved at " << saveFile << "." << std::endl;
+            break;
         } else {
             std::cout << "Unable to save file to " << saveFile << std::endl;
             std::cout << "Try another file." << saveFile << std::endl;

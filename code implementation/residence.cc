@@ -26,7 +26,14 @@ std::string Residence::getResType() {
     }
 }
 
+std::string formatInteger(int num) {
+    std::string temp = "";
+    if (num < 10) temp += " ";
+    temp += std::to_string(num);
+    return temp;
+}
+
 std::string Residence::getData() {
-    std::string data = std::to_string(location) + " " + getResType();
+    std::string data = formatInteger(location) + " " + getResType();
     return data;
 }

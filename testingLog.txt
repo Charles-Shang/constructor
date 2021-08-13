@@ -17,3 +17,17 @@
 hahaha
 load
 roll
+10
+hahahahaha
+help
+save test.log
+board
+status
+residences
+build-road 1
+build-road 50
+build-road 0
+build-road 48
+build-road 56
+build-road 52
+build-road 44

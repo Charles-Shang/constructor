@@ -18,6 +18,13 @@ std::string Builder::getBuilderName() {
     }
 }
 
+std::string formatInt(int num) {
+    std::string temp = "";
+    if (num < 10) temp += " ";
+    temp += std::to_string(num);
+    return temp;
+}
+
 void Builder::buildResidence(int location, bool first) {
     Residence newResidence{location};
     builtLst.emplace_back(newResidence);
@@ -130,14 +137,14 @@ void Builder::printStatus() {
     std::cout << getBuilderName() << " has " << calculatePoints()
               << " building points, " << resources[0] << " brick, "
               << resources[1] << " energy, ";
-    std::cout << resources[2] << " glass, " << resources[3] << " head, and "
+    std::cout << resources[2] << " glass, " << resources[3] << " heat, and "
               << resources[3] << " WiFi." << std::endl;
 }
 
 void Builder::printResidence() {
     std::cout << getBuilderName() << " has built:" << std::endl;
     for (auto res : builtLst)
-        std::cout << res.getLocation() << " " << res.getResType() << std::endl;
+        std::cout << formatInt(res.getLocation()) << " " << res.getResType() << std::endl;
 }
 
 bool Builder::haveEnoughRssForResidence() {
@@ -220,11 +227,15 @@ void Builder::trade(int give, int take) {
     resources[take]++;
 }
 
+
+
 std::string Builder::getData() {
     std::string data = "";
-    for (size_t i = 0; i < resources.size(); i++) data += resources[i] + " ";
+    for (size_t i = 0; i < resources.size(); i++)
+        data += formatInt(resources[i]) + " ";
     data += "r ";
-    for (size_t i = 0; i < roadLst.size(); i++) data += roadLst[i] + " ";
+    for (size_t i = 0; i < roadLst.size(); i++)
+        data += formatInt(roadLst[i]) + " ";
     data += "h";
     for (size_t i = 0; i < builtLst.size(); i++)
         data += " " + builtLst[i].getData();
