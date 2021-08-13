@@ -57,6 +57,7 @@ class Builder {
     bool haveResidence(int location);
 
     int getNumOfRssOf(int type);
+    void buildRoad(int roadNum);
     void trade(int give, int take);
 
     std::string getData();

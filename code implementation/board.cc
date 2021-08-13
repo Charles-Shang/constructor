@@ -165,9 +165,33 @@ std::vector<int> Board::tileValToNum(int tileValue) {
 
 int Board::getRssOnTile(int curTile) { return tiles[curTile].getTileTypeNum(); }
 
-bool Board::checkCanBuildRoadAt(int location)
-{
-    // ***
+bool Board::checkCanBuildRoadAt(int colour, int location) {
+    if (allEdges[location]->getHasRoad()) return false;
+    std::vector<int> nbrVertices = allEdges[location]->getVerticesNeighbours();
+    for (auto eachVertex : nbrVertices) {
+        if (allVertices[eachVertex]->getWhichBuilder() == colour) {
+            return true;  // if one of the neighbour vertices is the same colour
+        } else if (allVertices[eachVertex]->getWhichBuilder() != -1) {
+            continue;
+        } else {
+            // iterate through every neighbour edges to see if we have a
+            // neighbour road
+            std::vector<int> nbrEdge =
+                allVertices[eachVertex]->getEdgeNeighbours();
+            for (auto eachEdge : nbrEdge) {
+                if (allEdges[eachEdge]->getWhichBuilder() == colour &&
+                    allEdges[eachEdge]->getLocation() != location) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+void Board::buildRoadAt(int colour, int location) {
+    allEdges[location]->setHasRoad(true);
+    allEdges[location]->setWhichBuilder(colour);
 }
 
 std::vector<int> Board::getResLocOnTile(int location) {

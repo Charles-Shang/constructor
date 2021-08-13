@@ -123,19 +123,16 @@ void Game::duringTheTurn() {
         } else if (cmd == "build-road") {
             int roadNum = 0;
             cin >> roadNum;
-            if (thisBoard.checkCanBuildRoadAt(roadNum)) {
+            if (!thisBoard.checkCanBuildRoadAt(curPlayer, roadNum)) {
+                cout << "You cannot build here." << endl;
+            } else if (!allPlayers[curPlayer]->haveEnoughRssForRoad()) {
+                cout << "You do not have enough resources." << endl;
+            } else {
+                allPlayers[curPlayer]->buildRoad(roadNum);
+                thisBoard.buildRoadAt(curPlayer, roadNum);
+                 cout << allPlayers[curPlayer]->getBuilderName();
+                 cout << " has built: a road at " << roadNum << endl;
             }
-            // if (!allPlayers[curPlayer]->haveEnoughRssForRoad()) {
-            //     cout << "You do not have enough resources." << endl;
-            // } else if (thisBoard.buildRoad(roadNum,
-            //                                allPlayers[curPlayer].getColour()))
-            //                                {
-            //     allPlayers[curPlayer].buildRoad(roadNum);
-            //     cout << allPlayers[curPlayer].getColourName();
-            //     cout << " has built: a road at " << roadNum << endl;
-            // } else {
-            //     cout << "You cannot build here." << endl;
-            // }
         } else if (cmd == "build-res") {
             int location = 0;
             cin >> location;

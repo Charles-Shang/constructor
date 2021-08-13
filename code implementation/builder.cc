@@ -207,6 +207,14 @@ int Builder::getResLevelOnVertex(int vertexNum) {
 
 int Builder::getNumOfRssOf(int type) { return resources[type]; }
 
+}
+
+void Builder::buildRoad(int roadNum) {
+    roadLst.emplace_back(roadNum);
+    resources[3]--;
+    resources[4]--;
+}
+
 void Builder::trade(int give, int take) {
     resources[give]--;
     resources[take]++;
