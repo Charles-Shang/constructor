@@ -204,3 +204,7 @@ int Builder::getResLevelOnVertex(int vertexNum) {
     }
     return 99999; // this should not be reached
 }
+
+int Builder::getNumOfRssOf(int type){
+
+}

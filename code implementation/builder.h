@@ -56,6 +56,8 @@ class Builder {
 
     bool haveResidence(int location);
 
+    int getNumOfRssOf(int type);
+
 };
 
 #endif
