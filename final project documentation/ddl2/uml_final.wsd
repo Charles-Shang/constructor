@@ -7,16 +7,26 @@ class "**Board**"  {
     - tiles : std::vector<Tile>
     - verticeMap : std::map<int, std::vector<int>>
     - edgeMap : std::map<int, std::vector<int>>
-    + defaultInitBoard(resource : int *, tileValues : int *) : void
-    + displayTile() : void
-    + displayConnections() : void
-    + buildRoad(location : int, builder : int) : bool
-    + buildRes(location : int, builder : int) : bool
-    + vertexToTile(vertexLocation : int) : int
-    + edgeToTile(edgeLocation : int) : int
-    + whichHasGeese() : int
-    + transferGeese(current : int, destination : int) : void
-    + tileValToNum(value : int) : std::vector<int>
+    - allVertices : std::vector<std::shared_ptr<Vertices>>
+    - allEdge : std::vector<std::shared_ptr<Edge>>
+    - resources : std::vector<int>
+    - tileValues : std::vector<int>
+    + initSelection(mode : Integer, fileName : std::string) : void
+    + setupVerticesAndEdgesRelation() : void 
+    + checkCanBuildResAt(location : Integer, builder : Integer, first : Boolean) : Boolean
+    + buildResAt(location : Integer, builder : Integer) : void
+    + checkCanBuildRoadAt(location : Integer) : Boolean
+    + whichHasGeese() : Integer
+    + transferGeese(current : Integer, destination : Integer) : void
+    + getPlayersOnTile(location : Integer, nonRepeat : Boolean) : std::vector<int>
+    + checkCanBuildRoadAt(colour : Integer, location : Integer) : Boolean
+    + buildRoadAt(colour : Integer, location : Integer) : void
+    + tileValToNum(tileValue : Integer) : std::vector<int> 
+    + getRssOnTile(curTile : Integer) : Integer
+    + std::vector<int> getResLocOnTile(location : Integer) : std::vector<int> 
+    + getBoardData() : std::string 
+    + clearBoard() : void
+
 }
 
 
@@ -25,118 +35,89 @@ class "**Tile**" {
     - tileNum : Integer
     - tileValue : Integer
     - hasGeese : Boolean
-    - theVertices : std::vector<std::shared_ptr<Vertices>>
-    - theEdges : std::vector<std::shared_ptr<Edge>>
-    + addVertices(vertice : std::shared_ptr<Vertices> &) : void
-    + addEdge(edge : std::shared_ptr<Edge> &) : void
-    + displayVNE() : void
-    + displayConnections() : void
-    + addRoad(location : Integer, builder : Integer) : Boolean
-    + addResidence(location : Integer, builder : Integer) : Boolean
+    - theVertices : std::vector<int>
+    - theEdges : std::vector<int>
+    + addVertices(vertice : Integer) : void
+    + addEdge(edge : Integer) : void
     + updateGeese(state : Boolean) : void
-    + initTile() : void
-}
-
-
-abstract class "**Observer**" {
-    + {abstract} notify() : void
-    + {abstract} ~Observer()
-}
-
-abstract class "**Subject**" {
-    # observers : std::vector<std::share_ptr<Observer>>
-    + attach (o : const std::share_ptr<Observer>&) :void
-    + {abstract} notifyObserver() : void
+    + clearTile() : void
 }
 
 class "**Vertices**" {
     - location : Integer
     - canBuildResidence : Boolean
     - whichBuilder : Integer
-    - connectedEdges : std::vector<std::share_ptr<Edge>>
-    + addResidence() : void
-    + updateAvailableResidence() : void
-    + notifyObserver(): void
-    + notify() : void
-    + attachALL() : void
-    + addEdgeNeighbour(edge : const std::shared_ptr<Edge> &) : void
-    + displayNeighbourEdges() : void
+    - connectedEdges : std::vector<int>
+    + addEdgeNeighbour(edge : const int &) : void
+    + buildRes(int builder) : void
+    + clearVertex() : void
 }
 
 class "**Edge**" {
     - location : Integer
     - hasRoad : Boolean
     - whichBuilder : Integer
-    - connectedVertices : std::vector<std::share_ptr<Vertices>>
-    + addRoad() : void
-    + canBuildRoad() : Boolean
-    + displayNeighbourVertices() : void
+    - connectedVertices : std::vector<int>
+    + addVerticeNeighbour(const int &vertice) : void
+    + clearEdge() : void
 }
 
 class "**Builder**" {
     - colour : Integer
     - fairDice : Boolean
     - seed : std::default_random_engine
-    - builtLst : std::vector<Residence>
+    - builtLst : std::vector<std::shared_ptr<Residence>>
     - roadLst : std::vector<int>
     - resources : std::vector<int>
-    + rollDice() : void
-    + swichFairDice(state : Boolean) : void
-    + upgradeResidence(location : Integer) : void
+    + getBuilderName() : std::string
+    + buildResidence(location : Integer, first : Boolean) : void
+    + colourShortName() : std::string
+    + getResOrRoadDisplay(location : Integer, type : std::string) : std::string 
+    + calculatePoints() : Integer
+    + switchFairDice(state : Boolean) : void
+    + rollDice() : Integer
+    + calculateResouceSum() : Integer 
+    + listAllRss() : std::vector<int> 
+    + modifiesResources(resType : Integer, delta : Integer) : void
     + printStatus() : void
     + printResidence() : void
-    + buildRoad(location : Integer) : void
-    + buildResidence(location : Integer) : void
-    + calculatePoints() : Integer
-    + canBuildResidence() : Boolean
-    + canBuildRoad() : Boolean
-    + canUpgrade() : Boolean
-    + haveResidence(location : Integer) : Boolean
+    + haveEnoughRssForResidence() : void 
+    + haveRssForImprove(location : Integer) : Boolean
+    + haveEnoughRssForRoad() : Boolean 
+    + upgradeResidence(location : Integer) : std::string 
+    + getResLevelOnVertex(vertexNum : Integer) : Integer
     + highestLevel(location : Integer) : Boolean
-    + printRecentUpgrade() : void
-    + trade(give : int, take : int) : void
-    + calculateResourceSum() : Integer
-    + modifiesReources(res : Integer, add : Integer) : void
-    + listAllRss() : std::vector<int>
-    + colourShortName() : std::string
+    + haveResidence(location : Integer) : Boolean
+    + haveRoad(location : Integer) : Boolean
+    + getNumOfRssOf(type : Integer) : Integer
+    + buildRoad(roadNum : Integer) : void
+    + trade(give : Integer, take : Integer) : void
+    + getData() : std::string 
+    + clearBuilder() : void
 }
 
 class "**Residence**" {
     - location : Integer
     - level : Integer
     - buildingPoints : Integer
-    + upgrade() : void
+    + clearRes() : void
 }
 
 class "**Game**" {
     - thisBoard : Board
-    - allPlayers : std::vector<Builder>
+    - allPlayers : std::vector<std::shared_ptr<Builder>>
     - seed : std::default_random_engine
-    - curTurn : int
-    + initializeGame(inputMode : int, fileName : std::string, _rng : std::default_random_engine) : void
+    - curPlayer : Integer
+    + initializeGame(inputMode : int, fileName : std::string) : void
     + play() : void
-    + printHelp() : void
-    + beginTurn() : void
-    + duringTheTurn() : void
-    + beginGame() : void 
-    + moveGeese() : void 
-    + gainResources(diceResult : int) : void
-    + printBoard() : void 
-    + saveGame() : void
-    + resBuiltInWhichColour(location : int) : std::string
-    + roadBuiltInWhichColour(location : int) : std::string
+    + clearAll() : void
 }
 
 "**Game**" *--> "1" "**Board**"
-"**Subject**" o--> "*" "**Observer**" : "observer"
-"**Vertices**" --|> "**Subject**"
-"**Vertices**" --|> "**Observer**"
-"**Vertices**" o--> "2..3" "**Edge**"
-"**Edge**" o--> "2" "**Vertices**"
 "**Game**" *--> "4" "**Builder**"
 "**Board**" *--> "19" "**Tile**" : {ordered}
-"**Tile**" o--> "6" "**Edge**"
-"**Tile**" o--> "6" "**Vertices**"
+"**Board**" *--> "53" "**Vertices**" : {ordered}
+"**Board**" *--> "71" "**Edge**" : {ordered}
 "**Builder**" *--> "0..*" "**Residence**"
 
 @enduml
