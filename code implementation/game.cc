@@ -63,15 +63,15 @@ int getColourIndex(std::string colour) {
 void Game::beginGame() {
     int location;
 
-    for (auto player : allPlayers) {
-        cout << "Builder " << player->getBuilderName()
+    for (int i = 0; i < 4; i++) {
+        cout << "Builder " << allPlayers[i]->getBuilderName()
              << ", where do you want to build a basement?" << endl;
         while (true) {
             cin >> location;
             if (thisBoard.checkCanBuildResAt(location)) {
-                thisBoard.buildResAt(location, curPlayer);
-                player->buildResidence(location, true);
-                cout << player->getBuilderName() << " has built: ";
+                thisBoard.buildResAt(location, i);
+                allPlayers[i]->buildResidence(location, true);
+                cout << allPlayers[i]->getBuilderName() << " has built: ";
                 cout << "a basement at " << location << endl;
                 break;
             } else {
@@ -86,7 +86,7 @@ void Game::beginGame() {
         while (true) {
             cin >> location;
             if (thisBoard.checkCanBuildResAt(location)) {
-                thisBoard.buildResAt(location, curPlayer);
+                thisBoard.buildResAt(location, i);
                 allPlayers[i]->buildResidence(location, true);
                 cout << allPlayers[i]->getBuilderName() << " has built: ";
                 cout << "a basement at " << location << endl;
@@ -471,26 +471,16 @@ void Game::gainResources(int diceResult) {
     std::vector<int> tileNumLst = thisBoard.tileValToNum(diceResult);
     for (int curTile : tileNumLst) {
         int rss = thisBoard.getRssOnTile(curTile);
-        std::vector<int> playerLst = thisBoard.getPlayersOnTile(curTile);
+        std::vector<int> playerLst = thisBoard.getPlayersOnTile(curTile, false);
         std::vector<int> locationLst = thisBoard.getResLocOnTile(curTile);
-        // testing
-        for (int i : playerLst) {
-            cout << i << " ";
-        }
-        cout << endl;
-        for (int i : locationLst) {
-            cout << i << " ";
-        }
-        cout << endl;
-        // testing ends
         bool gained = false;
         int idx = 0;
         for (int player : playerLst) {
             int level =
                 allPlayers[player]->getResLevelOnVertex(locationLst[idx]);
             allPlayers[player]->modifiesResources(rss, level);
-            cout << "Builder " << allPlayers[player]->getBuilderName() <<
-            " gained:" << endl;
+            cout << "Builder " << allPlayers[player]->getBuilderName()
+                 << " gained:" << endl;
             cout << level << " " << getRssType(rss) << endl;
             gained = true;
             ++idx;
