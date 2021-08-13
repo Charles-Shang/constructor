@@ -30,6 +30,36 @@ void Game::initializeGame(int inputMode, std::string fileName) {
     }
 }
 
+std::string getRssType(int type) {
+    switch (type) {
+        case 0:
+            return "BRICK";
+        case 1:
+            return "ENERGY";
+        case 2:
+            return "GLASS";
+        case 3:
+            return "HEAT";
+        case 4:
+            return "WIFI";
+        default:
+            return "PARK";
+    }
+}
+
+int getColourIndex(std::string colour) {
+    if (colour == "BLUE")
+        return 0;
+    else if (colour == "RED")
+        return 1;
+    else if (colour == "ORANGE")
+        return 2;
+    else if (colour == "YELLOW")
+        return 3;
+
+    return 99999;  // this should never be reached
+}
+
 void Game::beginGame() {
     int location;
 
@@ -130,8 +160,8 @@ void Game::duringTheTurn() {
             } else {
                 allPlayers[curPlayer]->buildRoad(roadNum);
                 thisBoard.buildRoadAt(curPlayer, roadNum);
-                 cout << allPlayers[curPlayer]->getBuilderName();
-                 cout << " has built: a road at " << roadNum << endl;
+                cout << allPlayers[curPlayer]->getBuilderName();
+                cout << " has built: a road at " << roadNum << endl;
             }
         } else if (cmd == "build-res") {
             int location = 0;
@@ -328,36 +358,6 @@ std::string Game::builtInWhichColour(int location, std::string type) {
     }
 
     return temp;
-}
-
-std::string getRssType(int type) {
-    switch (type) {
-        case 0:
-            return "BRICK";
-        case 1:
-            return "ENERGY";
-        case 2:
-            return "GLASS";
-        case 3:
-            return "HEAT";
-        case 4:
-            return "WIFI";
-        default:
-            return "PARK";
-    }
-}
-
-int getColourIndex(std::string colour) {
-    if (colour == "BLUE")
-        return 0;
-    else if (colour == "RED")
-        return 1;
-    else if (colour == "ORANGE")
-        return 2;
-    else if (colour == "YELLOW")
-        return 3;
-
-    return 99999;  // this should never be reached
 }
 
 void Game::moveGeese() {
