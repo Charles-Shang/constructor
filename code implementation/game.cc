@@ -273,6 +273,7 @@ bool Game::play() {
     std::cout << "----- Game starts -----" << std::endl;
     while (true) {
         beginTurn();
+        std::cout << "----- Game during the turn -----" << std::endl;
         duringTheTurn();
 
         if (allPlayers[curPlayer]->calculatePoints() == 10) {
@@ -289,6 +290,7 @@ bool Game::play() {
         }
 
         curPlayer = curPlayer == 4 ? 0 : curPlayer + 1;
+        std::cout << "----- Move to the next turn -----" << std::endl;
     }
 }
 
