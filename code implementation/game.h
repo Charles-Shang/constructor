@@ -22,6 +22,7 @@ class Game {
 
     void moveGeese();
     void gainResources(int diceResult);
+    void printHelp();  // display help command message
 
    public:
     Game(std::default_random_engine _rng);

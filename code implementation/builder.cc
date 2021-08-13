@@ -139,7 +139,60 @@ void Builder::printResidence() {
 }
 
 bool Builder::haveEnoughRssForResidence() {
-    return (resources[0] && resources[1] && resources[2] && resources[4]);
+    return resources[0] > 0 && resources[1] > 0 && resources[2] > 0 &&
+           resources[4] > 0;
 }
 
-bool Builder::haveEnoughRssForRoad() { return (resources[3] && resources[4]); }
+bool Builder::haveEnoughRssForRoad() {
+    return resources[3] > 0 && resources[4] > 0;
+}
+
+bool Builder::haveRssForImprove(int location) {
+    int level;
+    for (auto single : builtLst) {
+        if (single.getLocation() == location) {
+            level = single.getLevel();
+            break;
+        }
+    }
+
+    if (level == 2) {
+        return resources[2] >= 2 && resources[3] >= 3;
+    } else {
+        return resources[0] >= 3 && resources[1] >= 2 && resources[2] >= 1 &&
+               resources[4] >= 1;
+    }
+}
+
+bool Builder::highestLevel(int location) {
+    int level;
+    for (auto single : builtLst) {
+        if (single.getLocation() == location) {
+            level = single.getLevel();
+            break;
+        }
+    }
+    return level == 2;
+}
+
+bool Builder::haveResidence(int location) {
+    for (auto single : builtLst) {
+        if (single.getLocation() == location) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// assume the residece at location is belong to the builder
+std::string Builder::upgradeResidence(int location) {
+    for (auto residence : builtLst) {
+        if (residence.getLocation() == location) {
+            residence.upgrade();
+            return residence.getResType();
+        }
+    }
+
+    return "you should not see this"; // this should not be reached
+}

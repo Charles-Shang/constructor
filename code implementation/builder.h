@@ -40,8 +40,15 @@ class Builder {
 
     // determine if the builder have enough resources to build a residence
     bool haveEnoughRssForResidence();
+
+    bool haveRssForImprove(int location);
+
     // determine if the builder have enough resources to build a road
     bool haveEnoughRssForRoad();
+
+    bool highestLevel(int location);
+
+    bool haveResidence(int location);
 
 };
 

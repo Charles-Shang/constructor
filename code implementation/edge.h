@@ -16,6 +16,8 @@ class Edge {
     void addVerticeNeighbour(const int &vertice);
 
     std::vector<int> getVerticesNeighbours();
+
+    
 };
 
 #endif

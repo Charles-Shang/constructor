@@ -72,7 +72,7 @@ void Game::beginTurn() {
     printBoard();
     cout << "Builder " << allPlayers[curPlayer]->getBuilderName() << "'s turn."
          << endl;
-    
+
     allPlayers[curPlayer]->printStatus();
 
     std::string cmd;
@@ -138,10 +138,11 @@ void Game::duringTheTurn() {
             cin >> location;
             if (!allPlayers[curPlayer]->haveEnoughRssForResidence()) {
                 cout << "You do not have enough resources.";
-            } else if (thisBoard.buildRes(location,
-                                          allPlayers[curPlayer].getColour())) {
-                allPlayers[curPlayer].buildResidence(location, false);
-                cout << allPlayers[curPlayer].getColourName();
+            } else if (thisBoard.checkCanBuildResAt(location)) {
+                thisBoard.buildResAt(location, curPlayer);
+                allPlayers[curPlayer]->buildResidence(location);
+
+                cout << allPlayers[curPlayer]->getBuilderName();
                 cout << " has built: a basement at " << location << endl;
             } else {
                 cout << "You cannot build here." << endl;
@@ -149,26 +150,27 @@ void Game::duringTheTurn() {
         } else if (cmd == "improve") {
             int location = 0;
             cin >> location;
-            if (!allPlayers[curPlayer].haveResidence(location)) {
+            if (!allPlayers[curPlayer]->haveResidence(location)) {
                 cout << "You do not have a residence at " << location << endl;
-            } else if (!allPlayers[curPlayer].canUpgrade(location)) {
-                cout << "You do not have enough resources." << endl;
-            } else if (allPlayers[curPlayer].highestLevel(location)) {
+            } else if (allPlayers[curPlayer]->highestLevel(location)) {
                 cout << "The residence is at the highest level." << endl;
+            } else if (!allPlayers[curPlayer]->haveRssForImprove(location)) {
+                cout << "You do not have enough resources." << endl;
             } else {
                 cout << "The residence at " << location << " is now a ";
-                cout << allPlayers[curPlayer].upgradeResidence(location) << endl;
+                cout << allPlayers[curPlayer].upgradeResidence(location)
+                     << endl;
             }
         } else if (cmd == "trade") {
             int colour;
             int give;
             int take;
             cin >> colour >> give >> take;
-            cout << allPlayers[curPlayer].getColourName() << " offers "
-                 << allPlayers[colour].getColourName() << " one "
+            cout << allPlayers[curPlayer]->getBuilderName() << " offers "
+                 << allPlayers[colour]->getBuilderName() << " one "
                  << getRssType(give) << " for one " << getRssType(take) << "."
                  << endl;
-            cout << "Does " << allPlayers[colour].getColourName()
+            cout << "Does " << allPlayers[colour]->getBuilderName()
                  << " accept this offer?" << endl;
             std::string answer;
             cin >> answer;
@@ -177,11 +179,12 @@ void Game::duringTheTurn() {
                     allPlayers[colour].getRss(take) >= 1) {
                     allPlayers[curPlayer].trade(give, take);
                     allPlayers[colour].trade(take, give);
-                    cout << "Builder " << allPlayers[curPlayer].getColourName()
+                    cout << "Builder "
+                         << allPlayers[curPlayer]->getBuilderName()
                          << " gained: ";
                     cout << "1 " << getRssType(take) << ", lose 1 "
                          << getRssType(give) << endl;
-                    cout << "Builder " << allPlayers[colour].getColourName()
+                    cout << "Builder " << allPlayers[colour]->getBuilderName()
                          << " gained: ";
                     cout << "1 " << getRssType(give) << ", lose 1 "
                          << getRssType(take) << endl;
@@ -202,6 +205,20 @@ void Game::duringTheTurn() {
             cout << "Invalid command" << endl;
         }
     }
+}
+
+void Game::printHelp() {
+    cout << "Valid commands:" << endl;
+    cout << "board" << endl;
+    cout << "status" << endl;
+    cout << "residences" << endl;
+    cout << "build-road <edge#>" << endl;
+    cout << "build-res <housing#>" << endl;
+    cout << "improve <housing#>" << endl;
+    cout << "trade <colour> <give> <take>" << endl;
+    cout << "next" << endl;
+    cout << "save <file>" << endl;
+    cout << "help" << endl;
 }
 
 bool Game::play() {

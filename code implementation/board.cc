@@ -164,3 +164,8 @@ std::vector<int> Board::tileValToNum(int tileValue) {
 }
 
 int Board::getRssOnTile(int curTile) { return tiles[curTile].getTileTypeNum(); }
+
+bool Board::checkCanBuildRoadAt(int location)
+{
+    return allEdges[location]->
+}
