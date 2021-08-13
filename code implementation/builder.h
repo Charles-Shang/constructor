@@ -36,7 +36,7 @@ class Builder {
     void modifiesResources(int resType, int delta);
 
     void printStatus();
-    void printResidence();         // display built residence
+    void printResidence();  // display built residence
 
     // determine if the builder have enough resources to build a residence
     bool haveEnoughRssForResidence();
@@ -57,7 +57,9 @@ class Builder {
     bool haveResidence(int location);
 
     int getNumOfRssOf(int type);
+    void trade(int give, int take);
 
+    std::string getData();
 };
 
 #endif

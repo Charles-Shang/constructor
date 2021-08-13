@@ -180,3 +180,10 @@ std::vector<int> Board::getResLocOnTile(int location) {
     }
     return resOnLocOnTile;
 }
+
+std::string Board::getBoardData() {
+    std::string data = "";
+    for (size_t i = 0; i < tiles.size(); i++)
+        data += tiles[i].getData() + "";
+    return data;
+}
