@@ -1,4 +1,5 @@
 #include "board.h"
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 
@@ -59,7 +60,8 @@ void Board::init(int mode, std::string fileName) {
             if (layoutFile.eof()) break;
             resources.emplace_back(num);
             layoutFile >> num;
-            tileValues.emplace_back(num);;
+            tileValues.emplace_back(num);
+            ;
         }
 
         defaultInitBoard();
@@ -127,4 +129,23 @@ int Board::whichHasGeese() {
     for (size_t i = 0; i < tiles.size(); i++)
         if (tiles[i].getHasGeese()) return i;
     return 99999;  // this should never reach
+}
+
+void Board::transferGeese(int current, int destination) {
+    tiles[current].updateGeese(false);
+    tiles[destination].updateGeese(true);
+}
+
+std::vector<int> Board::getPlayersOnTile(int location) {
+    std::vector<int> tileVertices = tiles[location].getTheVertices();
+    std::vector<int> players;
+    for (auto vertexLocation : tileVertices) {
+        int builderNum = allVertices[vertexLocation]->getWhichBuilder();
+        if (builderNum != -1) players.emplace_back(builderNum);
+    }
+
+    std::sort(players.begin(), players.end());
+    players.erase(std::unique(players.begin(), players.end()), players.end());
+
+    return players;
 }

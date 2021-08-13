@@ -20,3 +20,5 @@ void Vertices::buildRes(int builder) {
 std::vector<int> Vertices::getEdgeNeighbours() { return connectedEdges; }
 
 void Vertices::setCannotBuild() { canBuildResidence = false; }
+
+int Vertices::getWhichBuilder() { return whichBuilder; }

@@ -21,6 +21,8 @@ class Tile {
     bool getHasGeese();
     void addVertices(int vertice);
     void addEdge(int edge);
+    void updateGeese(bool state);
+    std::vector<int> getTheVertices();
 };
 
 #endif

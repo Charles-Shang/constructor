@@ -35,6 +35,10 @@ class Board {
     bool getTileHasGeeseAtLocation(int location);
     
     int whichHasGeese();
+    void transferGeese(int current, int destination);
+
+    // assume returned vector list is sorted and unique
+    std::vector<int> getPlayersOnTile(int location);
 
 };
 

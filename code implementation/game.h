@@ -1,6 +1,7 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
+
 #include <random>
 #include <vector>
 #include "board.h"
@@ -20,6 +21,7 @@ class Game {
     std::string builtInWhichColour(int location, std::string type);
 
     void moveGeese();
+    void gainResources(int diceResult);
 
    public:
     Game(std::default_random_engine _rng);

@@ -130,6 +130,7 @@ int Board::getRssOnTile(int tileNum) { return tiles[tileNum].getType(); }
 std::vector<int> Board::getPlayersOnTile(int location) {
     return tiles[location].getAllPlayOnTheTile();
 }
+
 std::vector<int> Board::getResLocOnTile(int location) {
     return tiles[location].getResLocOnTheTile();
 }

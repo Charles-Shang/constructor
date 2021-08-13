@@ -259,14 +259,27 @@ std::string getRssType(int type) {
     }
 }
 
+int getColourIndex(std::string colour) {
+    if (colour == "BLUE")
+        return 0;
+    else if (colour == "RED")
+        return 1;
+    else if (colour == "ORANGE")
+        return 2;
+    else if (colour == "YELLOW")
+        return 3;
+
+    return 99999;  // this should never be reached
+}
+
 void Game::moveGeese() {
     // everyone randomly lose resources
     for (auto curPlayer : allPlayers) {
         int totalRss = curPlayer->calculateResouceSum();
         if (totalRss >= 10) {
             int lose = totalRss / 2;
-            cout << "Builder " << curPlayer->getBuilderName() << " loses " << lose
-                 << " resources to the geese. They lose:" << endl;
+            cout << "Builder " << curPlayer->getBuilderName() << " loses "
+                 << lose << " resources to the geese. They lose:" << endl;
 
             std::vector<int> lostList = {0, 0, 0, 0, 0};
             std::vector<int> rssLst = curPlayer->listAllRss();
@@ -309,22 +322,19 @@ void Game::moveGeese() {
     cout << "Now Geese is at tile " << desitation << "." << endl;
 
     std::vector<int> stolenLst = thisBoard.getPlayersOnTile(desitation);
-    for (size_t i = 0; i < stolenLst.size(); i++) {
-        if (stolenLst[i] == curTurn) {
-            stolenLst.erase(stolenLst.begin() + i);
-        }
-    }
+    for (size_t i = 0; i < stolenLst.size(); i++)
+        if (stolenLst[i] == curPlayer) stolenLst.erase(stolenLst.begin() + i);
 
     if (stolenLst.empty()) {
-        cout << "Builder " << allPlayers[curTurn].getBuilderName()
+        cout << "Builder " << allPlayers[curPlayer]->getBuilderName()
              << " has no builders to steal from." << std::endl;
     } else {
-        cout << "Builder " << allPlayers[curTurn].getBuilderName()
+        cout << "Builder " << allPlayers[curPlayer]->getBuilderName()
              << " can choose to steal from ";
         for (size_t i = 0; i < stolenLst.size() - 1; i++)
-            cout << allPlayers[stolenLst[i]].getBuilderName() << ", ";
+            cout << allPlayers[stolenLst[i]]->getBuilderName() << ", ";
 
-        cout << allPlayers[stolenLst.back()].getBuilderName() << ".";
+        cout << allPlayers[stolenLst.back()]->getBuilderName() << ".";
 
         cout << "Choose a builder to steal from." << endl;
 
@@ -346,14 +356,18 @@ void Game::moveGeese() {
         }
 
         int stolenIndex = getColourIndex(chosenToSteal);
-        std::vector<int> listofRss = allPlayers[stolenIndex].listAllRss();
+        std::vector<int> listofRss = allPlayers[stolenIndex]->listAllRss();
         std::shuffle(listofRss.begin(), listofRss.end(), seed);
         int indexType = listofRss[0];
-        allPlayers[stolenIndex].modifiesResources(indexType, -1);
-        allPlayers[curTurn].modifiesResources(indexType, 1);
+        allPlayers[stolenIndex]->modifiesResources(indexType, -1);
+        allPlayers[curPlayer]->modifiesResources(indexType, 1);
 
-        cout << "Builder " << allPlayers[curTurn].getColourName() << "steals "
-             << getRssType(indexType) << " from builder " << chosenToSteal
-             << "." << endl;
+        cout << "Builder " << allPlayers[curPlayer]->getBuilderName()
+             << "steals " << getRssType(indexType) << " from builder "
+             << chosenToSteal << "." << endl;
     }
+}
+
+void Game::gainResources(int diceResult) {
+    // ****
 }

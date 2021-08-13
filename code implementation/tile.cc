@@ -35,3 +35,6 @@ void Tile::addVertices(int vertice) { theVertices.emplace_back(vertice); }
 
 void Tile::addEdge(int edge) { theEdges.emplace_back(edge); }
 
+void Tile::updateGeese(bool state) { hasGeese = state; }
+
+std::vector<int> Tile::getTheVertices() { return theVertices; }

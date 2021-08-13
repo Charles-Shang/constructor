@@ -22,6 +22,8 @@ class Vertices {
     std::vector<int> getEdgeNeighbours();
 
     void setCannotBuild();
+
+    int getWhichBuilder();
 };
 
 #endif
