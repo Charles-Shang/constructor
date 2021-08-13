@@ -492,13 +492,13 @@ void Game::gainResources(int diceResult) {
     std::vector<int> tileNumLst = thisBoard.tileValToNum(diceResult);
     for (int curTile : tileNumLst) {
         int rss = thisBoard.getRssOnTile(curTile);
-        std::vector<int> playerLst = thisBoard.getPlayersOnTile(curTile);
+        std::vector<int> playerLst = thisBoard.getPlayersOnTile(curTile, false);
         std::vector<int> locationLst = thisBoard.getResLocOnTile(curTile);
         int idx = 0;
         for (int player : playerLst) {
             int level =
-                allPlayers[player].getResLevelOnVertex(locationLst[idx]);
-            allPlayers[player].modifiesResources(rss, level);
+                allPlayers[player]->getResLevelOnVertex(locationLst[idx]);
+            allPlayers[player]->modifiesResources(rss, level);
             ++idx;
         }
     }

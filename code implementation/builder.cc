@@ -196,3 +196,11 @@ std::string Builder::upgradeResidence(int location) {
 
     return "you should not see this"; // this should not be reached
 }
+int Builder::getResLevelOnVertex(int vertexNum) {
+    for (auto res : builtLst) {
+        if (res.getLocation() == vertexNum) {
+            return res.getBuildingPoints();
+        }
+    }
+    return 99999; // this should not be reached
+}

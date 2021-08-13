@@ -45,6 +45,8 @@ class Board {
     // use for gain resource
     std::vector<int> tileValToNum(int tileValue);
     int getRssOnTile(int curTile);
+    std::vector<int> getResLocOnTile(int location);
+
 };
 
 #endif

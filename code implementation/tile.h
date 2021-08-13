@@ -25,6 +25,7 @@ class Tile {
     void addEdge(int edge);
     void updateGeese(bool state);
     std::vector<int> getTheVertices();
+    std::vector<int> getResLocOnTheTile();
 };
 
 #endif
