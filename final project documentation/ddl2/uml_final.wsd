@@ -1,0 +1,142 @@
+@startuml CS246 Final Project UML ddl#1
+skinparam style strictuml
+skinparam SequenceMessageAlignment center
+skinparam classAttributeIconSize 0
+
+class "**Board**"  {
+    - tiles : std::vector<Tile>
+    - verticeMap : std::map<int, std::vector<int>>
+    - edgeMap : std::map<int, std::vector<int>>
+    + defaultInitBoard(resource : int *, tileValues : int *) : void
+    + displayTile() : void
+    + displayConnections() : void
+    + buildRoad(location : int, builder : int) : bool
+    + buildRes(location : int, builder : int) : bool
+    + vertexToTile(vertexLocation : int) : int
+    + edgeToTile(edgeLocation : int) : int
+    + whichHasGeese() : int
+    + transferGeese(current : int, destination : int) : void
+    + tileValToNum(value : int) : std::vector<int>
+}
+
+
+class "**Tile**" {
+    - type : Integer
+    - tileNum : Integer
+    - tileValue : Integer
+    - hasGeese : Boolean
+    - theVertices : std::vector<std::shared_ptr<Vertices>>
+    - theEdges : std::vector<std::shared_ptr<Edge>>
+    + addVertices(vertice : std::shared_ptr<Vertices> &) : void
+    + addEdge(edge : std::shared_ptr<Edge> &) : void
+    + displayVNE() : void
+    + displayConnections() : void
+    + addRoad(location : Integer, builder : Integer) : Boolean
+    + addResidence(location : Integer, builder : Integer) : Boolean
+    + updateGeese(state : Boolean) : void
+    + initTile() : void
+}
+
+
+abstract class "**Observer**" {
+    + {abstract} notify() : void
+    + {abstract} ~Observer()
+}
+
+abstract class "**Subject**" {
+    # observers : std::vector<std::share_ptr<Observer>>
+    + attach (o : const std::share_ptr<Observer>&) :void
+    + {abstract} notifyObserver() : void
+}
+
+class "**Vertices**" {
+    - location : Integer
+    - canBuildResidence : Boolean
+    - whichBuilder : Integer
+    - connectedEdges : std::vector<std::share_ptr<Edge>>
+    + addResidence() : void
+    + updateAvailableResidence() : void
+    + notifyObserver(): void
+    + notify() : void
+    + attachALL() : void
+    + addEdgeNeighbour(edge : const std::shared_ptr<Edge> &) : void
+    + displayNeighbourEdges() : void
+}
+
+class "**Edge**" {
+    - location : Integer
+    - hasRoad : Boolean
+    - whichBuilder : Integer
+    - connectedVertices : std::vector<std::share_ptr<Vertices>>
+    + addRoad() : void
+    + canBuildRoad() : Boolean
+    + displayNeighbourVertices() : void
+}
+
+class "**Builder**" {
+    - colour : Integer
+    - fairDice : Boolean
+    - seed : std::default_random_engine
+    - builtLst : std::vector<Residence>
+    - roadLst : std::vector<int>
+    - resources : std::vector<int>
+    + rollDice() : void
+    + swichFairDice(state : Boolean) : void
+    + upgradeResidence(location : Integer) : void
+    + printStatus() : void
+    + printResidence() : void
+    + buildRoad(location : Integer) : void
+    + buildResidence(location : Integer) : void
+    + calculatePoints() : Integer
+    + canBuildResidence() : Boolean
+    + canBuildRoad() : Boolean
+    + canUpgrade() : Boolean
+    + haveResidence(location : Integer) : Boolean
+    + highestLevel(location : Integer) : Boolean
+    + printRecentUpgrade() : void
+    + trade(give : int, take : int) : void
+    + calculateResourceSum() : Integer
+    + modifiesReources(res : Integer, add : Integer) : void
+    + listAllRss() : std::vector<int>
+    + colourShortName() : std::string
+}
+
+class "**Residence**" {
+    - location : Integer
+    - level : Integer
+    - buildingPoints : Integer
+    + upgrade() : void
+}
+
+class "**Game**" {
+    - thisBoard : Board
+    - allPlayers : std::vector<Builder>
+    - seed : std::default_random_engine
+    - curTurn : int
+    + initializeGame(inputMode : int, fileName : std::string, _rng : std::default_random_engine) : void
+    + play() : void
+    + printHelp() : void
+    + beginTurn() : void
+    + duringTheTurn() : void
+    + beginGame() : void 
+    + moveGeese() : void 
+    + gainResources(diceResult : int) : void
+    + printBoard() : void 
+    + saveGame() : void
+    + resBuiltInWhichColour(location : int) : std::string
+    + roadBuiltInWhichColour(location : int) : std::string
+}
+
+"**Game**" *--> "1" "**Board**"
+"**Subject**" o--> "*" "**Observer**" : "observer"
+"**Vertices**" --|> "**Subject**"
+"**Vertices**" --|> "**Observer**"
+"**Vertices**" o--> "2..3" "**Edge**"
+"**Edge**" o--> "2" "**Vertices**"
+"**Game**" *--> "4" "**Builder**"
+"**Board**" *--> "19" "**Tile**" : {ordered}
+"**Tile**" o--> "6" "**Edge**"
+"**Tile**" o--> "6" "**Vertices**"
+"**Builder**" *--> "0..*" "**Residence**"
+
+@enduml
