@@ -41,6 +41,7 @@ class Board {
     std::vector<int> getPlayersOnTile(int location, bool nonRepeat = true);
 
     bool checkCanBuildRoadAt(int location);
+    void buildRoadAt(int location);
 
     // use for gain resource
     std::vector<int> tileValToNum(int tileValue);
