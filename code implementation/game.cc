@@ -101,6 +101,107 @@ void Game::beginTurn() {
     }
 }
 
+void Game::duringTheTurn() {
+    std::string cmd;
+    while (true) {
+        try {
+            cin >> cmd;
+        } catch (std::ios::failure &) {
+            if (cin.eof()) break;
+            cin.clear();
+            cin.ignore();
+        }
+
+        if (cmd == "board") {
+            printBoard();
+        } else if (cmd == "status") {
+            for (int i = 0; i < 4; ++i) allPlayers[i].printStatus();
+        } else if (cmd == "residences") {
+            allPlayers[curTurn].printResidence();
+        } else if (cmd == "build-road") {
+            int roadNum = 0;
+            cin >> roadNum;
+            if (!allPlayers[curTurn].canBuildRoad()) {
+                cout << "You do not have enough resources." << endl;
+            } else if (thisBoard.buildRoad(roadNum,
+                                           allPlayers[curTurn].getColour())) {
+                allPlayers[curTurn].buildRoad(roadNum);
+                cout << allPlayers[curTurn].getColourName();
+                cout << " has built: a road at " << roadNum << endl;
+            } else {
+                cout << "You cannot build here." << endl;
+            }
+        } else if (cmd == "build-res") {
+            int location = 0;
+            cin >> location;
+            if (!allPlayers[curTurn].canBuildResidence()) {
+                cout << "You do not have enough resources.";
+            } else if (thisBoard.buildRes(location,
+                                          allPlayers[curTurn].getColour())) {
+                allPlayers[curTurn].buildResidence(location, false);
+                cout << allPlayers[curTurn].getColourName();
+                cout << " has built: a basement at " << location << endl;
+            } else {
+                cout << "You cannot build here." << endl;
+            }
+        } else if (cmd == "improve") {
+            int location = 0;
+            cin >> location;
+            if (!allPlayers[curTurn].haveResidence(location)) {
+                cout << "You do not have a residence at " << location << endl;
+            } else if (!allPlayers[curTurn].canUpgrade(location)) {
+                cout << "You do not have enough resources." << endl;
+            } else if (allPlayers[curTurn].highestLevel(location)) {
+                cout << "The residence is at the highest level." << endl;
+            } else {
+                cout << "The residence at " << location << " is now a ";
+                cout << allPlayers[curTurn].upgradeResidence(location) << endl;
+            }
+        } else if (cmd == "trade") {
+            int colour;
+            int give;
+            int take;
+            cin >> colour >> give >> take;
+            cout << allPlayers[curTurn].getColourName() << " offers "
+                 << allPlayers[colour].getColourName() << " one "
+                 << getRssType(give) << " for one " << getRssType(take) << "."
+                 << endl;
+            cout << "Does " << allPlayers[colour].getColourName()
+                 << " accept this offer?" << endl;
+            std::string answer;
+            cin >> answer;
+            if (answer == "yes") {
+                if (allPlayers[curTurn].getRss(give) >= 1 &&
+                    allPlayers[colour].getRss(take) >= 1) {
+                    allPlayers[curTurn].trade(give, take);
+                    allPlayers[colour].trade(take, give);
+                    cout << "Builder " << allPlayers[curTurn].getColourName()
+                         << " gained: ";
+                    cout << "1 " << getRssType(take) << ", lose 1 "
+                         << getRssType(give) << endl;
+                    cout << "Builder " << allPlayers[colour].getColourName()
+                         << " gained: ";
+                    cout << "1 " << getRssType(give) << ", lose 1 "
+                         << getRssType(take) << endl;
+                } else {
+                    cout << "You do not have enough resources to trade."
+                         << endl;
+                }
+            } else {
+                cout << "No builders gained resources." << endl;
+            }
+        } else if (cmd == "next") {
+            break;
+        } else if (cmd == "save") {
+            saveGame();
+        } else if (cmd == "help") {
+            printHelp();
+        } else {
+            cout << "Invalid command" << endl;
+        }
+    }
+}
+
 bool Game::play() {
     std::shared_ptr<Builder> Blue = std::make_shared<Builder>(0, seed);
     std::shared_ptr<Builder> Red = std::make_shared<Builder>(1, seed);
