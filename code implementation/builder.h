@@ -42,7 +42,7 @@ class Builder {
     bool haveEnoughRssForResidence();
     // determine if the builder have enough resources to build a road
     bool haveEnoughRssForRoad();
-
+    int getResLevelOnVertex(int vertexNum);
 };
 
 #endif

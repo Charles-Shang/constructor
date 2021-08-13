@@ -143,3 +143,12 @@ bool Builder::haveEnoughRssForResidence() {
 }
 
 bool Builder::haveEnoughRssForRoad() { return (resources[3] && resources[4]); }
+
+int Builder::getResLevelOnVertex(int vertexNum) {
+    for (auto res : builtLst) {
+        if (res.getLocation() == vertexNum) {
+            return res.getBuildingPoints();
+        }
+    }
+    return 99999; // this should not be reached
+}

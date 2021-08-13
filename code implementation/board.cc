@@ -164,3 +164,14 @@ std::vector<int> Board::tileValToNum(int tileValue) {
 }
 
 int Board::getRssOnTile(int curTile) { return tiles[curTile].getTileTypeNum(); }
+
+std::vector<int> Board::getResLocOnTile(int location) {
+    std::vector<int> resOnLocOnTile;
+    std::vector<int> verticesOnTile = tiles[location].getTheVertices();
+    for (int i : verticesOnTile) {
+        if (allVertices[i]->getWhichBuilder() != -1) {
+            resOnLocOnTile.emplace_back(i);
+        }
+    }
+    return resOnLocOnTile;
+}
