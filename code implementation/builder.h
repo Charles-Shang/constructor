@@ -35,6 +35,14 @@ class Builder {
     std::vector<int> listAllRss();
     void modifiesResources(int resType, int delta);
 
+    void printStatus();
+    void printResidence();         // display built residence
+
+    // determine if the builder have enough resources to build a residence
+    bool haveEnoughRssForResidence();
+    // determine if the builder have enough resources to build a road
+    bool haveEnoughRssForRoad();
+
 };
 
 #endif

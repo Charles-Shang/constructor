@@ -123,3 +123,23 @@ std::vector<int> Builder::listAllRss() {
 void Builder::modifiesResources(int resType, int delta) {
     resources[resType] += delta;
 }
+
+void Builder::printStatus() {
+    std::cout << getBuilderName() << " has " << calculatePoints()
+              << " building points, " << resources[0] << " brick, "
+              << resources[1] << " energy, ";
+    std::cout << resources[2] << " glass, " << resources[3] << " head, and "
+              << resources[3] << " WiFi." << std::endl;
+}
+
+void Builder::printResidence() {
+    std::cout << getBuilderName() << " has built:" << std::endl;
+    for (auto res : builtLst)
+        std::cout << res.getLocation() << " " << res.getResType() << std::endl;
+}
+
+bool Builder::haveEnoughRssForResidence() {
+    return (resources[0] && resources[1] && resources[2] && resources[4]);
+}
+
+bool Builder::haveEnoughRssForRoad() { return (resources[3] && resources[4]); }

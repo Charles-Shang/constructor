@@ -72,6 +72,8 @@ void Game::beginTurn() {
     printBoard();
     cout << "Builder " << allPlayers[curPlayer]->getBuilderName() << "'s turn."
          << endl;
+    
+    allPlayers[curPlayer]->printStatus();
 
     std::string cmd;
     while (true) {
@@ -115,18 +117,18 @@ void Game::duringTheTurn() {
         if (cmd == "board") {
             printBoard();
         } else if (cmd == "status") {
-            for (int i = 0; i < 4; ++i) allPlayers[i].printStatus();
+            for (int i = 0; i < 4; ++i) allPlayers[i]->printStatus();
         } else if (cmd == "residences") {
-            allPlayers[curTurn].printResidence();
+            allPlayers[curPlayer]->printResidence();
         } else if (cmd == "build-road") {
             int roadNum = 0;
             cin >> roadNum;
-            if (!allPlayers[curTurn].canBuildRoad()) {
+            if (!allPlayers[curPlayer]->haveEnoughRssForRoad()) {
                 cout << "You do not have enough resources." << endl;
             } else if (thisBoard.buildRoad(roadNum,
-                                           allPlayers[curTurn].getColour())) {
-                allPlayers[curTurn].buildRoad(roadNum);
-                cout << allPlayers[curTurn].getColourName();
+                                           allPlayers[curPlayer].getColour())) {
+                allPlayers[curPlayer].buildRoad(roadNum);
+                cout << allPlayers[curPlayer].getColourName();
                 cout << " has built: a road at " << roadNum << endl;
             } else {
                 cout << "You cannot build here." << endl;
@@ -134,12 +136,12 @@ void Game::duringTheTurn() {
         } else if (cmd == "build-res") {
             int location = 0;
             cin >> location;
-            if (!allPlayers[curTurn].canBuildResidence()) {
+            if (!allPlayers[curPlayer]->haveEnoughRssForResidence()) {
                 cout << "You do not have enough resources.";
             } else if (thisBoard.buildRes(location,
-                                          allPlayers[curTurn].getColour())) {
-                allPlayers[curTurn].buildResidence(location, false);
-                cout << allPlayers[curTurn].getColourName();
+                                          allPlayers[curPlayer].getColour())) {
+                allPlayers[curPlayer].buildResidence(location, false);
+                cout << allPlayers[curPlayer].getColourName();
                 cout << " has built: a basement at " << location << endl;
             } else {
                 cout << "You cannot build here." << endl;
@@ -147,22 +149,22 @@ void Game::duringTheTurn() {
         } else if (cmd == "improve") {
             int location = 0;
             cin >> location;
-            if (!allPlayers[curTurn].haveResidence(location)) {
+            if (!allPlayers[curPlayer].haveResidence(location)) {
                 cout << "You do not have a residence at " << location << endl;
-            } else if (!allPlayers[curTurn].canUpgrade(location)) {
+            } else if (!allPlayers[curPlayer].canUpgrade(location)) {
                 cout << "You do not have enough resources." << endl;
-            } else if (allPlayers[curTurn].highestLevel(location)) {
+            } else if (allPlayers[curPlayer].highestLevel(location)) {
                 cout << "The residence is at the highest level." << endl;
             } else {
                 cout << "The residence at " << location << " is now a ";
-                cout << allPlayers[curTurn].upgradeResidence(location) << endl;
+                cout << allPlayers[curPlayer].upgradeResidence(location) << endl;
             }
         } else if (cmd == "trade") {
             int colour;
             int give;
             int take;
             cin >> colour >> give >> take;
-            cout << allPlayers[curTurn].getColourName() << " offers "
+            cout << allPlayers[curPlayer].getColourName() << " offers "
                  << allPlayers[colour].getColourName() << " one "
                  << getRssType(give) << " for one " << getRssType(take) << "."
                  << endl;
@@ -171,11 +173,11 @@ void Game::duringTheTurn() {
             std::string answer;
             cin >> answer;
             if (answer == "yes") {
-                if (allPlayers[curTurn].getRss(give) >= 1 &&
+                if (allPlayers[curPlayer].getRss(give) >= 1 &&
                     allPlayers[colour].getRss(take) >= 1) {
-                    allPlayers[curTurn].trade(give, take);
+                    allPlayers[curPlayer].trade(give, take);
                     allPlayers[colour].trade(take, give);
-                    cout << "Builder " << allPlayers[curTurn].getColourName()
+                    cout << "Builder " << allPlayers[curPlayer].getColourName()
                          << " gained: ";
                     cout << "1 " << getRssType(take) << ", lose 1 "
                          << getRssType(give) << endl;

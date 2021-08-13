@@ -40,6 +40,8 @@ class Board {
     // assume returned vector list is sorted and unique
     std::vector<int> getPlayersOnTile(int location);
 
+    bool checkCanBuildRoadAt(int location);
+
 };
 
 #endif
