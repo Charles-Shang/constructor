@@ -42,3 +42,9 @@ std::vector<int> Tile::getTheVertices() { return theVertices; }
 int Tile::getTileNum() { return tileNum; }
 
 int Tile::getTileTypeNum() { return type; }
+
+std::string Tile::getData() {
+    std::string data = "";
+    data = std::to_string(type) + " " + std::to_string(tileValue);
+    return data;
+}

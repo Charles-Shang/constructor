@@ -175,10 +175,10 @@ void Game::duringTheTurn() {
             std::string answer;
             cin >> answer;
             if (answer == "yes") {
-                if (allPlayers[curPlayer].getRss(give) >= 1 &&
-                    allPlayers[colour].getRss(take) >= 1) {
-                    allPlayers[curPlayer].trade(give, take);
-                    allPlayers[colour].trade(take, give);
+                if (allPlayers[curPlayer]->getNumOfRssOf(give) >= 1 &&
+                    allPlayers[colour]->getNumOfRssOf(give) >= 1) {
+                    allPlayers[curPlayer]->trade(give, take);
+                    allPlayers[colour]->trade(take, give);
                     cout << "Builder "
                          << allPlayers[curPlayer]->getBuilderName()
                          << " gained: ";
@@ -497,9 +497,30 @@ void Game::gainResources(int diceResult) {
         int idx = 0;
         for (int player : playerLst) {
             int level =
-                allPlayers[player].getResLevelOnVertex(locationLst[idx]);
-            allPlayers[player].modifiesResources(rss, level);
+                allPlayers[player]->getResLevelOnVertex(locationLst[idx]);
+            allPlayers[player]->modifiesResources(rss, level);
             ++idx;
+        }
+    }
+}
+
+void Game::saveGame() {
+    std::string saveFile;
+    while (true) {
+        cin >> saveFile;
+
+        std::ofstream file(saveFile);
+        if (file.is_open()) {
+            file << curPlayer << std::endl;
+            for (size_t i = 0; i < allPlayers.size(); i++)
+                file << allPlayers[i]->getData() << std::endl;
+
+            file << thisBoard.getBoardData() << std::endl;
+            file << thisBoard.whichHasGeese();
+
+        } else {
+            std::cout << "Unable to save file to " << saveFile << std::endl;
+            std::cout << "Try another file." << saveFile << std::endl;
         }
     }
 }

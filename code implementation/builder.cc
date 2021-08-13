@@ -194,7 +194,7 @@ std::string Builder::upgradeResidence(int location) {
         }
     }
 
-    return "you should not see this"; // this should not be reached
+    return "you should not see this";  // this should not be reached
 }
 int Builder::getResLevelOnVertex(int vertexNum) {
     for (auto res : builtLst) {
@@ -202,10 +202,10 @@ int Builder::getResLevelOnVertex(int vertexNum) {
             return res.getBuildingPoints();
         }
     }
-    return 99999; // this should not be reached
+    return 99999;  // this should not be reached
 }
 
-int Builder::getNumOfRssOf(int type){
+int Builder::getNumOfRssOf(int type) { return resources[type]; }
 
 }
 
@@ -213,4 +213,21 @@ void Builder::buildRoad(int roadNum) {
     roadLst.emplace_back(roadNum);
     resources[3]--;
     resources[4]--;
+}
+
+void Builder::trade(int give, int take) {
+    resources[give]--;
+    resources[take]++;
+}
+
+std::string Builder::getData() {
+    std::string data = "";
+    for (size_t i = 0; i < resources.size(); i++) data += resources[i] + " ";
+    data += "r ";
+    for (size_t i = 0; i < roadLst.size(); i++) data += roadLst[i] + " ";
+    data += "h";
+    for (size_t i = 0; i < builtLst.size(); i++)
+        data += " " + builtLst[i].getData();
+
+    return data;
 }

@@ -50,6 +50,8 @@ class Board {
     int getRssOnTile(int curTile);
     std::vector<int> getResLocOnTile(int location);
 
+    std::string getBoardData();  // in layout.txt format
+
 };
 
 #endif

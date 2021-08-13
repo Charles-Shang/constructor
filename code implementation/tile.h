@@ -26,6 +26,7 @@ class Tile {
     void updateGeese(bool state);
     std::vector<int> getTheVertices();
     std::vector<int> getResLocOnTheTile();
+    std::string getData();
 };
 
 #endif
