@@ -40,6 +40,9 @@ class Board {
     // assume returned vector list is sorted and unique
     std::vector<int> getPlayersOnTile(int location);
 
+    // use for gain resource
+    std::vector<int> tileValToNum(int tileValue);
+    int getRssOnTile(int curTile);
 };
 
 #endif
