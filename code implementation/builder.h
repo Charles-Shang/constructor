@@ -58,6 +58,8 @@ class Builder {
 
     bool haveResidence(int location);
 
+    bool haveRoad(int location);
+
     int getNumOfRssOf(int type);
     void buildRoad(int roadNum);
     void trade(int give, int take);

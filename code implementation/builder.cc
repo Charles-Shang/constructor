@@ -243,3 +243,10 @@ std::string Builder::getData() {
 
     return data;
 }
+
+bool Builder::haveRoad(int location) {
+    for (auto single : roadLst)
+        if (single == location) return true;
+
+    return false;
+}

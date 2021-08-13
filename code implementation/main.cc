@@ -94,4 +94,6 @@ int main(int argc, char* argv[]) {
         std::cout << "New Game starts!" << std::endl;
         g.initializeGame(decision, finalFile);
     }
+
+    std::cout << " Bye!" <<std::endl;
 }

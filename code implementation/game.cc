@@ -283,7 +283,7 @@ bool Game::play() {
         std::cout << "----- Game during the turn -----" << std::endl;
         duringTheTurn();
 
-        if (allPlayers[curPlayer]->calculatePoints() == 10) {
+        if (allPlayers[curPlayer]->calculatePoints() >= 10) {
             // not in the guideline
             cout << "Congratulations! You win!" << endl;
             cout << "Would you like to play again?" << endl;
@@ -367,13 +367,11 @@ std::string Game::builtInWhichColour(int location, std::string type) {
 
     for (auto player : allPlayers) {
         std::string newTemp;
-        if (player->haveResidence(location)) {
-            if (type == "residence")
-                newTemp = player->getResOrRoadDisplay(location, "residence");
-            else
-                newTemp = player->getResOrRoadDisplay(location, "road");
 
-            if (newTemp != temp) return newTemp;
+        if ((type == "residence" && player->haveResidence(location)) ||
+            (type == "road" && player->haveRoad(location))) {
+            newTemp = player->getResOrRoadDisplay(location, type);
+            return newTemp != temp ? newTemp : temp;
         }
     }
 
@@ -381,10 +379,12 @@ std::string Game::builtInWhichColour(int location, std::string type) {
 }
 
 void Game::moveGeese() {
+    bool loses = false;
     // everyone randomly lose resources
     for (auto curPlayer : allPlayers) {
         int totalRss = curPlayer->calculateResouceSum();
         if (totalRss >= 10) {
+            loses = true;
             int lose = totalRss / 2;
             cout << "Builder " << curPlayer->getBuilderName() << " loses "
                  << lose << " resources to the geese. They lose:" << endl;
@@ -403,6 +403,9 @@ void Game::moveGeese() {
                 cout << lostList[i] << " " << getRssType(i) << endl;
         }
     }
+
+    if (!loses) cout << "No one loses any resources!" << endl;
+
     // move Geese
     cout << "Choose where to place the GEESE." << endl;
 
@@ -442,7 +445,7 @@ void Game::moveGeese() {
         for (size_t i = 0; i < stolenLst.size() - 1; i++)
             cout << allPlayers[stolenLst[i]]->getBuilderName() << ", ";
 
-        cout << allPlayers[stolenLst.back()]->getBuilderName() << ".";
+        cout << allPlayers[stolenLst.back()]->getBuilderName() << "." << endl;
 
         cout << "Choose a builder to steal from." << endl;
 
@@ -471,18 +474,23 @@ void Game::moveGeese() {
         allPlayers[curPlayer]->modifiesResources(indexType, 1);
 
         cout << "Builder " << allPlayers[curPlayer]->getBuilderName()
-             << "steals " << getRssType(indexType) << " from builder "
+             << " steals " << getRssType(indexType) << " from builder "
              << chosenToSteal << "." << endl;
     }
 }
 
 void Game::gainResources(int diceResult) {
     std::vector<int> tileNumLst = thisBoard.tileValToNum(diceResult);
+    bool gained = false;
     for (int curTile : tileNumLst) {
+        if (thisBoard.getTileHasGeeseAtLocation(curTile)) {
+            continue;
+        }
+
         int rss = thisBoard.getRssOnTile(curTile);
         std::vector<int> playerLst = thisBoard.getPlayersOnTile(curTile, false);
         std::vector<int> locationLst = thisBoard.getResLocOnTile(curTile);
-        bool gained = false;
+
         int idx = 0;
         for (int player : playerLst) {
             int level =
@@ -494,10 +502,10 @@ void Game::gainResources(int diceResult) {
             gained = true;
             ++idx;
         }
+    }
 
-        if (!gained) {
-            cout << "No builders gained resources." << endl;
-        }
+    if (!gained) {
+        cout << "No builders gained resources." << endl;
     }
 }
 
