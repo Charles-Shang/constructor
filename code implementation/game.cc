@@ -119,16 +119,21 @@ void Game::beginTurn() {
         }
 
         if (cmd == "load") {
+            std::cout << "Now you have loaded dice!" << std::endl;
             allPlayers[curPlayer]->switchFairDice(false);
         } else if (cmd == "fair") {
+            std::cout << "Now you have fair dice!" << std::endl;
             allPlayers[curPlayer]->switchFairDice(true);
         } else if (cmd == "roll") {
             int diceResult = allPlayers[curPlayer]->rollDice();
+            std::cout << "Rolled dice is " << diceResult << " !" << std::endl;
             if (diceResult == 7) {
                 moveGeese();
             } else {
                 gainResources(diceResult);
             }
+
+            break;
         } else {
             cout << "Invalid Command!";
             cout << "Try again with \"load\", \"fair\" or \"roll\"" << endl;
