@@ -106,10 +106,13 @@ void Game::beginTurn() {
     allPlayers[curPlayer]->printStatus();
 
     std::string cmd;
+
+    std::cout << "Choose your dice and roll!" << std::endl;
+    std::cout << "Commands: \"load\", \"fair\" and \"roll\"." << std::endl;
     while (true) {
         try {
             cin >> cmd;
-        } catch (std::ios::failure &) {
+        } catch (std::ios::failure &e) {
             if (cin.eof()) break;
             cin.clear();
             cin.ignore();
@@ -259,6 +262,7 @@ bool Game::play() {
     curPlayer = 0;  // reprents by color index
     // now start the game
     std::cout << "----- Game setup -----" << std::endl;
+    printBoard();
     beginGame();
     printBoard();
     std::cout << "----- Game starts -----" << std::endl;

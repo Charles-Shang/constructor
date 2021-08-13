@@ -148,7 +148,7 @@ bool Builder::haveEnoughRssForRoad() {
 }
 
 bool Builder::haveRssForImprove(int location) {
-    int level;
+    int level = 0;
     for (auto single : builtLst) {
         if (single.getLocation() == location) {
             level = single.getLevel();
@@ -165,7 +165,7 @@ bool Builder::haveRssForImprove(int location) {
 }
 
 bool Builder::highestLevel(int location) {
-    int level;
+    int level = 0;
     for (auto single : builtLst) {
         if (single.getLocation() == location) {
             level = single.getLevel();
