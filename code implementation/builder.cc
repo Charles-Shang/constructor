@@ -1,7 +1,9 @@
 #include "builder.h"
 
 Builder::Builder(int _colour, std::default_random_engine _rng)
-    : colour{_colour}, fairDice{false}, seed{_rng} {}
+    : colour{_colour}, fairDice{false}, seed{_rng} {
+    for (int i = 0; i < 5; i++) resources.emplace_back(0);
+}
 
 std::string Builder::getBuilderName() {
     switch (colour) {
