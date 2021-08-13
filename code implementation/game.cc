@@ -71,7 +71,8 @@ void Game::beginGame() {
              << ", where do you want to build a basement?" << endl;
         while (true) {
             cin >> location;
-            if (thisBoard.checkCanBuildResAt(location, i, true)) {
+            if (location <= 53 && location >= 0 &&
+                thisBoard.checkCanBuildResAt(location, i, true)) {
                 thisBoard.buildResAt(location, i);
                 allPlayers[i]->buildResidence(location, true);
                 cout << allPlayers[i]->getBuilderName() << " has built: ";
@@ -88,7 +89,8 @@ void Game::beginGame() {
              << ", where do you want to build a basement?" << endl;
         while (true) {
             cin >> location;
-            if (thisBoard.checkCanBuildResAt(location, i, true)) {
+            if (location <= 53 && location >= 0 &&
+                thisBoard.checkCanBuildResAt(location, i, true)) {
                 thisBoard.buildResAt(location, i);
                 allPlayers[i]->buildResidence(location, true);
                 cout << allPlayers[i]->getBuilderName() << " has built: ";
@@ -165,7 +167,7 @@ void Game::duringTheTurn() {
         } else if (cmd == "build-road") {
             int roadNum = 0;
             cin >> roadNum;
-            if (roadNum > 71 || roadNum < 0 || 
+            if (roadNum > 71 || roadNum < 0 ||
                 !thisBoard.checkCanBuildRoadAt(curPlayer, roadNum)) {
                 cout << "You cannot build here." << endl;
             } else if (!allPlayers[curPlayer]->haveEnoughRssForRoad()) {
