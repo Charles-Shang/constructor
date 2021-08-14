@@ -14,11 +14,10 @@
 
 int main(int argc, char* argv[]) {
     bool load = false, board = false, randomBoard = false;
+    bool systemBasedTime = false;
     std::string loadedFile, boardFile, finalFile = "layout.txt";
     int decision = 4;
 
-    // unsigned seed =
-    // std::chrono::system_clock::now().time_since_epoch().count();
     unsigned seed = 1000;
 
     for (int i = 1; i < argc; i++) {
@@ -44,8 +43,13 @@ int main(int argc, char* argv[]) {
         } else if (flags == "-random-board") {
             decision = 3;
             randomBoard = true;
+        } else if (flags == "-random-seed") {
+            systemBasedTime = true;
         }
     }
+
+    if (systemBasedTime)
+        seed = std::chrono::system_clock::now().time_since_epoch().count();
 
     if (load && board) {
         while (true) {
