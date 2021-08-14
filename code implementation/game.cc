@@ -282,7 +282,7 @@ void Game::duringTheTurn() {
                 cin >> answer;
                 if (answer == "yes") {
                     if (allPlayers[curPlayer]->getNumOfRssOf(give) >= 1 &&
-                        allPlayers[colour]->getNumOfRssOf(give) >= 1) {
+                        allPlayers[colour]->getNumOfRssOf(take) >= 1) {
                         allPlayers[curPlayer]->trade(give, take);
                         allPlayers[colour]->trade(take, give);
                         cout << "Builder "
