@@ -128,6 +128,9 @@ void Game::beginGame() {
              << ", where do you want to build a basement?" << endl;
         while (true) {
             cin >> location;
+
+            if (cin.eof()) saveGame(true);
+
             if (location <= 53 && location >= 0 &&
                 thisBoard.checkCanBuildResAt(location, i, true)) {
                 thisBoard.buildResAt(location, i);
@@ -146,6 +149,8 @@ void Game::beginGame() {
              << ", where do you want to build a basement?" << endl;
         while (true) {
             cin >> location;
+            if (cin.eof()) saveGame(true);
+
             if (location <= 53 && location >= 0 &&
                 thisBoard.checkCanBuildResAt(location, i, true)) {
                 thisBoard.buildResAt(location, i);
@@ -173,13 +178,8 @@ void Game::beginTurn() {
     std::cout << "Choose your dice and roll!" << std::endl;
     std::cout << "Commands: \"load\", \"fair\" and \"roll\"." << std::endl;
     while (true) {
-        try {
-            cin >> cmd;
-        } catch (std::ios::failure &e) {
-            if (cin.eof()) break;
-            cin.clear();
-            cin.ignore();
-        }
+        cin >> cmd;
+        if (cin.eof()) saveGame(true);
 
         if (cmd == "load") {
             std::cout << "Now you have loaded dice!" << std::endl;
@@ -207,13 +207,8 @@ void Game::beginTurn() {
 void Game::duringTheTurn() {
     std::string cmd;
     while (true) {
-        try {
-            cin >> cmd;
-        } catch (std::ios::failure &) {
-            if (cin.eof()) break;
-            cin.clear();
-            cin.ignore();
-        }
+        cin >> cmd;
+        if (cin.eof()) saveGame(true);
 
         if (cmd == "board") {
             printBoard();
@@ -224,6 +219,7 @@ void Game::duringTheTurn() {
         } else if (cmd == "build-road") {
             int roadNum = 0;
             cin >> roadNum;
+            if (cin.eof()) saveGame(true);
             if (roadNum > 71 || roadNum < 0 ||
                 !thisBoard.checkCanBuildRoadAt(curPlayer, roadNum)) {
                 cout << "You cannot build here." << endl;
@@ -238,6 +234,7 @@ void Game::duringTheTurn() {
         } else if (cmd == "build-res") {
             int location = 0;
             cin >> location;
+            if (cin.eof()) saveGame(true);
             if (location > 53 || location < 0 ||
                 !thisBoard.checkCanBuildResAt(location, curPlayer)) {
                 cout << "You cannot build here." << endl;
@@ -252,6 +249,7 @@ void Game::duringTheTurn() {
         } else if (cmd == "improve") {
             int location = 0;
             cin >> location;
+            if (cin.eof()) saveGame(true);
             if (location > 53 || location < 0 ||
                 !allPlayers[curPlayer]->haveResidence(location)) {
                 cout << "You do not have a residence at " << location << "."
@@ -266,8 +264,11 @@ void Game::duringTheTurn() {
                      << endl;
             }
         } else if (cmd == "trade") {
+            std::cout << "¿ ";
             int colour, give, take;
             cin >> colour >> give >> take;
+
+            if (cin.eof()) saveGame(true);
 
             if (colour == curPlayer) {
                 cout << "You can't trade with yourself! Try Again!" << endl;
@@ -279,7 +280,9 @@ void Game::duringTheTurn() {
                 cout << "Does " << allPlayers[colour]->getBuilderName()
                      << " accept this offer?" << endl;
                 std::string answer;
+                std::cout << "¿ ";
                 cin >> answer;
+                if (cin.eof()) saveGame(true);
                 if (answer == "yes") {
                     if (allPlayers[curPlayer]->getNumOfRssOf(give) >= 1 &&
                         allPlayers[colour]->getNumOfRssOf(take) >= 1) {
@@ -356,7 +359,9 @@ bool Game::play(bool load) {
             cout << "Congratulations! You win!" << endl;
             cout << "Would you like to play again?" << endl;
             std::string newGame;
+            std::cout << "¿ ";
             cin >> newGame;
+            if (cin.eof()) saveGame(true);
             if (newGame == "yes") {
                 clearAll();
                 return true;
@@ -480,18 +485,15 @@ void Game::moveGeese() {
 
     int desitation, current = thisBoard.whichHasGeese();
     while (true) {
-        try {
-            std::cin >> desitation;
-        } catch (const std::exception &e) {
-            cout << "Invalid Number. Try again with 0-18!" << endl;
-            continue;
-        }
+        std::cout << "¿ ";
+        std::cin >> desitation;
+        if (cin.eof()) saveGame(true);
 
         if (!(0 <= desitation && desitation <= 18)) {
             cout << "Invalid Number. Try again with 0-18!" << endl;
             continue;
         } else if (desitation == current) {
-            cout << "Cannot choose the current (" << current << ")" << endl;
+            cout << "Cannot choose the current (" << current << ")." << endl;
             continue;
         }
 
@@ -520,12 +522,8 @@ void Game::moveGeese() {
 
         std::string chosenToSteal;
         while (true) {
-            try {
-                std::cin >> chosenToSteal;
-            } catch (const std::exception &e) {
-                cout << "Invalid Input. Try again!" << endl;
-                continue;
-            }
+            std::cin >> chosenToSteal;
+            if (cin.eof()) saveGame(true);
 
             if (std::count(stolenLst.begin(), stolenLst.end(),
                            getColourIndex(chosenToSteal)))
@@ -582,11 +580,26 @@ void Game::gainResources(int diceResult) {
     }
 }
 
-void Game::saveGame() {
+void Game::saveGame(bool backup) {
+    if (backup) {
+        std::ofstream file("backup.sv");
+        file << curPlayer << std::endl;
+        for (size_t i = 0; i < allPlayers.size(); i++)
+            file << allPlayers[i]->getData() << std::endl;
+
+        file << thisBoard.getBoardData() << std::endl;
+        file << thisBoard.whichHasGeese() << std::endl;
+        std::cout << "File saved at "
+                  << "backup.sv"
+                  << "." << std::endl;
+        throw;
+    }
+
     std::string saveFile;
     while (true) {
         cin >> saveFile;
-
+        if (cin.eof()) saveGame(true);
+        
         std::ofstream file(saveFile);
         if (file.is_open()) {
             file << curPlayer << std::endl;

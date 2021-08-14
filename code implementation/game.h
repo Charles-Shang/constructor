@@ -23,7 +23,7 @@ class Game {
     void moveGeese();
     void gainResources(int diceResult);
     void printHelp();  // display help command message
-    void saveGame();
+    void saveGame(bool backup = false);
 
    public:
     Game(std::default_random_engine _rng);

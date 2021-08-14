@@ -51,6 +51,15 @@ int main(int argc, char* argv[]) {
         while (true) {
             std::cout << "Only 'load' or 'board', choose again." << std::endl;
             std::string temp;
+
+            try {
+                std::cin >> temp;
+            } catch (std::ios::failure& e) {
+                if (std::cin.eof()) break;
+                std::cin.clear();
+                std::cin.ignore();
+            }
+
             if (temp == "load") {
                 finalFile = loadedFile;
                 randomBoard = false;
