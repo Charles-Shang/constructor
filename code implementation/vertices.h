@@ -16,6 +16,7 @@ class Vertices {
     Vertices(int _location, bool _canBuildRes = true, int _whichBuilder = -1);
     void addEdgeNeighbour(const int &edge);
 
+    // Getters and Setters
     bool getCanBuildResidence();
     void buildRes(int builder);
 
@@ -26,7 +27,6 @@ class Vertices {
 
     int getWhichBuilder();
     void clearVertex();
-
 };
 
 #endif

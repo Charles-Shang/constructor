@@ -25,18 +25,26 @@ class Builder {
    public:
     Builder(int _colour, std::default_random_engine _rng);
     std::string getBuilderName();
+    // build residence at location, if it is the first time build residence then
+    // there is no resources deduct
     void buildResidence(int location, bool first = false);
     std::string colourShortName();
     std::string getResOrRoadDisplay(int location, std::string type);
+    // calculate the points of a builder currently has
     int calculatePoints();
 
+    // switch between fair dice and loaded dice
     void switchFairDice(bool state);
+    // roll a dice
     int rollDice();
 
+    // returns the sum of all resources
     int calculateResouceSum();
     std::vector<int> listAllRss();
+    // modifies resources by delta
     void modifiesResources(int resType, int delta);
 
+    // print information
     void printStatus();
     void printResidence();  // display built residence
 
@@ -68,8 +76,8 @@ class Builder {
     void clearBuilder();
 
     // For load command
-    void setRss(int index, int value);        // set resouces add it
-    void setRoads(int locations);  // add location of roads built
+    void setRss(int index, int value);  // set resouces add it
+    void setRoads(int locations);       // add location of roads built
     void addResidence(int location, std::string type);  // add residence built
 
     std::vector<int> getRoadLst();

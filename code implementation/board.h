@@ -12,13 +12,15 @@
 class Board {
     std::default_random_engine seed;
     std::vector<Tile> tiles;  // vector list of tiles on board
-    std::map<int, std::vector<int>> verticeMap;
-    std::map<int, std::vector<int>> edgeMap;
-    std::vector<std::shared_ptr<Vertices>> allVertices;
-    std::vector<std::shared_ptr<Edge>> allEdges;
-    std::vector<int> resources;
-    std::vector<int> tileValues;
+    std::map<int, std::vector<int>> verticeMap;  // map vertices to tiles
+    std::map<int, std::vector<int>> edgeMap;     // map edges to tile
+    std::vector<std::shared_ptr<Vertices>>
+        allVertices;                              // all vertices in the board
+    std::vector<std::shared_ptr<Edge>> allEdges;  // all edges in the board
+    std::vector<int> resources;                   // resources in each tile
+    std::vector<int> tileValues;                  // tile values in each tile
 
+    // constants
     const int totalVertices = 54;
     const int totalEdges = 72;
 
@@ -29,15 +31,18 @@ class Board {
     void initSelection(int mode, std::string fileName = "layout.txt");
     void setupVerticesAndEdgesRelation();
 
+    // check if we can build residence or road at location of builder
     bool checkCanBuildResAt(int location, int builder, bool first = false);
     void buildResAt(int location, int builder);
 
     bool checkCanBuildRoadAt(int location);
 
+    // getters
     std::string getTileTypeAtLocation(int location);
     int getTileValueAtLocation(int location);
     bool getTileHasGeeseAtLocation(int location);
 
+    // returns which tile has the geese
     int whichHasGeese();
     void transferGeese(int current, int destination);
 

@@ -1,8 +1,8 @@
 #ifndef _TILE_H_
 #define _TILE_H_
 
-#include <vector>
 #include <string>
+#include <vector>
 
 class Tile {
     // (0 - Brick, 1 - Energy, 2 - Glass, 3 - Heat, 4 - Wifi, 5 - Park)
@@ -16,18 +16,22 @@ class Tile {
 
    public:
     Tile(int _type, int _tileNum, int _tileValue, int _load = 0);
+    // getters
     std::string getTileType();
     int getTileTypeNum();
     int getTileValue();
     int getTileNum();
     bool getHasGeese();
+    // add vertices to the tile
     void addVertices(int vertice);
+    // add edge to the tile
     void addEdge(int edge);
+    // update the geese when rolled to the geese
     void updateGeese(bool state);
     std::vector<int> getTheVertices();
     std::vector<int> getResLocOnTheTile();
     std::string getData();
-    void clearTile();
+    void clearTile();  // clear the tile when start a new game
 };
 
 #endif

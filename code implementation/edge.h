@@ -15,6 +15,7 @@ class Edge {
     Edge(int _location, bool _hasRoad = false, int _whichBuilder = -1);
     void addVerticeNeighbour(const int &vertice);
 
+    // getters and setters
     std::vector<int> getVerticesNeighbours();
     bool getHasRoad();
     int getWhichBuilder();
@@ -22,9 +23,6 @@ class Edge {
     void setHasRoad(bool hasRd);
     void setWhichBuilder(int colour);
     void clearEdge();
-
-
-    
 };
 
 #endif
