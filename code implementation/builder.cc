@@ -273,7 +273,7 @@ void Builder::clearBuilder() {
     resources.clear();
 }
 
-void Builder::setRss(int value) { resources.emplace_back(value); }
+void Builder::setRss(int index, int value) { resources[index] = value; }
 
 void Builder::setRoads(int location) { roadLst.emplace_back(location); }
 
@@ -282,4 +282,15 @@ void Builder::addResidence(int location, std::string type) {
         std::make_shared<Residence>(location);
     newResidence->setType(type);
     builtLst.emplace_back(newResidence);
+}
+
+std::vector<int> Builder::getRoadLst() { return roadLst; }
+
+std::vector<int> Builder::getResidenceLst() {
+    std::vector<int> temp;
+    for (size_t i = 0; i < builtLst.size(); i++) {
+        temp.emplace_back(builtLst[i]->getLocation());
+    }
+
+    return temp;
 }

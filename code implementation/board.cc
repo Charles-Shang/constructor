@@ -254,3 +254,14 @@ void Board::clearBoard() {
         eachEdge->clearEdge();
     }
 }
+
+void Board::addRoadRelation(int builder, std::vector<int> lst) {
+    for (auto num : lst) {
+        allEdges[num]->setHasRoad(true);
+        allEdges[num]->setWhichBuilder(builder);
+    }
+}
+
+void Board::addResidenceRelation(int builder, std::vector<int> lst) {
+    for (auto num : lst) buildResAt(num, builder);
+}

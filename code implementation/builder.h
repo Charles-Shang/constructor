@@ -68,9 +68,12 @@ class Builder {
     void clearBuilder();
 
     // For load command
-    void setRss(int value);        // set resouces add it
+    void setRss(int index, int value);        // set resouces add it
     void setRoads(int locations);  // add location of roads built
     void addResidence(int location, std::string type);  // add residence built
+
+    std::vector<int> getRoadLst();
+    std::vector<int> getResidenceLst();
 };
 
 #endif

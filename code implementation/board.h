@@ -56,6 +56,9 @@ class Board {
     void clearBoard();
 
     void setSeed(std::default_random_engine _rng);
+
+    void addRoadRelation(int builder, std::vector<int> lst);
+    void addResidenceRelation(int builder, std::vector<int> lst);
 };
 
 #endif
