@@ -1,2 +1,2 @@
-# Game of Constructor
-The Game of Constructor is a variant of the game Settlers of Catan.
+# Constructor
+A variant of the game Settlers of Catan in C++
